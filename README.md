@@ -10,3 +10,5 @@ cd target目录下
 
 启动项目
 
+使用http://localhost:9527访问后台管理系统
+
