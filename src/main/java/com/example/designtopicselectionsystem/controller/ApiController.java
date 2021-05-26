@@ -25,22 +25,22 @@ public class ApiController {
     @Autowired
     private StudentService studentService;
 
-    @Autowired
-    private TeacherService teacherService;
-
     @PostMapping("/login") // 登录接口
     public ResponseJson login(@RequestBody User user) {
         return loginService.login(user);
     }
 
     @PostMapping("/password/update") // 密码修改
-    public ResponseJson passwordUpdate(@RequestParam("userId") String userId,
-                                       @RequestParam("oldPassword") String oldPassword,
-                                       @RequestParam("newPassword") String newPassword) {
+    public ResponseJson passwordUpdate(@RequestParam(value = "userId", required = false) String userId,
+                                       @RequestParam(value = "oldPassword", required = false) String oldPassword,
+                                       @RequestParam(value = "newPassword", required = false) String newPassword) {
+        if(userId == null || oldPassword == null || newPassword == null) {
+            return ResponseJsonUtil.error(-1, "参数不能为空.");
+        }
         return loginService.passwordUpdate(userId, oldPassword, newPassword);
     }
 
-    /**
+    /*
      * 学生相关Api
      */
 
@@ -51,8 +51,9 @@ public class ApiController {
      * @return 预选结果
      */
     @PostMapping("/student/primary")
-    public ResponseJson primaryTopic(@RequestParam(value = "topicId") Integer topicId,
-                                     @RequestParam(value = "studentId") Integer studentId) {
+    public ResponseJson primaryTopic(@RequestParam(value = "topicId", required = false) Integer topicId,
+                                     @RequestParam(value = "studentId", required = false) Integer studentId) {
+        if(topicId == null || studentId == null) return ResponseJsonUtil.error(-1, "参数不能为空.");
         SelectTopic selectTopic = new SelectTopic();
         Student student = new Student();
         Topic topic = new Topic();
@@ -69,12 +70,19 @@ public class ApiController {
      * @return 返回课题列表
      */
     @GetMapping("/student/admission")
-    public ResponseJson selectAdmissionTopic(@RequestParam(value = "studentId") Integer studentId) {
+    public ResponseJson selectAdmissionTopic(@RequestParam(value = "studentId", required = false) Integer studentId) {
+        if(studentId == null) return ResponseJsonUtil.error(-1, "参数不能为空.");
         return selectTopicService.selectAdmissionTopic(studentId);
     }
 
+    /**
+     * 查询该学生已经预选的课题
+     * @param studentId 学生id
+     * @return 预选的课题
+     */
     @GetMapping("/student/already")
-    public ResponseJson alreadySelectTopic(@RequestParam(value = "studentId")Integer studentId) {
+    public ResponseJson alreadySelectTopic(@RequestParam(value = "studentId", required = false)Integer studentId) {
+        if(studentId == null) return ResponseJsonUtil.error(-1, "参数不能为空.");
         return selectTopicService.alreadySelectTopic(studentId);
     }
 
@@ -85,13 +93,16 @@ public class ApiController {
      * @return 退选结果
      */
     @PostMapping("/student/back")
-    public ResponseJson backSelectTopic(@RequestParam(value = "studentId")Integer studentId,
-                                        @RequestParam(value = "topicId")Integer topicId) {
+    public ResponseJson backSelectTopic(@RequestParam(value = "studentId", required = false)Integer studentId,
+                                        @RequestParam(value = "topicId", required = false)Integer topicId) {
+        if(studentId == null || topicId == null) {
+            return ResponseJsonUtil.error(-1, "参数不能为空.");
+        }
         return selectTopicService.backSelectTopic(studentId, topicId);
     }
 
-    /**
-     * 教师相关Api
+    /*
+      教师相关Api
      */
 
     /**
@@ -100,7 +111,8 @@ public class ApiController {
      * @return 返回所有预选该教师课题的学生
      */
     @GetMapping("/teacher/selectPrimary")
-    public ResponseJson selectPrimaryTopic(@RequestParam(value = "teacherId")Integer teacherId) {
+    public ResponseJson selectPrimaryTopic(@RequestParam(value = "teacherId", required = false)Integer teacherId) {
+        if(teacherId == null) return ResponseJsonUtil.error(-1, "参数不能为空.");
         return selectTopicService.selectPrimaryTopic(teacherId);
     }
 
@@ -111,8 +123,11 @@ public class ApiController {
      * @return 预选结果
      */
     @PostMapping("/topic/selectPrimary")
-    public ResponseJson selectPrimaryStudent(@RequestParam(value = "topicId")Integer topicId,
-                                             @RequestParam(value = "studentId")Integer studentId) {
+    public ResponseJson selectPrimaryStudent(@RequestParam(value = "topicId", required = false)Integer topicId,
+                                             @RequestParam(value = "studentId", required = false)Integer studentId) {
+        if(topicId == null || studentId == null) {
+            return ResponseJsonUtil.error(-1, "参数不能为空.");
+        }
         int row = studentService.selectPrimary(topicId, studentId);
         System.out.println("row:" + row);
         if(row != 0) {
@@ -143,10 +158,13 @@ public class ApiController {
      */
     @PostMapping("/teacher/add/topic")
     public ResponseJson teacherAddTopic(@RequestBody Topic topic) {
+        if(topic == null) {
+            return ResponseJsonUtil.error(-1, "参数不能为空.");
+        }
         return topicService.saveTopic(topic);
     }
 
-    /**
+    /*
      * 课题相关Api
      */
 
