@@ -1,0 +1,21 @@
+#spring:
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/choosing_toics?useUpomnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&allowMultiQueries=true&allowPublicKeyRetrieval=true
+#    username: root
+#    password: 123456
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    separator: ;
+#    sql-script-encoding: utf-8
+#    initialization-mode: always
+#    continue-on-error: true
+#  application:
+#    name: design-topic-selection-system
+#  thymeleaf:
+#    cache: true
+#    encoding: UTF-8
+#server:
+#  port: 9527
+#
+#mybatis:
+#  type-aliases-package: com.example.designtopicselectionsystem.domain
+#  mapper-locations: classpath:mapper/*.xml

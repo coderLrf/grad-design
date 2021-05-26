@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        body, html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        .ibox-content {
+            border-radius: 8px;
+            padding: 35px;
+        }
+
+        .box {
+            width: 500px;
+            height: 300px;
+            margin-top: 100px;
+            transform: translateY(-100%);
+            opacity: 0;
+            animation: startMove 0.5s cubic-bezier(0.35, 0.92, 0.86, 1.01) forwards;
+        }
+
+        @keyframes startMove {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .box > h2 {
+            color: black;
+            margin-bottom: 25px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #signupForm {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #signupForm > div {
+            margin: 8px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #signupForm > div.submit {
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2 align="center">毕业选题后台管理系统</h2>
+        <div class="ibox-content">
+            <form class="form-horizontal m-t" id="signupForm" th:action="@{/admin/login}" method="post">
+<!--                <h3 style="color: red" th:if="error">登录失败</h3>-->
+                <div>
+                    <label class="control-label">用户名：</label>
+                    <div class="">
+                        <input name="username" class="form-control" type="text">
+                    </div>
+                </div>
+                <div>
+                    <label class="control-label">密&ensp;&emsp;码：</label>
+                    <div class="">
+                        <input name="password" class="form-control" type="password">
+                    </div>
+                </div>
+
+                <div class="submit">
+                    <div class="">
+                        <button class="btn btn-primary" type="submit">登录</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

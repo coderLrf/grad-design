@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>学生管理</title>
+
+    <div th:replace="~{common/common::#common_style}"></div>
+
+    <style>
+        .navbar-default {
+            height: 100%;
+            box-shadow: 11px 4px 6px rgba(101, 112, 138, 0.1);
+            opacity: 1;
+        }
+
+        #side-menu > li {
+            width: 100%;
+        }
+
+        #side-menu > li > ul {
+            display: none;
+        }
+
+
+        .ibox-title {
+            border: 0;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .ibox-title.one-title {
+            padding-bottom: 0;
+        }
+
+        .ibox-title h5 {
+            font-size: 14px;
+            margin: 0 10px;
+
+        }
+
+        .row .title h5 {
+            margin: 0;
+        }
+
+        .ibox-title h6 {
+            display: inline-block;
+            font-weight: bold;
+            font-size: 12px;
+            margin: 0 8px;
+        }
+
+        .row_one>div {
+            border: 0;
+            border-radius: 8px;
+        }
+
+        .con>div,
+        .con2>div {
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .con2>div h3,
+        .con2>div span {
+            font-size: 16px;
+        }
+
+        .con2>div:nth-child(1) h3,
+        .con2>div:nth-child(1) span {
+            color: #C3C8D5;
+        }
+
+        .con2>div:nth-child(1) p {
+            color: #445DDC;
+        }
+
+        .con2>div:nth-child(2) h3,
+        .con2>div:nth-child(2) span {
+            color: #65708A;
+        }
+
+        .con2>div:nth-child(2) p {
+            color: #C3C8D5;
+        }
+
+        .content {
+            padding: 0;
+            padding-top: 25px;
+        }
+
+        .content h3 {
+            font-size: 36px;
+            display: inline-block;
+            color: #304167;
+            margin: 0;
+        }
+
+        .content p {
+            font-size: 14px;
+            font-family: 'Source Han Sans CN';
+            font-weight: normal;
+            line-height: 27px;
+            margin-bottom: 6px;
+        }
+
+        .content p,
+        .content span {
+            color: #C3C8D5;
+        }
+
+        .bottom-row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .bottom-row>div {
+            width: 13%;
+            margin: 8px;
+            box-sizing: border-box;
+            background-color: #FFFFFF;
+            color: #65708A;
+            cursor: pointer;
+        }
+
+        .bottom-row>div h1 {
+            margin: 0;
+            font-size: 16px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .bottom-row>div.p-lg {
+            padding: 22px 0;
+        }
+
+        .bottom-row>div.p-lg > div {
+            margin-bottom: 0;
+        }
+
+        .bottom-row>div.p-lg > div img {
+            margin-top: 18px;
+        }
+
+        .nav-second-level li{
+            padding: 10px 0 10px 15px;
+            background-color: rgba(9, 57, 59, 1);
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="wrapper" style="height: 100%;">
+
+        <!-- 侧边栏 -->
+        <div th:replace="~{common/common::sidebar(active = 'stuList', index = 1)}"></div>
+
+        <div id="page-wrapper" style="min-height: 100%; background-color: #EDF1F9; overflow: hidden;"
+            class="gray-bg dashbard-1">
+
+            <!-- 顶部栏 -->
+            <div th:replace="~{common/common::topbar}"></div>
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-9" style="padding: 0;">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="javascript:void(0)">学生管理</a>
+                        </li>
+                        <li>
+                            <strong>学生列表</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="wrapper wrapper-content animated fadeInRight" style="padding-top: 0; height: 100%;">
+                <div class="row row_one">
+
+                    <div class="ibox float-e-margins">
+                        <div class="ibox" style="margin-bottom: 0">
+                            <a th:href="@{/admin/stu/add}" class="btn btn-xs btn-primary" style="font-size: 14px">添加学生</a>
+                        </div>
+                        <div class="ibox-title">
+                            <h5>已注册名单</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>姓名</th>
+                                        <th>学号</th>
+                                        <th>性别</th>
+                                        <th>出生日期</th>
+                                        <th>系部</th>
+                                        <th>班级</th>
+                                        <th>已选课题</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="student, object : ${studentList}">
+                                        <td th:text="${object.index} + 1"></td>
+                                        <td th:text="${student.getStudent_name()}"></td>
+                                        <td th:text="${student.getStudent_no()}"></td>
+                                        <td th:text="${student.getSex()}"></td>
+                                        <td th:text="${student.getBirthday()}"></td>
+                                        <!--/*@thymesVar id="getInstitute_name" type="institute"*/-->
+                                        <td th:text="${student.getInstitute_name()}"></td>
+                                        <!--/*@thymesVar id="getClass_name" type="class"*/-->
+                                        <td th:text="${student.getClass_name()}"></td>
+                                        <!--/*@thymesVar id="isSelectTopic" type="isTopic"*/-->
+                                        <td th:text="${student.isSelectTopic() ? '是' : '否'}"></td>
+                                        <td>
+                                            <a class="btn btn-xs btn-primary" th:href="@{/admin/stu/update/} + ${student.getStudent_no()}">修改</a>
+                                            <a class="btn btn-xs btn-danger" th:href="@{/admin/stu/delete/} + ${student.getStudent_no()}">删除</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<div th:replace="~{common/common::#common_js}"></div>
+
+</body>
+
+</html>

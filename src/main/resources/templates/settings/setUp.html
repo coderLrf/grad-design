@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>系统设置</title>
+
+    <!-- 公共css文件 -->
+    <div th:replace="~{common/common::#common_style}"></div>
+
+    <style>
+        .navbar-default {
+            height: 100%;
+            background: #3e3e3e;
+            box-shadow: 11px 4px 6px rgba(101, 112, 138, 0.1);
+            opacity: 1;
+        }
+
+        #side-menu > li {
+            width: 100%;
+        }
+
+        #side-menu > li > ul {
+            display: none;
+        }
+
+
+        .ibox-title {
+            border: 0;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .ibox-title.one-title {
+            padding-bottom: 0;
+        }
+
+        .ibox-title h5 {
+            font-size: 14px;
+            margin: 0 10px;
+
+        }
+
+        .ibox-content {
+            border: 0;
+            border-radius: 0 0 6px 6px;
+        }
+
+        .ibox-content.one-line {
+            padding: 0;
+        }
+
+        .row .title {
+            padding: 24px;
+            color: #445DDC;
+        }
+
+        .row .title h5 {
+            margin: 0;
+        }
+
+        .ibox-title h6 {
+            display: inline-block;
+            font-weight: bold;
+            font-size: 12px;
+            margin: 0 8px;
+        }
+
+        .row_one>div {
+            border: 0;
+            border-radius: 8px;
+        }
+
+        .con>div,
+        .con2>div {
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .con2>div h3,
+        .con2>div span {
+            font-size: 16px;
+        }
+
+        .con2>div:nth-child(1) h3,
+        .con2>div:nth-child(1) span {
+            color: #C3C8D5;
+        }
+
+        .con2>div:nth-child(1) p {
+            color: #445DDC;
+        }
+
+        .con2>div:nth-child(2) h3,
+        .con2>div:nth-child(2) span {
+            color: #65708A;
+        }
+
+        .con2>div:nth-child(2) p {
+            color: #C3C8D5;
+        }
+
+        .content {
+            padding: 0;
+            padding-top: 25px;
+        }
+
+        .content h3 {
+            font-size: 36px;
+            display: inline-block;
+            color: #304167;
+            margin: 0;
+        }
+
+        .content p {
+            font-size: 14px;
+            font-family: 'Source Han Sans CN';
+            font-weight: normal;
+            line-height: 27px;
+            margin-bottom: 6px;
+        }
+
+        .content p,
+        .content span {
+            color: #C3C8D5;
+        }
+
+        .bottom-row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .bottom-row>div {
+            width: 13%;
+            margin: 8px;
+            box-sizing: border-box;
+            background-color: #FFFFFF;
+            color: #65708A;
+            cursor: pointer;
+        }
+
+        .bottom-row>div h1 {
+            margin: 0;
+            font-size: 16px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .bottom-row>div.p-lg {
+            padding: 22px 0;
+        }
+
+        .bottom-row>div.p-lg > div {
+            margin-bottom: 0;
+        }
+
+        .bottom-row>div.p-lg > div img {
+            margin-top: 18px;
+        }
+
+        .nav-second-level li{
+            padding: 10px 0 10px 15px;
+            background-color: rgba(9, 57, 59, 1);
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="wrapper" style="height: 100%;">
+
+        <!-- 侧边栏 -->
+        <div th:replace="~{common/common::sidebar(active = 'setUp')}"></div>
+
+        <div id="page-wrapper" style="min-height: 100%; background-color: #EDF1F9; overflow: hidden;"
+            class="gray-bg dashbard-1">
+
+            <!-- 顶部栏 -->
+            <div th:replace="~{common/common::topbar}"></div>
+
+            <div class="wrapper wrapper-content animated fadeInRight" style="padding-top: 0; height: 100%;">
+                <div class="row row_one">
+                    <h3>正在研发，拭目以待.</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 公共js文件 -->
+    <div th:replace="~{common/common::#common_js}"></div>
+</body>
+
+</html>

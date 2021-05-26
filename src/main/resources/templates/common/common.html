@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- 公共css文件 -->
+<div id="common_style">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.css}">
+    <!-- Morris -->
+    <link rel="stylesheet" th:href="@{/css/plugins/morris/morris-0.4.3.min.css}">
+    <!-- Gritter -->
+    <link rel="stylesheet" th:href="@{/js/plugins/gritter/jquery.gritter.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</div>
+
+<!-- 侧边栏 -->
+<nav class="navbar-default navbar-static-side" role="navigation" th:fragment="sidebar" style="background: #3a3a3a">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li
+                    style="padding: 30px 15px; font-size: 14px; color: #fff; font-family: 'Courier New', Courier, monospace; font-weight: 600; text-align: center">
+                <span class="title">毕业选题后台管理系统</span>
+            </li>
+            <li th:class="${active == 'home' ? 'active' : ''}">
+                <a th:href="@{/admin/index}"><span class="nav-label">首页</span></a>
+            </li>
+            <li th:class="${active == 'userList' ? 'active' : ''}">
+                <a href="javascript:void(0)"><span class="nav-label">用户管理</span><span
+                        class=""></span></a>
+                <ul class="nav nav-second-level">
+                    <li th:class="${index == 1 && active == 'userList' ? 'active' : ''}">
+                        <a th:href="@{/admin/user/list}">用户列表</a>
+                    </li>
+                </ul>
+            </li>
+            <li th:class="${active == 'stuList' ? 'active' : ''}">
+                <a href="javascript:void(0)"><span class="nav-label">学生管理</span><span
+                        class=""></span></a>
+                <ul class="nav nav-second-level">
+                    <li th:class="${index == 1 && active == 'stuList' ? 'active' : ''}">
+                        <a th:href="@{/admin/stu/list}">学生列表</a>
+                    </li>
+                </ul>
+            </li>
+            <li th:class="${active == 'teaList' ? 'active' : ''}">
+                <a href="javascript:void(0)"><span class="nav-label">教师管理</span><span
+                        class=""></span></a>
+                <ul class="nav nav-second-level">
+                    <li th:class="${index == 1 && active == 'teaList' ? 'active' : ''}">
+                        <a th:href="@{/admin/tea/list}">教师列表</a>
+                    </li>
+                </ul>
+            </li>
+            <li th:class="${active == 'topic' ? 'active' : ''}">
+                <a href="javascript:void(0)"><span class="nav-label">课题管理</span><span
+                        class=""></span></a>
+                <ul class="nav nav-second-level">
+                    <li th:class="${index == 1 && active == 'topic' ? 'active' : ''}">
+                        <a th:href="@{/admin/top/review}">课题审核</a>
+                    </li>
+                    <li th:class="${index == 2 && active == 'topic' ? 'active' : ''}">
+                        <a th:href="@{/admin/top/checked}">已通过审核</a>
+                    </li>
+                    <li th:class="${index == 3 && active == 'topic' ? 'active' : ''}">
+                        <a th:href="@{/admin/top/notCheck}">未通过审核</a>
+                    </li>
+                </ul>
+            </li>
+            <li th:class="${active == 'setUp' ? 'active' : ''}">
+                <a th:href="@{/admin/setUp}"><span class="nav-label">系统设置</span></a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
+
+<!-- 头部导航栏 -->
+<div class="row border-bottom" th:fragment="topbar" style="flex-direction: row-reverse">
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0; height: 50px;">
+        <form th:action="@{/admin/logout}" method="post">
+            <button class="btn btn-xs btn-default" th:type="submit" th:text="退出" style="font-size: 14px"></button>
+        </form>
+    </nav>
+</div>
+
+
+<!-- 公共js文件 -->
+<div id="common_js">
+    <script th:src="@{/js/jquery-2.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+    <script th:src="@{/js/hplus.js}"></script>
+    <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+</div>
+</html>
