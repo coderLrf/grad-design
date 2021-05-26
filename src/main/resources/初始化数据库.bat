@@ -18,6 +18,8 @@ echo %%i 执行完毕。
 
 )
 
+del all.sql
+
 echo 所有脚本执行完毕。
 
 pause
