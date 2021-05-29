@@ -25,6 +25,10 @@ public interface TopicMapper {
     @Select("select * from topic t, teacher tea where t.teacher_no = tea.teacher_no and admission = '否'")
     public List<ResultTopic> selectByAdmissionFalse();
 
+    // 根据课题id返回该课题的定选人数
+    @Select("select count(*) from student where topic_no = #{id}")
+    public int selectCountByTopicId(Integer id);
+
     // 插入一条数据
     @Insert("insert into topic(title_name, title_desc, teacher_no) " +
             "values(#{topicName}, #{topicDesc}, #{teacherId})")

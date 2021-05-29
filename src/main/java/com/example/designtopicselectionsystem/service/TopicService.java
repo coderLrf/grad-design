@@ -34,6 +34,11 @@ public class TopicService {
         return topicList;
     }
 
+    // 查询该课题定选的人数
+    public int selectCountByTopicId(Integer id) {
+        return topicMapper.selectCountByTopicId(id);
+    }
+
     // 通过一个课题
     public int passTopicById(Integer id) {
         return topicMapper.passTopicById(id);

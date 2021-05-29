@@ -17,6 +17,13 @@
 
     <dependencies>
 
+        <!-- 文件下载的工具依赖 -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
         <!-- security依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

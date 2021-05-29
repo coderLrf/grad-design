@@ -5,10 +5,14 @@ import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
 import com.example.designtopicselectionsystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class ApiController {
@@ -24,6 +28,9 @@ public class ApiController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private FileService fileService;
 
     @PostMapping("/login") // 登录接口
     public ResponseJson login(@RequestBody User user) {
@@ -101,6 +108,20 @@ public class ApiController {
         return selectTopicService.backSelectTopic(studentId, topicId);
     }
 
+    @GetMapping("/student/mission")
+    public ResponseJson studentMission(@RequestParam("topicId") Integer topicId) {
+        if(topicId == null) {
+            return ResponseJsonUtil.error(-1, "参数错误.");
+        }
+        return fileService.selectFilename(topicId);
+    }
+
+    @GetMapping("/student/mission/download")
+    public ResponseEntity<byte[]> fileDownload(HttpServletRequest request,
+                                               @RequestParam("fileId") String fileId) {
+        return fileService.fileDownload(request, fileId);
+    }
+
     /*
       教师相关Api
      */
@@ -162,6 +183,21 @@ public class ApiController {
             return ResponseJsonUtil.error(-1, "参数不能为空.");
         }
         return topicService.saveTopic(topic);
+    }
+
+    /**
+     * 用于教师上传任务书
+     * @param topicId 课题id
+     * @param fileUpload 上传的任务书
+     * @return 上传结果
+     */
+    @PostMapping("/teacher/uploadFile/{id}")
+    public ResponseJson teacherUploadFile(@PathVariable("id") Integer topicId,
+                                          MultipartFile fileUpload) {
+        if(fileUpload == null) {
+            return ResponseJsonUtil.error(-1, "参数错误.");
+        }
+        return fileService.uploadFile(topicId, fileUpload);
     }
 
     /*

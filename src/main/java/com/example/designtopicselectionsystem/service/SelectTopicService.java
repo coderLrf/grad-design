@@ -3,7 +3,6 @@ package com.example.designtopicselectionsystem.service;
 import com.example.designtopicselectionsystem.domain.ResultSelectTopic;
 import com.example.designtopicselectionsystem.domain.ResultTopic;
 import com.example.designtopicselectionsystem.domain.SelectTopic;
-import com.example.designtopicselectionsystem.domain.Topic;
 import com.example.designtopicselectionsystem.mapper.SelectTopicMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
