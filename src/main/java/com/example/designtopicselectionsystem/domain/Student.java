@@ -17,6 +17,7 @@ public class Student {
     private Date birthday; // 出生年月
     private String class_no; // 班级id
     private Integer topic_no; // 课题编号，定选后的课题
+    private String userIcon; // 用户的icon
 
     public Student() {
     }
@@ -73,14 +74,11 @@ public class Student {
         this.topic_no = topic_no;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "student_no=" + student_no +
-                ", student_name='" + student_name + '\'' +
-                ", sex='" + sex + '\'' +
-                ", birthday=" + birthday +
-                ", class_no='" + class_no + '\'' +
-                '}';
+    public String getUserIcon() {
+        return userIcon;
+    }
+
+    public void setUserIcon(String userIcon) {
+        this.userIcon = userIcon;
     }
 }

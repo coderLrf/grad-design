@@ -73,7 +73,9 @@
         <h2 align="center">毕业选题后台管理系统</h2>
         <div class="ibox-content">
             <form class="form-horizontal m-t" id="signupForm" th:action="@{/admin/login}" method="post">
-<!--                <h3 style="color: red" th:if="error">登录失败</h3>-->
+                <div th:if="${param.error}" style="color: red; height: 40px; line-height: 40px  ">
+                    <p>用户名密码输入错误，请重新登录.</p>
+                </div>
                 <div>
                     <label class="control-label">用户名：</label>
                     <div class="">

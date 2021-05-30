@@ -38,7 +38,9 @@ public class StudentService {
     }
 
     public Student findById(Integer studentNo) {
-        return studentMapper.selectById(studentNo);
+        Student student = studentMapper.selectById(studentNo);
+        student.setUserIcon(userService.selectIconById(studentNo + ""));
+        return student;
     }
 
     public List<ResultStudent> findAllTow() {

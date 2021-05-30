@@ -1,8 +1,6 @@
 package com.example.designtopicselectionsystem.service;
 
-import com.example.designtopicselectionsystem.domain.ResultSelectTopic;
-import com.example.designtopicselectionsystem.domain.ResultTopic;
-import com.example.designtopicselectionsystem.domain.SelectTopic;
+import com.example.designtopicselectionsystem.domain.*;
 import com.example.designtopicselectionsystem.mapper.SelectTopicMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
@@ -17,10 +15,14 @@ public class SelectTopicService {
     @Autowired
     private SelectTopicMapper selectTopicMapper;
 
-    @Autowired
-    private StudentService studentService;
-
-    public ResponseJson primaryTopic(SelectTopic selectTopic) {
+    public ResponseJson primaryTopic(Integer topicId, Integer studentId) {
+        SelectTopic selectTopic = new SelectTopic();
+        Student student = new Student();
+        Topic topic = new Topic();
+        topic.setTopicId(topicId);
+        student.setStudent_no(studentId);
+        selectTopic.setStudent(student);
+        selectTopic.setTopic(topic);
         int row = selectTopicMapper.primaryTopic(selectTopic);
         if(row != 0) { // 预选成功
             return ResponseJsonUtil.success("预选成功.");

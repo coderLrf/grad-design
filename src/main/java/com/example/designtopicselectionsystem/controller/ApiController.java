@@ -32,11 +32,30 @@ public class ApiController {
     @Autowired
     private FileService fileService;
 
+    @Autowired
+    private UserService userService;
+
+    /*
+     * 用户相关Api
+     */
+
+    /**
+     * 登录接口
+     * @param user 用户对象，userID，password，identity
+     * @return 登录结果（response）
+     */
     @PostMapping("/login") // 登录接口
     public ResponseJson login(@RequestBody User user) {
         return loginService.login(user);
     }
 
+    /**
+     * 用户可以进行密码修改
+     * @param userId 用户id
+     * @param oldPassword 原密码
+     * @param newPassword 新密码
+     * @return 修改结果
+     */
     @PostMapping("/password/update") // 密码修改
     public ResponseJson passwordUpdate(@RequestParam(value = "userId", required = false) String userId,
                                        @RequestParam(value = "oldPassword", required = false) String oldPassword,
@@ -45,6 +64,17 @@ public class ApiController {
             return ResponseJsonUtil.error(-1, "参数不能为空.");
         }
         return loginService.passwordUpdate(userId, oldPassword, newPassword);
+    }
+
+    /**
+     * 用户上传头像
+     * @param iconUpload 上传的icon
+     * @param userId 用户的id
+     * @return Response
+     */
+    @PostMapping("/user/upload_icon/{id}")
+    public ResponseJson uploadIcon(MultipartFile iconUpload, @PathVariable("id") String userId) {
+        return userService.uploadIcon(iconUpload, userId);
     }
 
     /*
@@ -61,14 +91,7 @@ public class ApiController {
     public ResponseJson primaryTopic(@RequestParam(value = "topicId", required = false) Integer topicId,
                                      @RequestParam(value = "studentId", required = false) Integer studentId) {
         if(topicId == null || studentId == null) return ResponseJsonUtil.error(-1, "参数不能为空.");
-        SelectTopic selectTopic = new SelectTopic();
-        Student student = new Student();
-        Topic topic = new Topic();
-        topic.setTopicId(topicId);
-        student.setStudent_no(studentId);
-        selectTopic.setStudent(student);
-        selectTopic.setTopic(topic);
-        return selectTopicService.primaryTopic(selectTopic);
+        return selectTopicService.primaryTopic(topicId, studentId);
     }
 
     /**
@@ -108,6 +131,11 @@ public class ApiController {
         return selectTopicService.backSelectTopic(studentId, topicId);
     }
 
+    /**
+     * 获取指导老师的上传的任务书
+     * @param topicId 课题的id
+     * @return 返回任务书
+     */
     @GetMapping("/student/mission")
     public ResponseJson studentMission(@RequestParam("topicId") Integer topicId) {
         if(topicId == null) {
@@ -116,6 +144,12 @@ public class ApiController {
         return fileService.selectFilename(topicId);
     }
 
+    /**
+     * 下载指导老师上传的任务书
+     * @param request 下载
+     * @param fileId 任务书id
+     * @return 空
+     */
     @GetMapping("/student/mission/download")
     public ResponseEntity<byte[]> fileDownload(HttpServletRequest request,
                                                @RequestParam("fileId") String fileId) {

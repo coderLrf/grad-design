@@ -2,6 +2,7 @@ package com.example.designtopicselectionsystem.mapper;
 
 import com.example.designtopicselectionsystem.domain.Student;
 import com.example.designtopicselectionsystem.domain.Teacher;
+import com.example.designtopicselectionsystem.domain.TeacherCount;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -21,6 +22,12 @@ public interface TeacherMapper {
     // 查询最大的教师号
     @Select("select max(teacher_no) from teacher")
     public Integer selectNextTeacherId();
+
+    // 查询教师课题每位的学生人数
+    @Select("select tea.teacher_name, tea.teacher_no, count(1) as count " +
+            "from student stu, topic t, teacher tea " +
+            "where stu.topic_no = t.title_no and t.teacher_no = tea.teacher_no group by tea.teacher_name")
+    public List<TeacherCount> selectTeacherCount();
 
     // 插入一条数据
     @Insert("insert into teacher(teacher_name, sex, degree, institute_no) " +

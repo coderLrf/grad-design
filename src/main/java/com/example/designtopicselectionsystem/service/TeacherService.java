@@ -3,6 +3,7 @@ package com.example.designtopicselectionsystem.service;
 import com.example.designtopicselectionsystem.domain.ResultTeacher;
 import com.example.designtopicselectionsystem.domain.ResultTeacherUser;
 import com.example.designtopicselectionsystem.domain.Teacher;
+import com.example.designtopicselectionsystem.domain.TeacherCount;
 import com.example.designtopicselectionsystem.mapper.ResultTeacherMapper;
 import com.example.designtopicselectionsystem.mapper.TeacherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class TeacherService {
 
     @Autowired
     private ResultTeacherMapper resultTeacherMapper;
+
+    @Autowired
+    private UserService userService;
 
     public List<Teacher> findAll() {
         List<Teacher> teacherList = teacherMapper.selectAll();
@@ -42,7 +46,9 @@ public class TeacherService {
     }
 
     public Teacher findById(Integer id) {
-        return teacherMapper.selectById(id);
+        Teacher teacher = teacherMapper.selectById(id);
+        teacher.setUserIcon(userService.selectIconById(id + ""));
+        return teacher;
     }
 
     // 获取教师最后一条编号
@@ -55,6 +61,12 @@ public class TeacherService {
     public Integer selectNextTeacherId() {
         Integer teacherId = teacherMapper.selectNextTeacherId();
         return teacherId + 1;
+    }
+
+    // 查询教师课题每位的学生人数
+    public List<TeacherCount> selectTeacherCount() {
+        List<TeacherCount> teacherCount = teacherMapper.selectTeacherCount();
+        return teacherCount;
     }
 
     // 添加一名教师

@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @Service
@@ -37,7 +36,7 @@ public class FileService {
         fileName = UUID.randomUUID() + "_" + fileName;
         try {
             // 指定上传文件本地存储目录（存储到静态资源目录下）
-            String dirPath = ResourceUtils.getFile("classpath:").getPath() + "\\static\\upload\\";
+            String dirPath = ResourceUtils.getFile("classpath:").getPath() + "\\static\\upload\\file\\";
             // 根据目录创建一个file对象
             File dir = new File(dirPath);
             if(!dir.exists()) {
@@ -56,7 +55,7 @@ public class FileService {
     public ResponseEntity<byte[]> fileDownload(HttpServletRequest request, String fileId) {
         // 指定要下载的文件根路径
         try {
-            String dirPath = ResourceUtils.getFile("classpath:").getPath() + "\\static\\upload\\";
+            String dirPath = ResourceUtils.getFile("classpath:").getPath() + "\\static\\upload\\file";
             // 创建该文件对象
             File file = new File(dirPath + File.separator + fileId);
             // 下载文件

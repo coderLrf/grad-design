@@ -14,6 +14,7 @@ public class Teacher {
     private String sex; // 教师性别
     private String degree; // 教师学位
     private String institute_no; // 学院编号
+    private String userIcon; // 用户的icon
 
     public Teacher() {
     }
@@ -62,14 +63,12 @@ public class Teacher {
         this.institute_no = institute_no;
     }
 
-    @Override
-    public String toString() {
-        return "Teacher{" +
-                "teacher_no=" + teacher_no +
-                ", teacher_name='" + teacher_name + '\'' +
-                ", sex='" + sex + '\'' +
-                ", degree='" + degree + '\'' +
-                ", institute_no='" + institute_no + '\'' +
-                '}';
+    public String getUserIcon() {
+        return userIcon;
     }
+
+    public void setUserIcon(String userIcon) {
+        this.userIcon = userIcon;
+    }
+    
 }

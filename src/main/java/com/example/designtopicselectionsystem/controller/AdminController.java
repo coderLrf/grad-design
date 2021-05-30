@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -64,13 +66,24 @@ public class AdminController {
     public String index(Model model) {
         // 请求所有教师数据返回给前端
         List<Teacher> teacherList = teacherService.findAll();
+        List<TeacherCount> teacherCount = teacherService.selectTeacherCount();
         String[] teacherNames = new String[teacherList.size()];
+        int[] teacherCountList = new int[teacherList.size()];
         int index = 0;
         for (Teacher teacher : teacherList) {
             teacherNames[index] = teacher.getTeacher_name();
+            for (TeacherCount count : teacherCount) {
+                if(count.getTeacher_no().equals(teacher.getTeacher_no())) {
+                    teacherCountList[index] = count.getCount();
+                    break;
+                }
+            }
             index++;
         }
+
+
         model.addAttribute("teacherList", teacherNames);
+        model.addAttribute("teacherCountList", teacherCountList);
         return "index";
     }
 

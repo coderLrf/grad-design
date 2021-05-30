@@ -14,6 +14,9 @@ public interface UserMapper {
     @Select("select * from user where user_no = #{userId}")
     public User selectById(String userId);
 
+    @Select("select user_icon from user where user_no = #{userId}")
+    public String selectIconById(String userId);
+
     @Insert("insert into user(user_no, password, user_name, identity) values(#{user_no}, #{password}, #{user_name}, #{identity})")
     public int saveUser(User user);
 
@@ -22,6 +25,9 @@ public interface UserMapper {
 
     @Update("update user set password = #{password} where user_no = #{userId}")
     public int updatePassword(@Param(value = "userId") String userId, @Param(value = "password") String password);
+
+    @Update("update user set user_icon = #{url} where user_no = #{userId}")
+    public int updateIcon(@Param(value = "userId") String userId, @Param(value = "url") String url);
 
     @Delete("delete from user where user_no = #{userId}")
     public int deleteUser(String userId);

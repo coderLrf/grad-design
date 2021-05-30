@@ -155,8 +155,8 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title" style="border: 0">
                             <h5>欢迎访问首页</h5>
-<!--                            <form th:action="@{/api/teacher/uploadFile/9527}" enctype="multipart/form-data" method="post">-->
-<!--                                <input type="file" name="fileUpload" required>-->
+<!--                            <form th:action="@{/api/user/upload_icon/20190121}" enctype="multipart/form-data" method="post">-->
+<!--                                <input type="file" name="iconUpload" required>-->
 <!--                                <input type="submit" value="上传">-->
 <!--                            </form>-->
                         </div>
@@ -179,6 +179,27 @@
     <script th:inline="javascript">
         // 动态获取所有教师列表
         const teacherList = [[${teacherList}]]
+        // 动态获取教师的学生人数列表
+        const teacherCountList = [[${teacherCountList}]]
+
+        // 按照选题的人数来进行排序
+        for(let i = 0; i < teacherCountList.length; i++) {
+            for(let j = 0; j < teacherCountList.length - 1 - i; j++) {
+                if(teacherCountList[j] > teacherCountList[j + 1]) {
+                    let temp = teacherCountList[j];
+                    let tempName = teacherList[j];
+                    teacherCountList[j] = teacherCountList[j + 1];
+                    teacherList[j] = teacherList[j + 1];
+                    teacherCountList[j + 1] = temp;
+                    teacherList[j + 1] = tempName;
+                }
+            }
+        }
+
+        console.log(teacherList)
+        console.log(teacherCountList)
+        // 按照每一个百分之三十七来计算
+        const height = teacherList.length * 37;
     </script>
 
     <script>
@@ -245,13 +266,13 @@
             grid: {
                 show: true,
                 borderWidth: 0,
-                height: 300,
+                height,
                 containLabel: true,
             },
             series: [
                 {
                     type: 'bar',
-                    data: [10, 15, 25, 30, 50, 25, 30, 50]
+                    data: teacherCountList
                 }
             ]
         }
