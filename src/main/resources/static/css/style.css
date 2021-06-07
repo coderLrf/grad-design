@@ -47,26 +47,85 @@ body {
   border: 0;
   border-radius: 0 0 6px 6px;
   text-align: center;
-  position: relative;
+  height: 500px;
+  overflow: scroll;
+}
+
+.ibox-content::-webkit-scrollbar {
+  width: 0;
+}
+
+.ibox-content thead {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 90px;
+  background: #fff;
+  padding: 5px 0;
+}
+
+.ibox-content thead tr {
+  display: flex;
+  width: 100%;
+}
+
+.ibox-content thead tr th {
+  text-align: center;
+}
+
+.ibox-content thead tr th:nth-child(1), .ibox-content tbody tr td:nth-child(1){
+  flex: 0.4;
+}
+
+.ibox-content tbody {
+  display: block;
+}
+
+.ibox-content tbody tr {
+  display: flex;
+  width: 100%;
+}
+
+.ibox-content tbody tr td {
+  flex: 1;
 }
 
 .ibox-content tbody tr td:nth-last-child(1) > a {
   font-size: 12px;
   outline: none;
-
 }
 
 #side-menu > li.active > ul.nav{
   display: block;
 }
 
-.row_one {
-  padding-top: 12px;
+.row_one .ibox .btn {
+  margin-bottom: 0;
+  padding: 8px;
+}
+
+.row_one .ibox > .right {
+  display: flex;
+  float: right;
+}
+
+.row_one .ibox > .right .form-control {
+  margin-right: 8px;
+  border-radius: 8px;
+}
+
+.row_one .ibox > .right .btn {
+  padding: 5px 12px;
+}
+
+.row_one .float-e-margins .ibox {
+  padding-right: 60px;
 }
 
 .ibox {
   width: 100%;
-  padding: 0;
+  padding: 0 0 8px 0;
+  line-height: 30px;
 }
 
 .nav > li > a {
@@ -3180,7 +3239,8 @@ body.body-small .footer.fixed {
   border: 1px solid #e7e7e7;
 }
 .table > thead > tr > th {
-  border-bottom: 1px solid #DDDDDD;
+  border-bottom: 0;
+  flex: 1;
   vertical-align: bottom;
 }
 .table > thead > tr > th,
@@ -3384,11 +3444,12 @@ code {
 .ibox-content {
   background-color: #ffffff;
   color: inherit;
-  padding: 15px 20px 10px 20px;
+  padding: 35px 20px 10px 20px;
   /*border-color: #e7eaec;*/
   border-image: none;
   /*border-style: solid solid none;*/
   /*border-width: 1px 0px;*/
+  position: relative;
 }
 table.table-mail tr td {
   padding: 12px;

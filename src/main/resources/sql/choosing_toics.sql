@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 30/05/2021 21:23:52
+ Date: 07/06/2021 12:52:20
 */
 
 CREATE DATABASE IF NOT EXISTS choosing_toics;
@@ -45,7 +45,7 @@ CREATE TABLE `class`  (
   PRIMARY KEY (`class_no`) USING BTREE,
   INDEX `major_no`(`major_no`) USING BTREE,
   CONSTRAINT `class_ibfk_1` FOREIGN KEY (`major_no`) REFERENCES `major` (`major_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5004 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5005 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of class
@@ -65,7 +65,7 @@ CREATE TABLE `file`  (
   `file_id` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文件id',
   `topic_id` int NOT NULL COMMENT '课题id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of file
@@ -103,7 +103,7 @@ CREATE TABLE `major`  (
   PRIMARY KEY (`major_no`) USING BTREE,
   INDEX `institute_no`(`institute_no`) USING BTREE,
   CONSTRAINT `major_ibfk_1` FOREIGN KEY (`institute_no`) REFERENCES `institute` (`institute_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1010 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1011 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of major
@@ -156,7 +156,7 @@ CREATE TABLE `student`  (
   UNIQUE INDEX `student_name`(`student_name`) USING BTREE,
   INDEX `class_no`(`class_no`) USING BTREE,
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`class_no`) REFERENCES `class` (`class_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2019101046 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2019101050 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of student
@@ -166,6 +166,9 @@ INSERT INTO `student` VALUES (2019101040, '张三', NULL, NULL, NULL, 23);
 INSERT INTO `student` VALUES (2019101044, '张飞', '男', '2021-05-22', 5000, 23);
 INSERT INTO `student` VALUES (2019101045, '李白', NULL, NULL, NULL, 24);
 INSERT INTO `student` VALUES (2019101046, '阿珂', '男', '2021-05-14', 5001, 22);
+INSERT INTO `student` VALUES (2019101047, '钟馗', NULL, NULL, NULL, NULL);
+INSERT INTO `student` VALUES (2019101048, '大乔', NULL, NULL, NULL, NULL);
+INSERT INTO `student` VALUES (2019101049, '瑶', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for teacher
@@ -180,7 +183,7 @@ CREATE TABLE `teacher`  (
   PRIMARY KEY (`teacher_no`) USING BTREE,
   INDEX `institute_no`(`institute_no`) USING BTREE,
   CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`institute_no`) REFERENCES `institute` (`institute_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 20190123 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 20190124 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of teacher
@@ -210,7 +213,7 @@ CREATE TABLE `topic`  (
   PRIMARY KEY (`title_no`) USING BTREE,
   INDEX `teacher_no`(`teacher_no`) USING BTREE,
   CONSTRAINT `topic_ibfk_1` FOREIGN KEY (`teacher_no`) REFERENCES `teacher` (`teacher_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of topic
@@ -252,5 +255,8 @@ INSERT INTO `user` VALUES ('2019101040', 'e10adc3949ba59abbe56e057f20f883e', '�
 INSERT INTO `user` VALUES ('2019101044', 'e10adc3949ba59abbe56e057f20f883e', '张飞', '学生', NULL);
 INSERT INTO `user` VALUES ('2019101045', 'e10adc3949ba59abbe56e057f20f883e', '李白', '学生', NULL);
 INSERT INTO `user` VALUES ('2019101046', 'e10adc3949ba59abbe56e057f20f883e', '阿珂', '学生', NULL);
+INSERT INTO `user` VALUES ('2019101047', 'e10adc3949ba59abbe56e057f20f883e', '钟馗', '学生', NULL);
+INSERT INTO `user` VALUES ('2019101048', 'e10adc3949ba59abbe56e057f20f883e', '大乔', '学生', NULL);
+INSERT INTO `user` VALUES ('2019101049', 'e10adc3949ba59abbe56e057f20f883e', '瑶', '学生', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

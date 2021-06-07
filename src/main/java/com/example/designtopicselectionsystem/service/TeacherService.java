@@ -1,9 +1,6 @@
 package com.example.designtopicselectionsystem.service;
 
-import com.example.designtopicselectionsystem.domain.ResultTeacher;
-import com.example.designtopicselectionsystem.domain.ResultTeacherUser;
-import com.example.designtopicselectionsystem.domain.Teacher;
-import com.example.designtopicselectionsystem.domain.TeacherCount;
+import com.example.designtopicselectionsystem.domain.*;
 import com.example.designtopicselectionsystem.mapper.ResultTeacherMapper;
 import com.example.designtopicselectionsystem.mapper.TeacherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +46,12 @@ public class TeacherService {
         Teacher teacher = teacherMapper.selectById(id);
         teacher.setUserIcon(userService.selectIconById(id + ""));
         return teacher;
+    }
+
+    // 根据关键字搜索用户
+    public List<Teacher> searchTeacherByKeyWord(String content) {
+        content += "%";
+        return teacherMapper.searchTeacher(content);
     }
 
     // 获取教师最后一条编号

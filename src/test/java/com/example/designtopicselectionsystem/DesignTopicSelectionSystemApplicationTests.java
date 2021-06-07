@@ -4,10 +4,7 @@ import com.example.designtopicselectionsystem.domain.*;
 import com.example.designtopicselectionsystem.mapper.*;
 import com.example.designtopicselectionsystem.repository.InstituteRepository;
 import com.example.designtopicselectionsystem.response.ResponseJson;
-import com.example.designtopicselectionsystem.service.SelectTopicService;
-import com.example.designtopicselectionsystem.service.StudentService;
-import com.example.designtopicselectionsystem.service.TeacherService;
-import com.example.designtopicselectionsystem.service.TopicService;
+import com.example.designtopicselectionsystem.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,6 +40,18 @@ class DesignTopicSelectionSystemApplicationTests {
 
     @Autowired
     private TeacherService teacherService;
+
+    @Autowired
+    private UserService userService;
+
+    @Test
+    void searchUser() {
+        String content = "李";
+        List<User> userList = userService.searchUserByKeyWord(content);
+        for (User user : userList) {
+            System.out.println(user);
+        }
+    }
 
     @Test
     void selectById() {

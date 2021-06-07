@@ -17,6 +17,11 @@ public interface UserMapper {
     @Select("select user_icon from user where user_no = #{userId}")
     public String selectIconById(String userId);
 
+    // 模糊搜索
+    @Select("select * from user where user_no like #{content} or user_name like #{content}")
+    public List<User> searchUser(String content);
+
+
     @Insert("insert into user(user_no, password, user_name, identity) values(#{user_no}, #{password}, #{user_name}, #{identity})")
     public int saveUser(User user);
 

@@ -157,7 +157,7 @@
     <div id="wrapper" style="height: 100%;">
 
         <!-- 侧边栏 -->
-        <div th:replace="~{common/common::sidebar(active = 'userList', index = 1)}"></div>
+        <div th:replace="~{common/common::sidebar(active = 'userList')}"></div>
 
         <div id="page-wrapper" style="min-height: 100%; background-color: #EDF1F9; overflow: hidden;"
             class="gray-bg dashbard-1">
@@ -180,10 +180,13 @@
 
             <div class="wrapper wrapper-content animated fadeInRight" style="padding-top: 0; height: 100%;">
                 <div class="row row_one">
-
                     <div class="ibox float-e-margins">
-                        <div class="ibox" style="margin-bottom: 0">
+                        <div class="ibox" style="margin-bottom: 0;">
                             <a th:href="@{/admin/user/add}" class="btn btn-xs btn-primary" style="font-size: 14px">添加用户</a>
+                            <div class="right">
+                                <input type="text" class="form-control" placeholder="用户名 / 用户id">
+                                <a th:href="@{/admin/search/user}" class="btn btn-xs btn-primary" style="font-size: 14px">搜索用户</a>
+                            </div>
                         </div>
                         <div class="ibox-title">
                             <h5>已注册名单</h5>

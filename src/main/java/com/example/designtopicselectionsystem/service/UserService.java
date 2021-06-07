@@ -33,6 +33,12 @@ public class UserService {
         return user;
     }
 
+    // 根据关键字搜索用户
+    public List<User> searchUserByKeyWord(String content) {
+        content += "%";
+        return userMapper.searchUser(content);
+    }
+
     // 添加用户
     public int saveUser(User user) {
         // 使用md5加密密码

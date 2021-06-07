@@ -25,31 +25,31 @@
                 <a th:href="@{/admin/index}"><span class="nav-label">首页</span></a>
             </li>
             <li th:class="${active == 'userList' ? 'active' : ''}">
-                <a href="javascript:void(0)"><span class="nav-label">用户管理</span><span
+                <a th:href="@{/admin/user/list}"><span class="nav-label">用户管理</span><span
                         class=""></span></a>
-                <ul class="nav nav-second-level">
-                    <li th:class="${index == 1 && active == 'userList' ? 'active' : ''}">
-                        <a th:href="@{/admin/user/list}">用户列表</a>
-                    </li>
-                </ul>
+<!--                <ul class="nav nav-second-level">-->
+<!--                    <li th:class="${index == 1 && active == 'userList' ? 'active' : ''}">-->
+<!--                        <a th:href="@{/admin/user/list}">用户列表</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
             </li>
             <li th:class="${active == 'stuList' ? 'active' : ''}">
-                <a href="javascript:void(0)"><span class="nav-label">学生管理</span><span
+                <a th:href="@{/admin/stu/list}"><span class="nav-label">学生管理</span><span
                         class=""></span></a>
-                <ul class="nav nav-second-level">
-                    <li th:class="${index == 1 && active == 'stuList' ? 'active' : ''}">
-                        <a th:href="@{/admin/stu/list}">学生列表</a>
-                    </li>
-                </ul>
+<!--                <ul class="nav nav-second-level">-->
+<!--                    <li th:class="${index == 1 && active == 'stuList' ? 'active' : ''}">-->
+<!--                        <a th:href="@{/admin/stu/list}">学生列表</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
             </li>
             <li th:class="${active == 'teaList' ? 'active' : ''}">
-                <a href="javascript:void(0)"><span class="nav-label">教师管理</span><span
+                <a th:href="@{/admin/tea/list}"><span class="nav-label">教师管理</span><span
                         class=""></span></a>
-                <ul class="nav nav-second-level">
-                    <li th:class="${index == 1 && active == 'teaList' ? 'active' : ''}">
-                        <a th:href="@{/admin/tea/list}">教师列表</a>
-                    </li>
-                </ul>
+<!--                <ul class="nav nav-second-level">-->
+<!--                    <li th:class="${index == 1 && active == 'teaList' ? 'active' : ''}">-->
+<!--                        <a th:href="@{/admin/tea/list}">教师列表</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
             </li>
             <li th:class="${active == 'topic' ? 'active' : ''}">
                 <a href="javascript:void(0)"><span class="nav-label">课题管理</span><span
@@ -78,8 +78,9 @@
 <!-- 头部导航栏 -->
 <div class="row border-bottom" th:fragment="topbar" style="flex-direction: row-reverse">
     <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0; height: 50px;">
-        <form th:action="@{/admin/logout}" method="post">
-            <button class="btn btn-xs btn-default" th:type="submit" th:text="退出" style="font-size: 14px"></button>
+        <form th:action="@{/admin/logout}" method="post" style="height: 100%; line-height: 50px; text-align: right; padding: 0 20px">
+            <input type="text" value="admin" style="background: transparent; border: 0; text-align: right; padding-right: 12px; font-size: 14px" disabled>
+            <button class="btn btn-primary" th:type="submit" th:text="退出" style="font-size: 14px"></button>
         </form>
     </nav>
 </div>

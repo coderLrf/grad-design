@@ -37,6 +37,12 @@ public class StudentService {
         return studentList;
     }
 
+    // 根据关键字搜索用户
+    public List<Student> searchStudentByKeyWord(String content) {
+        content += "%";
+        return studentMapper.searchStudent(content);
+    }
+
     public Student findById(Integer studentNo) {
         Student student = studentMapper.selectById(studentNo);
         student.setUserIcon(userService.selectIconById(studentNo + ""));

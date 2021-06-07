@@ -80,11 +80,35 @@ public class AdminController {
             }
             index++;
         }
-
-
         model.addAttribute("teacherList", teacherNames);
         model.addAttribute("teacherCountList", teacherCountList);
         return "index";
+    }
+
+    // 搜索功能
+    @GetMapping("/search/{type}")
+    public String search(@PathVariable("type") String type,
+                         @RequestParam(value = "content", defaultValue = "") String content,
+                         Model model) {
+        System.out.println(content);
+        Object list;
+        // 根据类型判断
+        switch(type) {
+            case "student":
+                list = studentService.searchStudentByKeyWord(content);
+                break;
+            case "teacher":
+                list = teacherService.searchTeacherByKeyWord(content);
+                break;
+            case "user":
+                list = userService.searchUserByKeyWord(content);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+        // 发送给前端
+        model.addAttribute(type + "List", list);
+        return type + "/list";
     }
 
     /**

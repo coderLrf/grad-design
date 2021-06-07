@@ -157,7 +157,7 @@
     <div id="wrapper" style="height: 100%;">
 
         <!-- 侧边栏 -->
-        <div th:replace="~{common/common::sidebar(active = 'stuList', index = 1)}"></div>
+        <div th:replace="~{common/common::sidebar(active = 'stuList')}"></div>
 
         <div id="page-wrapper" style="min-height: 100%; background-color: #EDF1F9; overflow: hidden;"
             class="gray-bg dashbard-1">
@@ -184,6 +184,10 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox" style="margin-bottom: 0">
                             <a th:href="@{/admin/stu/add}" class="btn btn-xs btn-primary" style="font-size: 14px">添加学生</a>
+                            <div class="right">
+                                <input type="text" class="form-control" placeholder="姓名 / 学号">
+                                <a th:href="@{/admin/search/student}" class="btn btn-xs btn-primary" style="font-size: 14px">搜索学生</a>
+                            </div>
                         </div>
                         <div class="ibox-title">
                             <h5>已注册名单</h5>
