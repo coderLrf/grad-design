@@ -181,9 +181,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label">初始密码：</label>
+                                    <label class="control-label">重置密码：</label>
                                     <div class="col-sm-6">
-                                        <input name="password" class="form-control" type="text" th:value="${user.getPassword()}">
+                                        <input name="password" class="form-control" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -196,18 +196,17 @@
                                     <label class=" control-label">身份：</label>
                                     <div class="col-sm-3 sex" id="identity">
                                         <label for="student" style="margin-right: 8px;">
-                                            <input type="radio" name="identity" id="student" value="学生" th:checked="${user.getIdentity() == '学生'}">学生
+                                            <input type="radio" name="identity" id="student" value="学生" disabled th:checked="${user.getIdentity() == '学生'}">学生
                                         </label>
                                         <label for="teacher">
-                                            <input type="radio" name="identity" id="teacher" value="教师" th:checked="${user.getIdentity() == '教师'}">教师
+                                            <input type="radio" name="identity" id="teacher" value="教师" disabled th:checked="${user.getIdentity() == '教师'}">教师
                                         </label>
                                     </div>
                                 </div>
 
-
                                 <div class="form-group submit">
                                     <div class="col-sm-6 col-sm-offset-3">
-                                        <button class="btn btn-primary" type="submit">修改用户</button>
+                                        <button class="btn btn-primary" type="submit" onclick="alert('修改用户成功')">修改用户</button>
                                     </div>
                                 </div>
 

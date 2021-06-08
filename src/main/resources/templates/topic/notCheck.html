@@ -213,18 +213,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <!--/*@thymesVar id="notTopicList" type="notTopicList"*/-->
-                                <tr th:each="topic, object : ${notTopicList}">
-                                    <td th:text="${object.index} + 1"></td>
-                                    <td th:text="${topic.getTitle_name()}"></td>
-                                    <td th:text="${topic.getTitle_no()}"></td>
-                                    <td th:text="${topic.getTitle_desc()}"></td>
-                                    <td th:text="${topic.getTeacher_name()}"></td>
-                                    <td>未通过审核</td>
-                                    <td>
-                                        <a class="btn btn-xs btn-primary" th:href="@{/admin/top/pass/{id}(id = ${topic.getTitle_no()}, path = 'notCheck')}">通过</a>
-                                    </td>
-                                </tr>
+                                    <!--/*@thymesVar id="notTopicList" type="notTopicList"*/-->
+                                    <tr th:each="topic, object : ${notTopicList}">
+                                        <td th:text="${object.index} + 1"></td>
+                                        <td th:text="${topic.getTitle_name()}"></td>
+                                        <td th:text="${topic.getTitle_no()}"></td>
+                                        <td th:text="${topic.getTitle_desc()}"></td>
+                                        <td th:text="${topic.getTeacher_name()}"></td>
+                                        <td>未通过审核</td>
+                                        <td>
+                                            <a class="btn btn-xs btn-primary" th:href="@{/admin/top/pass/{id}(id = ${topic.getTitle_no()}, path = 'notCheck')}">通过</a>
+                                        </td>
+                                    </tr>
+                                    <h3 th:if="${#lists.isEmpty(notTopicList)}">数据为空</h3>
                                 </tbody>
                             </table>
 

@@ -7,7 +7,7 @@ public class ResultTopic {
     private String title_name; // 课题名称
     private String title_desc; // 课题描述
     private String teacher_name; // 教师姓名
-    private String admission; // 是否预选，或则是/否
+    private String admission; // 是否通过审核
 
     public Integer getTitle_no() {
         return title_no;

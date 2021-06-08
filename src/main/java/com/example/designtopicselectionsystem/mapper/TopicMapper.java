@@ -29,6 +29,9 @@ public interface TopicMapper {
     @Select("select count(*) from student where topic_no = #{id}")
     public int selectCountByTopicId(Integer id);
 
+    @Select("select * from topic t, teacher tea where t.teacher_no = #{teacherId} and t.teacher_no = tea.teacher_no")
+    public List<ResultTopic> selectTopicByTeacherId(Integer teacherId);
+
     // 插入一条数据
     @Insert("insert into topic(title_name, title_desc, teacher_no) " +
             "values(#{topicName}, #{topicDesc}, #{teacherId})")

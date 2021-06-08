@@ -1,16 +1,11 @@
 package com.example.designtopicselectionsystem.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
 import java.sql.Date;
 
 // 学生表
-// @Entity(name = "student")
 public class Student {
 
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer student_no; // 学号
     private String student_name; // 姓名
     private String sex; // 性别

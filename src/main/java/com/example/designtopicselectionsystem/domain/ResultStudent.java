@@ -1,7 +1,5 @@
 package com.example.designtopicselectionsystem.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.sql.Date;
 
 public class ResultStudent {
@@ -10,7 +8,6 @@ public class ResultStudent {
     private Integer student_no; // 学号
     private String sex; // 性别
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date birthday; // 出生年月
     private String institute_name; // 系部
     private String class_name; // 班级id

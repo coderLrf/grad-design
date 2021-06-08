@@ -213,19 +213,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <!--/*@thymesVar id="topicList" type="topicList"*/-->
-                                <tr th:each="topic, object : ${topicList}">
-                                    <td th:text="${object.index} + 1"></td>
-                                    <td th:text="${topic.getTitle_name()}"></td>
-                                    <td th:text="${topic.getTitle_no()}"></td>
-                                    <td th:text="${topic.getTitle_desc()}"></td>
-                                    <td th:text="${topic.getTeacher_name()}"></td>
-                                    <td>审核中</td>
-                                    <td>
-                                        <a class="btn btn-xs btn-primary" th:href="@{/admin/top/pass/{id}(id = ${topic.getTitle_no()}, path = 'review')}">通过</a>
-                                        <a class="btn btn-xs btn-danger" th:href="@{/admin/top/noPass/{id}(id = ${topic.getTitle_no()}, path = 'review')}">不通过</a>
-                                    </td>
-                                </tr>
+                                    <!--/*@thymesVar id="topicList" type="topicList"*/-->
+                                    <tr th:each="topic, object : ${topicList}">
+                                        <td th:text="${object.index} + 1"></td>
+                                        <td th:text="${topic.getTitle_name()}"></td>
+                                        <td th:text="${topic.getTitle_no()}"></td>
+                                        <td th:text="${topic.getTitle_desc()}"></td>
+                                        <td th:text="${topic.getTeacher_name()}"></td>
+                                        <td>审核中</td>
+                                        <td>
+                                            <a class="btn btn-xs btn-primary" th:href="@{/admin/top/pass/{id}(id = ${topic.getTitle_no()}, path = 'review')}">通过</a>
+                                            <a class="btn btn-xs btn-danger" th:href="@{/admin/top/noPass/{id}(id = ${topic.getTitle_no()}, path = 'review')}">不通过</a>
+                                        </td>
+                                    </tr>
+                                    <h3 th:if="${#lists.isEmpty(topicList)}">数据为空</h3>
                                 </tbody>
                             </table>
 

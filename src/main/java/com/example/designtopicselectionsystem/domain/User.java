@@ -5,7 +5,6 @@ public class User {
 
     private String user_no; // 账号
     private String password; // 密码
-
     private String user_name; // 用户名
     private String identity; // 身份：学生，教师，管理员
 

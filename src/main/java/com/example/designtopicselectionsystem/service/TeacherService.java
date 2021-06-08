@@ -3,6 +3,8 @@ package com.example.designtopicselectionsystem.service;
 import com.example.designtopicselectionsystem.domain.*;
 import com.example.designtopicselectionsystem.mapper.ResultTeacherMapper;
 import com.example.designtopicselectionsystem.mapper.TeacherMapper;
+import com.example.designtopicselectionsystem.response.ResponseJson;
+import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,9 +51,9 @@ public class TeacherService {
     }
 
     // 根据关键字搜索用户
-    public List<Teacher> searchTeacherByKeyWord(String content) {
+    public List<ResultTeacher> searchTeacherByKeyWord(String content) {
         content += "%";
-        return teacherMapper.searchTeacher(content);
+        return resultTeacherMapper.searchTeacher(content);
     }
 
     // 获取教师最后一条编号
@@ -86,6 +88,15 @@ public class TeacherService {
     public int delete(Integer id) {
         int i = teacherMapper.deleteTeacher(id);
         return i;
+    }
+
+    // 保存教师信息
+    public ResponseJson teacherSaveMessage(Teacher teacher) {
+        int update = update(teacher);
+        if(update > 1) {
+            return ResponseJsonUtil.success("信息保存成功.");
+        }
+        return ResponseJsonUtil.error(-1, "信息保存失败.");
     }
 
 }

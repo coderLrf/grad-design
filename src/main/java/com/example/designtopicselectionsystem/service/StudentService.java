@@ -6,10 +6,13 @@ import com.example.designtopicselectionsystem.domain.Student;
 import com.example.designtopicselectionsystem.domain.User;
 import com.example.designtopicselectionsystem.mapper.ResultStudentMapper;
 import com.example.designtopicselectionsystem.mapper.StudentMapper;
+import com.example.designtopicselectionsystem.response.ResponseJson;
+import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.xml.transform.Result;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,9 +41,9 @@ public class StudentService {
     }
 
     // 根据关键字搜索用户
-    public List<Student> searchStudentByKeyWord(String content) {
+    public List<ResultStudent> searchStudentByKeyWord(String content) {
         content += "%";
-        return studentMapper.searchStudent(content);
+        return resultStudentMapper.searchStudent(content);
     }
 
     public Student findById(Integer studentNo) {
@@ -82,6 +85,15 @@ public class StudentService {
     public ResultTopic selectPrimaryTopic(Integer studentId) {
         ResultTopic resultTopic = studentMapper.selectPrimaryTopic(studentId);
         return resultTopic;
+    }
+
+    // 保存学生信息
+    public ResponseJson studentSaveMessage(Student student) {
+        int update = update(student);
+        if(update > 1) {
+            return ResponseJsonUtil.success("信息保存成功.");
+        }
+        return ResponseJsonUtil.error(-1, "信息保存失败.");
     }
 
 

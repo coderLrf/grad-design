@@ -35,6 +35,9 @@ public class ApiController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TeacherService teacherService;
+
     /*
      * 用户相关Api
      */
@@ -76,6 +79,11 @@ public class ApiController {
     public ResponseJson uploadIcon(MultipartFile iconUpload, @PathVariable("id") String userId) {
         return userService.uploadIcon(iconUpload, userId);
     }
+
+//    @PostMapping("/user/save/{identity}")
+//    public ResponseJson saveUserMessage(@PathVariable("identity") String identity) {
+//        return userService.saveUserMessage(identity, object);
+//    }
 
     /*
      * 学生相关Api
@@ -156,6 +164,20 @@ public class ApiController {
         return fileService.fileDownload(request, fileId);
     }
 
+    /**
+     * 学生信息保存接口
+     * @param iconUpload 学生icon
+     * @param student 学生对象
+     * @return 状态
+     */
+    @PostMapping("/student/save")
+    public ResponseJson studentSaveMessage(MultipartFile iconUpload, @RequestBody Student student) {
+        if(!iconUpload.isEmpty()) {
+            userService.uploadIcon(iconUpload, student.getStudent_no() + "");
+        }
+        return studentService.studentSaveMessage(student);
+    }
+
     /*
       教师相关Api
      */
@@ -169,6 +191,17 @@ public class ApiController {
     public ResponseJson selectPrimaryTopic(@RequestParam(value = "teacherId", required = false)Integer teacherId) {
         if(teacherId == null) return ResponseJsonUtil.error(-1, "参数不能为空.");
         return selectTopicService.selectPrimaryTopic(teacherId);
+    }
+
+    /**
+     * 返回该教师的所有课题，包括没有通过审核
+     * @param teacherId 教师id
+     * @return 返回课题列表
+     */
+    @GetMapping("/teacher/list")
+    public ResponseJson selectTopicById(@RequestParam(value = "topicId")Integer teacherId) {
+        List<ResultTopic> topicList = topicService.selectTopicByTeacherId(teacherId);
+        return ResponseJsonUtil.successData(topicList);
     }
 
     /**
@@ -232,6 +265,20 @@ public class ApiController {
             return ResponseJsonUtil.error(-1, "参数错误.");
         }
         return fileService.uploadFile(topicId, fileUpload);
+    }
+
+    /**
+     * 教师信息保存接口
+     * @param iconUpload 教师icon
+     * @param teacher 教师对象
+     * @return 状态
+     */
+    @PostMapping("/teacher/save")
+    public ResponseJson TeacherSaveMessage(MultipartFile iconUpload, @RequestBody Teacher teacher) {
+        if(!iconUpload.isEmpty()) {
+            userService.uploadIcon(iconUpload, teacher.getTeacher_no() + "");
+        }
+        return teacherService.teacherSaveMessage(teacher);
     }
 
     /*

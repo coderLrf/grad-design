@@ -184,10 +184,10 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox" style="margin-bottom: 0">
                             <a th:href="@{/admin/stu/add}" class="btn btn-xs btn-primary" style="font-size: 14px">添加学生</a>
-                            <div class="right">
-                                <input type="text" class="form-control" placeholder="姓名 / 学号">
-                                <a th:href="@{/admin/search/student}" class="btn btn-xs btn-primary" style="font-size: 14px">搜索学生</a>
-                            </div>
+                            <form class="right" th:action="@{/admin/search/student}">
+                                <input type="text" th:value="${param.content}" name="content" class="form-control" placeholder="姓名 / 学号">
+                                <button type="submit" class="btn btn-xs btn-primary" style="font-size: 14px">搜索学生</button>
+                            </form>
                         </div>
                         <div class="ibox-title">
                             <h5>已注册名单</h5>
@@ -225,6 +225,7 @@
                                             <a class="btn btn-xs btn-danger" th:href="@{/admin/stu/delete/} + ${student.getStudent_no()}">删除</a>
                                         </td>
                                     </tr>
+                                    <h3 th:if="${#lists.isEmpty(studentList)}">数据为空</h3>
                                 </tbody>
                             </table>
 

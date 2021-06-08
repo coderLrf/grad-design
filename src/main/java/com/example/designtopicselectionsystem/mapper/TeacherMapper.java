@@ -23,10 +23,6 @@ public interface TeacherMapper {
     @Select("select max(teacher_no) from teacher")
     public Integer selectNextTeacherId();
 
-    // 模糊查询
-    @Select("select * from teacher where teacher_no like #{content} or teacher_name like #{content}")
-    public List<Teacher> searchTeacher(String content);
-
     // 查询教师课题每位的学生人数
     @Select("select tea.teacher_name, tea.teacher_no, count(1) as count " +
             "from student stu, topic t, teacher tea " +

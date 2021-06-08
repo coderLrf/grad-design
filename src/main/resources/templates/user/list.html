@@ -9,6 +9,7 @@
 
     <title>用户列表</title>
 
+    <!-- 导入公共头文件 -->
     <div th:replace="~{common/common::#common_style}"></div>
 
     <style>
@@ -155,7 +156,6 @@
 
 <body>
     <div id="wrapper" style="height: 100%;">
-
         <!-- 侧边栏 -->
         <div th:replace="~{common/common::sidebar(active = 'userList')}"></div>
 
@@ -183,10 +183,10 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox" style="margin-bottom: 0;">
                             <a th:href="@{/admin/user/add}" class="btn btn-xs btn-primary" style="font-size: 14px">添加用户</a>
-                            <div class="right">
-                                <input type="text" class="form-control" placeholder="用户名 / 用户id">
-                                <a th:href="@{/admin/search/user}" class="btn btn-xs btn-primary" style="font-size: 14px">搜索用户</a>
-                            </div>
+                            <form class="right" role="form" id="search_form" th:action="@{/admin/search/user}">
+                                <input type="text" th:value="${param.content}" name="content" class="form-control" placeholder="用户名 / 用户id">
+                                <button type="submit" class="btn btn-xs btn-primary" style="font-size: 14px">搜索用户</button>
+                            </form>
                         </div>
                         <div class="ibox-title">
                             <h5>已注册名单</h5>
@@ -197,7 +197,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>用户id</th>
-                                        <th>用户密码</th>
                                         <th>用户名</th>
                                         <th>身份</th>
                                         <th>操作</th>
@@ -207,7 +206,6 @@
                                     <tr th:each="user, object : ${userList}">
                                         <td th:text="${object.count}"></td>
                                         <td th:text="${user.getUser_no()}"></td>
-                                        <td th:text="${user.getPassword()}"></td>
                                         <td th:text="${user.getUser_name()}"></td>
                                         <td th:text="${user.getIdentity()}"></td>
                                         <td>
@@ -215,19 +213,18 @@
                                             <a class="btn btn-xs btn-danger" th:href="@{/admin/user/delete/} + ${user.getUser_no()}">删除</a>
                                         </td>
                                     </tr>
+                                    <h3 th:if="${#lists.isEmpty(userList)}">数据为空</h3>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 
-<div th:replace="~{common/common::#common_js}"></div>
+    <!-- 导入公共尾文件 -->
+    <div th:replace="~{common/common::#common_js}"></div>
 
 </body>
 

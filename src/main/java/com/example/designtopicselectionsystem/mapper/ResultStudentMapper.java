@@ -16,4 +16,8 @@ public interface ResultStudentMapper {
 
     @Select("select * from student where sex is null")
     public List<ResultStudent> selectAll();
+
+    // 模糊查询
+    @Select("select * from student where student_no like #{content} or student_name like #{content}")
+    public List<ResultStudent> searchStudent(String content);
 }

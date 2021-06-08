@@ -20,9 +20,7 @@ public interface StudentMapper {
             "where t.title_no = stu.topic_no and stu.student_no = #{id} and tea.teacher_no = t.teacher_no")
     public ResultTopic selectPrimaryTopic(Integer id);
 
-    // 模糊查询
-    @Select("select * from student where student_no like #{content} or student_name like #{content}")
-    public List<Student> searchStudent(String content);
+
 
     // 获得下一个自增id的值
     @Select("select max(student_no) from student")

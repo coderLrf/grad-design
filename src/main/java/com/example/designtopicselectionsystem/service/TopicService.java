@@ -34,6 +34,11 @@ public class TopicService {
         return topicList;
     }
 
+    // 通过教师id查询课题（所有）
+    public List<ResultTopic> selectTopicByTeacherId(Integer id) {
+        return topicMapper.selectTopicByTeacherId(id);
+    }
+
     // 查询该课题定选的人数
     public int selectCountByTopicId(Integer id) {
         return topicMapper.selectCountByTopicId(id);
@@ -60,7 +65,4 @@ public class TopicService {
         }
         return ResponseJsonUtil.error(-1, "课题添加失败.");
     }
-
-
-
 }

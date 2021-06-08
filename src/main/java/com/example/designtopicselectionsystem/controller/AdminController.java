@@ -4,16 +4,20 @@ import com.example.designtopicselectionsystem.domain.*;
 import com.example.designtopicselectionsystem.domain.Class;
 import com.example.designtopicselectionsystem.repository.ClassRepository;
 import com.example.designtopicselectionsystem.repository.InstituteRepository;
+import com.example.designtopicselectionsystem.response.ResponseJson;
+import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
 import com.example.designtopicselectionsystem.service.StudentService;
 import com.example.designtopicselectionsystem.service.TeacherService;
 import com.example.designtopicselectionsystem.service.TopicService;
 import com.example.designtopicselectionsystem.service.UserService;
+import com.example.designtopicselectionsystem.utils.Commons;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -39,6 +43,9 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private Commons commons;
 
     @GetMapping("/login")
     public String toLogin() {
@@ -86,14 +93,13 @@ public class AdminController {
     }
 
     // 搜索功能
-    @GetMapping("/search/{type}")
-    public String search(@PathVariable("type") String type,
+    @GetMapping("/search/{identity}")
+    public String search(@PathVariable("identity") String identity,
                          @RequestParam(value = "content", defaultValue = "") String content,
                          Model model) {
-        System.out.println(content);
         Object list;
-        // 根据类型判断
-        switch(type) {
+        // 根据身份类型判断
+        switch(identity) {
             case "student":
                 list = studentService.searchStudentByKeyWord(content);
                 break;
@@ -104,11 +110,11 @@ public class AdminController {
                 list = userService.searchUserByKeyWord(content);
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + type);
+                return "/error";
         }
         // 发送给前端
-        model.addAttribute(type + "List", list);
-        return type + "/list";
+        model.addAttribute(identity + "List", list);
+        return identity + "/list";
     }
 
     /**
@@ -120,6 +126,7 @@ public class AdminController {
     public String stuList(Model model) {
         // 请求所有学生数据
         List<ResultStudent> studentList = studentService.selectAll();
+        model.addAttribute("commons", commons);
         model.addAttribute("studentList", studentList);
         return "student/list";
     }
@@ -157,7 +164,7 @@ public class AdminController {
         // 获取所有班级数据
         List<Class> classList = classRepository.findAll();
         model.addAttribute("classList", classList);
-
+        model.addAttribute("commons", commons);
         return "student/update";
     }
 
@@ -279,7 +286,7 @@ public class AdminController {
 
     @GetMapping("/top/noPass/{id}")
     public String noPassTopic(@PathVariable("id") Integer id,
-                            @RequestParam("path") String currentPath) {
+                              @RequestParam("path") String currentPath) {
         int i = topicService.noPassTopicById(id); // 通过审核
         return "redirect:/admin/top/" + currentPath;
     }
@@ -341,11 +348,11 @@ public class AdminController {
     }
 
     @GetMapping("/user/update/{id}")
-    public String toUserUpdate(@PathVariable("id")String userId, Model model) {
+    public String toUserUpdate(@PathVariable("id")String userId,
+                               Model model) {
         // 查询用户数据
         User user = userService.findById(userId);
         // 由于密码使用了md5加密，需要解密后展示到界面
-
         model.addAttribute("user", user);
         return "user/update";
     }

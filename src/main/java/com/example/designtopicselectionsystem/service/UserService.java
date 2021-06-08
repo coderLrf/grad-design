@@ -1,5 +1,7 @@
 package com.example.designtopicselectionsystem.service;
 
+import com.example.designtopicselectionsystem.domain.Student;
+import com.example.designtopicselectionsystem.domain.Teacher;
 import com.example.designtopicselectionsystem.domain.User;
 import com.example.designtopicselectionsystem.mapper.UserMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
@@ -20,6 +22,12 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private TeacherService teacherService;
 
     // 查询所有用户
     public List<User> findAll() {
@@ -50,6 +58,8 @@ public class UserService {
 
     // 更新用户
     public int updateUser(User user) {
+        String password = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+        user.setPassword(password);
         return userMapper.updateUser(user);
     }
 
@@ -95,6 +105,21 @@ public class UserService {
             return ResponseJsonUtil.error(-1, "icon上传失败.");
         }
         return ResponseJsonUtil.success("icon上传成功.");
+    }
+
+    // 用户保存个人信息
+    public ResponseJson saveUserMessage(String identity, Object object) {
+        // 判断身份
+        if(identity.equals("student")) {
+            Student student = (Student) object;
+            studentService.update(student);
+        } else if(identity.equals("teacher")) {
+            Teacher teacher = (Teacher) object;
+            teacherService.update(teacher);
+        } else {
+            return ResponseJsonUtil.error(-1, "身份错误.");
+        }
+        return ResponseJsonUtil.success("信息保存成功.");
     }
 
 }
