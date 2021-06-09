@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * 用户前端页面进行交互，API接口
+ */
 @CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api")
@@ -79,11 +81,6 @@ public class ApiController {
     public ResponseJson uploadIcon(MultipartFile iconUpload, @PathVariable("id") String userId) {
         return userService.uploadIcon(iconUpload, userId);
     }
-
-//    @PostMapping("/user/save/{identity}")
-//    public ResponseJson saveUserMessage(@PathVariable("identity") String identity) {
-//        return userService.saveUserMessage(identity, object);
-//    }
 
     /*
      * 学生相关Api
@@ -183,7 +180,7 @@ public class ApiController {
      */
 
     /**
-     * 返回学生列表
+     * 返回预选了该教师的学生列表
      * @param teacherId 教师id
      * @return 返回所有预选该教师课题的学生
      */
@@ -191,6 +188,12 @@ public class ApiController {
     public ResponseJson selectPrimaryTopic(@RequestParam(value = "teacherId", required = false)Integer teacherId) {
         if(teacherId == null) return ResponseJsonUtil.error(-1, "参数不能为空.");
         return selectTopicService.selectPrimaryTopic(teacherId);
+    }
+
+    @GetMapping("/teacher/primary/ok")
+    public ResponseJson okSelectPrimary(@RequestParam(value = "teacherId", required = false) Integer teacherId) {
+        if(teacherId == null) return ResponseJsonUtil.error(-1, "参数不能为空.");
+        return selectTopicService.okSelectPrimary(teacherId);
     }
 
     /**
@@ -208,7 +211,7 @@ public class ApiController {
      * 定选一个学生的课题
      * @param topicId 课题id
      * @param studentId 学生id
-     * @return 预选结果
+     * @return 定选结果
      */
     @PostMapping("/topic/selectPrimary")
     public ResponseJson selectPrimaryStudent(@RequestParam(value = "topicId", required = false)Integer topicId,
@@ -217,12 +220,10 @@ public class ApiController {
             return ResponseJsonUtil.error(-1, "参数不能为空.");
         }
         int row = studentService.selectPrimary(topicId, studentId);
-        System.out.println("row:" + row);
         if(row != 0) {
             // 在学生选择了该课题后，需要删除该学生预选的其他课题
             selectTopicService.deleteSelectTopic(studentId); // 删除预选课题
             return ResponseJsonUtil.success("成功定选课题.");
-
         }
         return ResponseJsonUtil.error(-1, "选题失败.");
     }

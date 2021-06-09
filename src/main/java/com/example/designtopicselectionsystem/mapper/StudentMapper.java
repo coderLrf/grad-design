@@ -20,8 +20,6 @@ public interface StudentMapper {
             "where t.title_no = stu.topic_no and stu.student_no = #{id} and tea.teacher_no = t.teacher_no")
     public ResultTopic selectPrimaryTopic(Integer id);
 
-
-
     // 获得下一个自增id的值
     @Select("select max(student_no) from student")
     public Integer selectNextStudentId();

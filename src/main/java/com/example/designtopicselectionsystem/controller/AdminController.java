@@ -170,14 +170,15 @@ public class AdminController {
 
     @PostMapping("/stu/update")
     public String stuUpdate(Student student) {
-        int update = studentService.update(student);
+        studentService.update(student);
         return "redirect:list";
     }
 
     @GetMapping("/stu/delete/{id}")
     public String stuDelete(@PathVariable("id") Integer id) {
-        int delete = studentService.delete(id);
-        System.out.println(delete);
+        studentService.delete(id);
+        // 删除对应学生用户
+        userService.deleteUser(id + "");
         return "redirect:/admin/stu/list";
     }
 
@@ -242,9 +243,12 @@ public class AdminController {
         return "redirect:list";
     }
 
+    // 删除一名教师
     @GetMapping("/tea/delete/{id}")
     public String teaDelete(@PathVariable("id")Integer id) {
         teacherService.delete(id);
+        // 删除对应教师用户
+        userService.deleteUser(id + "");
         return "redirect:/admin/tea/list";
     }
 
@@ -347,6 +351,7 @@ public class AdminController {
         return "redirect:add";
     }
 
+    // 到修改用户页面
     @GetMapping("/user/update/{id}")
     public String toUserUpdate(@PathVariable("id")String userId,
                                Model model) {
@@ -357,6 +362,7 @@ public class AdminController {
         return "user/update";
     }
 
+    // 修改用户
     @PostMapping("/user/update")
     public String userUpdate(User user) {
         int row = userService.updateUser(user);
@@ -366,6 +372,7 @@ public class AdminController {
         return "redirect:update";
     }
 
+    // 删除用户
     @GetMapping("/user/delete/{id}")
     public String userDelete(@PathVariable("id") String userId) {
         // 删除对应学生或者教师

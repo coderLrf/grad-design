@@ -15,6 +15,10 @@ public class SelectTopicService {
     @Autowired
     private SelectTopicMapper selectTopicMapper;
 
+    @Autowired
+    private StudentService studentService;
+
+    // 预选一个课题
     public ResponseJson primaryTopic(Integer topicId, Integer studentId) {
         SelectTopic selectTopic = new SelectTopic();
         Student student = new Student();
@@ -52,6 +56,13 @@ public class SelectTopicService {
 
     // 查询已经预选了的课题
     public ResponseJson alreadySelectTopic(Integer studentId) {
+
+        // 判断该学生是否有定选课题，如果已经有了定选课题，则不能进行预选课题
+        ResultTopic topic = selectTopicMapper.okTopicByStudentId(studentId);
+        if(topic != null) { // 如果已经存在了定选课题
+            return ResponseJsonUtil.successData(topic, "已经存在定选课题，不能进行预选课题.");
+        }
+        // 没有定选课题
         List<ResultTopic> topicList = selectTopicMapper.alreadySelectTopic(studentId);
         return ResponseJsonUtil.successData(topicList);
     }
@@ -72,5 +83,11 @@ public class SelectTopicService {
             return ResponseJsonUtil.success("退选成功.");
         }
         return ResponseJsonUtil.error(-1, "退选失败.");
+    }
+
+    // 返回该教室已经定选了课题所有学生
+    public ResponseJson okSelectPrimary(Integer teacherId) {
+        List<Student> studentList = selectTopicMapper.okSelectPrimary(teacherId);
+        return ResponseJsonUtil.successData(studentList);
     }
 }

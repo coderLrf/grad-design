@@ -1,9 +1,6 @@
 package com.example.designtopicselectionsystem.mapper;
 
-import com.example.designtopicselectionsystem.domain.ResultSelectTopic;
-import com.example.designtopicselectionsystem.domain.ResultTopic;
-import com.example.designtopicselectionsystem.domain.SelectTopic;
-import com.example.designtopicselectionsystem.domain.Topic;
+import com.example.designtopicselectionsystem.domain.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -26,6 +23,16 @@ public interface SelectTopicMapper {
     @Select("select t.*, tea.teacher_name from topic t, teacher tea " +
             "where t.teacher_no = tea.teacher_no and title_no in(select title_no from selectTopic where student_no = #{studentId})")
     public List<ResultTopic> alreadySelectTopic(Integer studentId);
+
+    // 查询该学生定选的课题
+    @Select("select * from topic t, student stu, teacher tea " +
+            "where t.title_no = stu.topic_no and stu.student_no = #{id} and tea.teacher_no = t.teacher_no")
+    public ResultTopic okTopicByStudentId(Integer id);
+
+    // 查询该教师已经定选课题的所有学生
+    @Select("select * from student stu, topic t " +
+            "where t.teacher_no = #{teacherId} and t.title_no = stu.topic_no")
+    public List<Student> okSelectPrimary(Integer teacherId);
 
     // 预选一个课题
     @Insert("insert into selectTopic(title_no, student_no) values(#{topic.topicId}, #{student.student_no})")
