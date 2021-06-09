@@ -126,7 +126,7 @@ public class AdminController {
     public String stuList(Model model) {
         // 请求所有学生数据
         List<ResultStudent> studentList = studentService.selectAll();
-        model.addAttribute("commons", commons);
+//        model.addAttribute("commons", commons);
         model.addAttribute("studentList", studentList);
         return "student/list";
     }
@@ -164,7 +164,7 @@ public class AdminController {
         // 获取所有班级数据
         List<Class> classList = classRepository.findAll();
         model.addAttribute("classList", classList);
-        model.addAttribute("commons", commons);
+//        model.addAttribute("commons", commons);
         return "student/update";
     }
 

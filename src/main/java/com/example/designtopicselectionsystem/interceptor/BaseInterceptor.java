@@ -1,5 +1,7 @@
 package com.example.designtopicselectionsystem.interceptor;
 
+import com.example.designtopicselectionsystem.utils.Commons;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 public class BaseInterceptor implements HandlerInterceptor {
+
+    @Autowired
+    private Commons commons;
 
     // 访问之前
     @Override
@@ -33,6 +38,9 @@ public class BaseInterceptor implements HandlerInterceptor {
 //        System.out.println("拦截了");
 //        String content = request.getParameter("content");
 //        System.out.println(content);
+
+        request.setAttribute("commons", commons);
+
     }
 
 }

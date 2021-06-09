@@ -43,7 +43,7 @@ public class UserService {
 
     // 根据关键字搜索用户
     public List<User> searchUserByKeyWord(String content) {
-        content += "%";
+        content = "%" + content + "%";
         return userMapper.searchUser(content);
     }
 

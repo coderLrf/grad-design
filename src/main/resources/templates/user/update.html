@@ -196,10 +196,12 @@
                                     <label class=" control-label">身份：</label>
                                     <div class="col-sm-3 sex" id="identity">
                                         <label for="student" style="margin-right: 8px;">
-                                            <input type="radio" name="identity" id="student" value="学生" disabled th:checked="${user.getIdentity() == '学生'}">学生
+                                            <input type="hidden" th:if="${user.getIdentity() == '学生'}" name="identity" id="student" value="学生">
+                                            <input type="radio" disabled th:checked="${user.getIdentity() == '学生'}">学生
                                         </label>
                                         <label for="teacher">
-                                            <input type="radio" name="identity" id="teacher" value="教师" disabled th:checked="${user.getIdentity() == '教师'}">教师
+                                            <input type="hidden" th:if="${user.getIdentity() == '教师'}" name="identity" id="teacher" value="教师">
+                                            <input type="radio" disabled th:checked="${user.getIdentity() == '教师'}">教师
                                         </label>
                                     </div>
                                 </div>

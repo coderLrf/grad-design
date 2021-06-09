@@ -20,6 +20,7 @@
 
         #side-menu > li {
             width: 100%;
+            margin: 3px 0;
         }
 
         #side-menu > li > ul {
@@ -160,14 +161,14 @@
 
         .nav-second-level li{
             padding: 10px 0 10px 15px;
-            background-color: rgba(9, 57, 59, 1);
+            background: #2C3A47;
             box-sizing: border-box;
         }
     </style>
 </div>
 
 <!-- 侧边栏 -->
-<nav class="navbar-default navbar-static-side" role="navigation" th:fragment="sidebar" style="background: #3a3a3a">
+<nav class="navbar-default navbar-static-side" role="navigation" th:fragment="sidebar" style="background: #006266">
     <div class="sidebar-collapse">
         <ul class="nav" id="side-menu">
             <li
@@ -180,29 +181,14 @@
             <li th:class="${active == 'userList' ? 'active' : ''}">
                 <a th:href="@{/admin/user/list}"><span class="nav-label">用户管理</span><span
                         class=""></span></a>
-<!--                <ul class="nav nav-second-level">-->
-<!--                    <li th:class="${index == 1 && active == 'userList' ? 'active' : ''}">-->
-<!--                        <a th:href="@{/admin/user/list}">用户列表</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
             </li>
             <li th:class="${active == 'stuList' ? 'active' : ''}">
                 <a th:href="@{/admin/stu/list}"><span class="nav-label">学生管理</span><span
                         class=""></span></a>
-<!--                <ul class="nav nav-second-level">-->
-<!--                    <li th:class="${index == 1 && active == 'stuList' ? 'active' : ''}">-->
-<!--                        <a th:href="@{/admin/stu/list}">学生列表</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
             </li>
             <li th:class="${active == 'teaList' ? 'active' : ''}">
                 <a th:href="@{/admin/tea/list}"><span class="nav-label">教师管理</span><span
                         class=""></span></a>
-<!--                <ul class="nav nav-second-level">-->
-<!--                    <li th:class="${index == 1 && active == 'teaList' ? 'active' : ''}">-->
-<!--                        <a th:href="@{/admin/tea/list}">教师列表</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
             </li>
             <li th:class="${active == 'topic' ? 'active' : ''}">
                 <a href="javascript:void(0)"><span class="nav-label">课题管理</span><span

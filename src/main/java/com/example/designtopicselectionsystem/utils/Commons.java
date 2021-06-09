@@ -22,4 +22,23 @@ public class Commons {
         return format.format(date);
     }
 
+    /**
+     * 返回教师等级
+     * @param degree 1 | 2 | 3
+     * @return 等级
+     */
+    public static String getDegree(String degree) {
+        switch(degree) {
+            case "1":
+                degree = "初级教师";
+                break;
+            case "2":
+                degree = "中级教师";
+                break;
+            case "3":
+                degree = "高级教师";
+        }
+        return degree;
+    }
+
 }

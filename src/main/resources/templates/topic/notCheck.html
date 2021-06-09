@@ -68,7 +68,7 @@
                                         <td th:text="${topic.getTeacher_name()}"></td>
                                         <td>未通过审核</td>
                                         <td>
-                                            <a class="btn btn-xs btn-primary" th:href="@{/admin/top/pass/{id}(id = ${topic.getTitle_no()}, path = 'notCheck')}">通过</a>
+                                            <a class="btn btn-xs btn-primary" disabled>通过</a>
                                         </td>
                                     </tr>
                                     <h3 th:if="${#lists.isEmpty(notTopicList)}">数据为空</h3>

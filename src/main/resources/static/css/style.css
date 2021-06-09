@@ -84,10 +84,16 @@ body {
 .ibox-content tbody tr {
   display: flex;
   width: 100%;
+  vertical-align: middle;
 }
 
-.ibox-content tbody tr td {
+.ibox-content tbody tr:hover {
+  background: #dfe4ea;
+}
+
+.ibox-content tbody tr > td {
   flex: 1;
+  line-height: 50px;
 }
 
 .ibox-content tbody tr td:nth-last-child(1) > a {
@@ -130,43 +136,30 @@ body {
 
 .nav > li > a {
   display: block;
-  color: #a7b1c2;
+  color: #d1ccc0;
   font-weight: 600;
   padding: 14px 20px 14px 40px;
 }
 .nav.navbar-right > li > a {
-  color: #999c9e;
+  color: #d1ccc0;
 }
-.nav > li.active > a {
-  color: #ffffff;
-}
-
-/* .navbar-default .nav-second-level > li:hover {
-  background-color: rgba(39, 122, 255, 1);
-} */
-
-.navbar-default .nav > li > a:hover {
-  background-color: transparent;
-  color: white; 
+.nav#side-menu > li.active > a {
+  color: whitesmoke;
+  background: #218c74;
 }
 
-.navbar-default .nav > li > a:focus {
-  /*background-color: rgba(39, 122, 255, 1);*/
-  color: white;
+.navbar-default #side-menu > li > a:hover {
+  background-color: #218c74;
+  color: whitesmoke;
 }
-
-.navbar-default .nav > li > a:focus {
-  background-color: transparent;
-}
-
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
-  background: #fff;
+  /*background: #fff;*/
 }
 .nav.navbar-top-links > li > a:hover,
 .nav.navbar-top-links > li > a:focus {
-  background-color: transparent;
+
 }
 .nav > li > a i {
   margin-right: 6px;
@@ -274,12 +267,15 @@ body.body-small .navbar-top-links li:last-child {
   transition: all 0.5s;
 }
 .nav > li.active {
-  background-color: transparent;
+  /*background-color: transparent;*/
 }
 .nav.nav-second-level > li.active {
   border: none;
-  background-color: rgba(15, 75, 65, 1);
-  /*background: #2e2e2e;*/
+  /*background-color: rgba(15, 75, 65, 1);*/
+}
+
+.nav.nav-second-level > li.active a {
+  color: whitesmoke;
 }
 .nav.nav-second-level.collapse[style] {
   height: auto !important;
@@ -339,7 +335,8 @@ body.body-small .navbar-top-links li:last-child {
 }
 
 .nav-second-level li:hover a {
-  color: rgba(255, 255, 255, 1);
+  color: whitesmoke;
+  background: transparent;
 }
 .nav-second-level li a {
   padding: 7px 10px 7px 10px;
@@ -352,9 +349,7 @@ body.body-small .navbar-top-links li:last-child {
 .nav-third-level li a {
   padding-left: 62px;
 }
-/* .nav-second-level li:last-child {
-  margin-bottom: 10px;
-} */
+
 body:not(.fixed-sidebar):not(.canvas-menu).mini-navbar .nav li:hover > .nav-second-level,
 .mini-navbar .nav li:focus > .nav-second-level {
   display: block;
@@ -3250,7 +3245,6 @@ body.body-small .footer.fixed {
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
   border-top: 1px solid #e7eaec;
-  line-height: 1.42857;
   padding: 8px;
   vertical-align: top;
 }

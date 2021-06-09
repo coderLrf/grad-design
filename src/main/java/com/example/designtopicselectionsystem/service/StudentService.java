@@ -42,7 +42,7 @@ public class StudentService {
 
     // 根据关键字搜索用户
     public List<ResultStudent> searchStudentByKeyWord(String content) {
-        content += "%";
+        content = "%" + content + "%";
         return resultStudentMapper.searchStudent(content);
     }
 

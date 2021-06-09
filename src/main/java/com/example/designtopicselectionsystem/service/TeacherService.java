@@ -52,7 +52,7 @@ public class TeacherService {
 
     // 根据关键字搜索用户
     public List<ResultTeacher> searchTeacherByKeyWord(String content) {
-        content += "%";
+        content = "%" + content + "%";
         return resultTeacherMapper.searchTeacher(content);
     }
 
@@ -98,5 +98,4 @@ public class TeacherService {
         }
         return ResponseJsonUtil.error(-1, "信息保存失败.");
     }
-
 }
