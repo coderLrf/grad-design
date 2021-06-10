@@ -20,6 +20,11 @@ public class SelectTopicService {
 
     // 预选一个课题
     public ResponseJson primaryTopic(Integer topicId, Integer studentId) {
+        // 判断该学生是否有定选课题，如果已经有了定选课题，则不能进行预选课题
+        ResultTopic newTopic = selectTopicMapper.okTopicByStudentId(studentId);
+        if(newTopic != null) { // 如果已经存在了定选课题
+            return ResponseJsonUtil.successData(newTopic, "已经存在定选课题，不能进行预选课题.");
+        }
         SelectTopic selectTopic = new SelectTopic();
         Student student = new Student();
         Topic topic = new Topic();
@@ -56,7 +61,6 @@ public class SelectTopicService {
 
     // 查询已经预选了的课题
     public ResponseJson alreadySelectTopic(Integer studentId) {
-
         // 判断该学生是否有定选课题，如果已经有了定选课题，则不能进行预选课题
         ResultTopic topic = selectTopicMapper.okTopicByStudentId(studentId);
         if(topic != null) { // 如果已经存在了定选课题

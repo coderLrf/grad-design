@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 // 登录业务逻辑层
 @Service
 public class LoginService {
@@ -25,7 +28,7 @@ public class LoginService {
      * @param user 用户对象
      * @return 登录结果
      */
-    public ResponseJson login(User user) {
+    public ResponseJson login(HttpServletRequest request, User user) {
         // 拿到前端传过来的账号密码，查询数据库看看是否正确
         String userNo = user.getUser_no();
         User u = userService.findById(userNo);
@@ -52,7 +55,9 @@ public class LoginService {
                     o = teacherService.findById(Integer.parseInt(u.getUser_no()));
                     break;
             }
-            System.out.println(o);
+            // 保存到session
+            HttpSession session = request.getSession();
+            session.setAttribute("user", o);
             // 登录成功
             return ResponseJsonUtil.successData(o, "登录成功.");
         }

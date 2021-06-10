@@ -50,8 +50,9 @@ public class ApiController {
      * @return 登录结果（response）
      */
     @PostMapping("/login") // 登录接口
-    public ResponseJson login(@RequestBody User user) {
-        return loginService.login(user);
+    public ResponseJson login(HttpServletRequest request,
+                              @RequestBody User user) {
+        return loginService.login(request, user);
     }
 
     /**
@@ -69,6 +70,12 @@ public class ApiController {
             return ResponseJsonUtil.error(-1, "参数不能为空.");
         }
         return loginService.passwordUpdate(userId, oldPassword, newPassword);
+    }
+
+    // 获取当前登录的用户对象
+    @GetMapping("/user/get")
+    public ResponseJson getUser(HttpServletRequest request) {
+        return userService.getUser(request);
     }
 
     /**
@@ -202,7 +209,7 @@ public class ApiController {
      * @return 返回课题列表
      */
     @GetMapping("/teacher/list")
-    public ResponseJson selectTopicById(@RequestParam(value = "topicId")Integer teacherId) {
+    public ResponseJson selectTopicById(@RequestParam(value = "teacherId")Integer teacherId) {
         List<ResultTopic> topicList = topicService.selectTopicByTeacherId(teacherId);
         return ResponseJsonUtil.successData(topicList);
     }

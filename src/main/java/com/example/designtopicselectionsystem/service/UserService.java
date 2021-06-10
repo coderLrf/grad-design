@@ -12,6 +12,8 @@ import org.springframework.util.DigestUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -82,6 +84,16 @@ public class UserService {
     // 获取用户icon
     public String selectIconById(String userId) {
         return userMapper.selectIconById(userId);
+    }
+
+    // 获取当前登录的用户对象
+    public ResponseJson getUser(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object user = session.getAttribute("user");
+        if(user == null) {
+            return ResponseJsonUtil.error(-1, "您还未登录，请先登录.");
+        }
+        return ResponseJsonUtil.successData(user, "获取用户对象成功.");
     }
 
     // 用户上传头像
