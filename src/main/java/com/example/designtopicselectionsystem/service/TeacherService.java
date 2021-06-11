@@ -1,16 +1,19 @@
 package com.example.designtopicselectionsystem.service;
 
 import com.example.designtopicselectionsystem.domain.*;
+import com.example.designtopicselectionsystem.mapper.InstituteMapper;
 import com.example.designtopicselectionsystem.mapper.ResultTeacherMapper;
 import com.example.designtopicselectionsystem.mapper.TeacherMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class TeacherService {
 
     @Autowired
@@ -18,6 +21,9 @@ public class TeacherService {
 
     @Autowired
     private ResultTeacherMapper resultTeacherMapper;
+
+    @Autowired
+    private InstituteMapper instituteMapper;
 
     @Autowired
     private UserService userService;
@@ -46,6 +52,9 @@ public class TeacherService {
 
     public Teacher findById(Integer id) {
         Teacher teacher = teacherMapper.selectById(id);
+        // 根据教师的学院编号查询学院名称
+        teacher.setInstitute_name(instituteMapper.findInstituteById(teacher.getInstitute_no()));
+        // 根据教师编号查询该教师icon
         teacher.setUserIcon(userService.selectIconById(id + ""));
         return teacher;
     }

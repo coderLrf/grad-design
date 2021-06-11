@@ -9,6 +9,8 @@ public class ResultSelectTopic {
     private String title_desc;
     private String student_name;
     private Integer student_no;
+    private Integer class_no;
+    private String class_name;
     private String sex;
 
     public Integer getTitle_no() {
@@ -49,6 +51,22 @@ public class ResultSelectTopic {
 
     public void setStudent_no(Integer student_no) {
         this.student_no = student_no;
+    }
+
+    public Integer getClass_no() {
+        return class_no;
+    }
+
+    public void setClass_no(Integer class_no) {
+        this.class_no = class_no;
+    }
+
+    public String getClass_name() {
+        return class_name;
+    }
+
+    public void setClass_name(String class_name) {
+        this.class_name = class_name;
     }
 
     public String getSex() {

@@ -1,15 +1,18 @@
 package com.example.designtopicselectionsystem.service;
 
 import com.example.designtopicselectionsystem.domain.*;
+import com.example.designtopicselectionsystem.mapper.ClassMapper;
 import com.example.designtopicselectionsystem.mapper.SelectTopicMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class SelectTopicService {
 
     @Autowired
@@ -17,6 +20,9 @@ public class SelectTopicService {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private ClassService classService;
 
     // 预选一个课题
     public ResponseJson primaryTopic(Integer topicId, Integer studentId) {
@@ -42,6 +48,11 @@ public class SelectTopicService {
     // 根据教师id查询教师预选课题的学生
     public ResponseJson selectPrimaryTopic(Integer teacherId) {
         List<ResultSelectTopic> selectTopicList = selectTopicMapper.selectByTeacherId(teacherId);
+        // 循环遍历重新请求班级
+        for (ResultSelectTopic resultSelectTopic : selectTopicList) {
+            String className = classService.getClassName(resultSelectTopic.getClass_no());
+            resultSelectTopic.setClass_name(className);
+        }
         return ResponseJsonUtil.successData(selectTopicList);
     }
 

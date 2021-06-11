@@ -2,23 +2,32 @@ package com.example.designtopicselectionsystem.service;
 
 import com.example.designtopicselectionsystem.domain.ResultTopic;
 import com.example.designtopicselectionsystem.domain.Topic;
+import com.example.designtopicselectionsystem.mapper.SelectTopicMapper;
 import com.example.designtopicselectionsystem.mapper.TopicMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class TopicService {
 
     @Autowired
     private TopicMapper topicMapper;
 
+    @Autowired
+    private SelectTopicMapper selectTopicMapper;
+
+    @Autowired
+    private StudentService studentService;
+
     // 查询所有通过审核的课题 tow
-    public List<ResultTopic> findByAdmissionTrueTow() {
-        List<ResultTopic> admissionList = topicMapper.selectByAdmission("是");
+    public List<ResultTopic> findByAdmissionTrueTow(String type) {
+        List<ResultTopic> admissionList = topicMapper.selectByAdmission(type);
         return admissionList;
     }
 
@@ -35,8 +44,14 @@ public class TopicService {
     }
 
     // 通过教师id查询课题（所有）
-    public List<ResultTopic> selectTopicByTeacherId(Integer id) {
-        return topicMapper.selectTopicByTeacherId(id);
+    public List<ResultTopic> selectTopicByTeacherId(Integer teacherId, String type) {
+        if(type.equals("ok")) {
+            return topicMapper.selectTopicByTeacherIdAndType(teacherId, "是");
+        } else if(type.equals("pass")) {
+            return topicMapper.selectTopicByTeacherIdAndType(teacherId, "否");
+        } else {
+            return topicMapper.selectTopicByTeacherId(teacherId);
+        }
     }
 
     // 查询该课题定选的人数
@@ -64,5 +79,20 @@ public class TopicService {
             return ResponseJsonUtil.success("课题添加成功.");
         }
         return ResponseJsonUtil.error(-1, "课题添加失败.");
+    }
+
+    // 教师修改一个课题
+    public ResponseJson updateTopic(Topic topic) {
+        topicMapper.updateTopic(topic);
+        return ResponseJsonUtil.success("修改成功.");
+    }
+
+    // 教师删除一个课题
+    public ResponseJson deleteTopic(Integer topicId) {
+        // 删除课题之前，先将定选了该课题的学生清空和预选了该课题的学生进行删除
+        studentService.deleteStudentTopic(topicId);
+        selectTopicMapper.deleteSelectTopicById(topicId);
+        topicMapper.deleteTopic(topicId);
+        return ResponseJsonUtil.success("删除成功.");
     }
 }

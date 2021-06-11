@@ -14,6 +14,7 @@ public class Teacher {
     private String sex; // 教师性别
     private String degree; // 教师学位
     private String institute_no; // 学院编号
+    private String institute_name; // 学院名称
     private String userIcon; // 用户的icon
 
     public Teacher() {
@@ -61,6 +62,14 @@ public class Teacher {
 
     public void setInstitute_no(String institute_no) {
         this.institute_no = institute_no;
+    }
+
+    public String getInstitute_name() {
+        return institute_name;
+    }
+
+    public void setInstitute_name(String institute_name) {
+        this.institute_name = institute_name;
     }
 
     public String getUserIcon() {

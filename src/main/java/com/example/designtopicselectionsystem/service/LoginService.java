@@ -56,8 +56,8 @@ public class LoginService {
                     break;
             }
             // 保存到session
-            HttpSession session = request.getSession();
-            session.setAttribute("user", o);
+//            HttpSession session = request.getSession();
+//            session.setAttribute("user", o);
             // 登录成功
             return ResponseJsonUtil.successData(o, "登录成功.");
         }

@@ -124,17 +124,6 @@ class DesignTopicSelectionSystemApplicationTests {
         }
     }
 
-    @Test
-    void selectTopic() {
-        List<ResultTopic> byAdmissionTrueTow = topicService.findByAdmissionTrueTow();
-        for (ResultTopic topic : byAdmissionTrueTow) {
-            System.out.println(topic);
-        }
-    }
-
-    @Autowired
-    private SelectTopicService selectTopicService;
-
     @Autowired
     private SelectTopicMapper selectTopicMapper;
 

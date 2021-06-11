@@ -11,7 +11,8 @@ public interface SelectTopicMapper {
     // 根据教师id查询教师预选课题的学生
     @Select("select * " +
             "from selectTopic st, topic t, teacher tea, student stu " +
-            "where st.title_no = t.title_no and tea.teacher_no = t.teacher_no and stu.student_no = st.student_no and tea.teacher_no = #{teacherId}")
+            "where st.title_no = t.title_no and tea.teacher_no = t.teacher_no " +
+            "and stu.student_no = st.student_no and tea.teacher_no = #{teacherId}")
     public List<ResultSelectTopic> selectByTeacherId(Integer teacherId);
 
     // 查询所有该学生可以预选的课题
@@ -41,6 +42,9 @@ public interface SelectTopicMapper {
     // 删除一个预选课题根据学生
     @Delete("delete from selectTopic where student_no = #{studentId}")
     public int deleteSelectTopic(Integer studentId);
+
+    @Delete("delete from selectTopic where title_no = #{topicId}")
+    public void deleteSelectTopicById(Integer topicId);
 
     // 删除一个预选课题根据学生id和教师id
     @Delete("delete from selectTopic where student_no = #{studentId} and title_no = #{topicId}")

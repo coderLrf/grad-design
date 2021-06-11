@@ -209,8 +209,9 @@ public class ApiController {
      * @return 返回课题列表
      */
     @GetMapping("/teacher/list")
-    public ResponseJson selectTopicById(@RequestParam(value = "teacherId")Integer teacherId) {
-        List<ResultTopic> topicList = topicService.selectTopicByTeacherId(teacherId);
+    public ResponseJson selectTopicById(@RequestParam(value = "teacherId")Integer teacherId,
+                                        @RequestParam(value = "type", defaultValue = "all") String type) {
+        List<ResultTopic> topicList = topicService.selectTopicByTeacherId(teacherId, type);
         return ResponseJsonUtil.successData(topicList);
     }
 
@@ -261,6 +262,32 @@ public class ApiController {
     }
 
     /**
+     * 教师修改一个课题
+     * @param topic 新的课题
+     * @return 修改结果
+     */
+    @PostMapping("/teacher/update")
+    public ResponseJson updateTopic(@RequestBody Topic topic) {
+        if(topic == null) {
+            return ResponseJsonUtil.error(-1, "参数不能为空.");
+        }
+        return topicService.updateTopic(topic);
+    }
+
+    /**
+     * 教师可以删除一个课题
+     * @param topicId 课题id
+     * @return 删除结果
+     */
+    @PostMapping("/teacher/delete")
+    public ResponseJson deleteTopic(@RequestParam("topicId") Integer topicId) {
+        if(topicId == null) {
+            return ResponseJsonUtil.error(-1, "参数不能为空.");
+        }
+        return topicService.deleteTopic(topicId);
+    }
+
+    /**
      * 用于教师上传任务书
      * @param topicId 课题id
      * @param fileUpload 上传的任务书
@@ -299,7 +326,7 @@ public class ApiController {
      */
     @GetMapping("/topic/pass") // 查询所有通过审核的课题
     public ResponseJson selectTopicPass() {
-        List<ResultTopic> topicList = topicService.findByAdmissionTrueTow();
+        List<ResultTopic> topicList = topicService.findByAdmissionTrueTow("是");
         return ResponseJsonUtil.successData(topicList);
     }
 
@@ -309,7 +336,7 @@ public class ApiController {
      */
     @GetMapping("/topic/no/pass") // 查询所有未通过审核的课题
     public ResponseJson selectTopicNoPass() {
-        List<ResultTopic> topicList = topicService.findByAdmissionFalse();
+        List<ResultTopic> topicList = topicService.findByAdmissionTrueTow("否");
         return ResponseJsonUtil.successData(topicList);
     }
 }

@@ -10,6 +10,7 @@ import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.transform.Result;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class StudentService {
 
     @Autowired
@@ -73,6 +75,12 @@ public class StudentService {
 
     public int delete(Integer id) {
         return studentMapper.deleteStudent(id);
+    }
+
+    // 根据课题id清空学生课题
+    public void deleteStudentTopic(Integer topicId) {
+        System.out.println(topicId);
+        studentMapper.deleteStudentTopic(topicId);
     }
 
     // 选择一个课题

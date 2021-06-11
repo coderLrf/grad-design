@@ -10,7 +10,6 @@ public class ResultTeacherUser {
     private String identity; // 身份：学生，教师，管理员
     private String sex; // 性别
     private String degree; // 职称
-    private List<Topic> primaryTopic; // 教师课题
 
     public String getUserNo() {
         return userNo;
@@ -52,14 +51,6 @@ public class ResultTeacherUser {
         this.degree = degree;
     }
 
-    public List<Topic> getPrimaryTopic() {
-        return primaryTopic;
-    }
-
-    public void setPrimaryTopic(List<Topic> primaryTopic) {
-        this.primaryTopic = primaryTopic;
-    }
-
     @Override
     public String toString() {
         return "ResultTeacherUser{" +
@@ -68,7 +59,6 @@ public class ResultTeacherUser {
                 ", identity='" + identity + '\'' +
                 ", sex='" + sex + '\'' +
                 ", degree='" + degree + '\'' +
-                ", primaryTopic=" + primaryTopic +
                 '}';
     }
 }

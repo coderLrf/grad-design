@@ -3,6 +3,7 @@ package com.example.designtopicselectionsystem.mapper;
 import com.example.designtopicselectionsystem.domain.ResultTopic;
 import com.example.designtopicselectionsystem.domain.Student;
 import org.apache.ibatis.annotations.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -37,9 +38,13 @@ public interface StudentMapper {
 
     // 确定选择一个课题
     @Update("update student set topic_no = #{topicId} where student_no = #{studentId}")
-    public int selectPrimary(@Param(value = "topicId")Integer topicId, @Param(value = "studentId")Integer studentId);
+    public int selectPrimary(@Param("topicId")Integer topicId, @Param("studentId")Integer studentId);
 
     @Delete("delete from student where student_no = #{id}")
     public int deleteStudent(Integer id);
+
+    // 删除课题对应学生清空
+    @Update("update student set topic_no = null where topic_no = #{topicId}")
+    public void deleteStudentTopic(Integer topicId);
 
 }

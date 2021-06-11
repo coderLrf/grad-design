@@ -15,8 +15,8 @@ public interface TopicMapper {
     public ResultTopic selectByTopicName(String topicName);
 
     // 查询所有需要审核的课题
-    @Select("select * from topic t, teacher tea where t.teacher_no = tea.teacher_no and admission = #{state}")
-    public List<ResultTopic> selectByAdmission(String state);
+    @Select("select * from topic t, teacher tea where t.teacher_no = tea.teacher_no and t.admission = #{type}")
+    public List<ResultTopic> selectByAdmission(String type);
 
     @Select("select * from topic t, teacher tea where t.teacher_no = tea.teacher_no and admission is null")
     public List<ResultTopic> wantExamineTopic();
@@ -29,8 +29,14 @@ public interface TopicMapper {
     @Select("select count(*) from student where topic_no = #{id}")
     public int selectCountByTopicId(Integer id);
 
+    // 查询教师的课题
     @Select("select * from topic t, teacher tea where t.teacher_no = #{teacherId} and t.teacher_no = tea.teacher_no")
     public List<ResultTopic> selectTopicByTeacherId(Integer teacherId);
+
+    // 根据状态查询该教师的课题
+    @Select("select * from topic t, teacher tea where t.teacher_no = tea.teacher_no and tea.teacher_no = #{teacherId} and t.admission = #{type}")
+    public List<ResultTopic> selectTopicByTeacherIdAndType(@Param("teacherId") Integer teacherId,
+                                                           @Param("type") String type);
 
     // 插入一条数据
     @Insert("insert into topic(title_name, title_desc, teacher_no) " +
@@ -40,7 +46,7 @@ public interface TopicMapper {
     // 修改一条数据
     @Update("update topic set title_name = #{topicName}, title_desc = #{topicDesc}, teacher_no = #{teacherId} " +
             "where title_no = #{topicId}")
-    public int updateTopic(Topic topic);
+    public void updateTopic(Topic topic);
 
     // 通过一个课题
     @Update("update topic set admission = '是' where title_no = ${id}")

@@ -268,7 +268,7 @@ public class AdminController {
     @GetMapping("/top/checked")
     public String toTopChecked(Model model) {
         // 查询所有已通过审核的课题
-        List<ResultTopic> topicList = topicService.findByAdmissionTrueTow();
+        List<ResultTopic> topicList = topicService.findByAdmissionTrueTow("是");
         model.addAttribute("topicListed", topicList);
         return "topic/checked";
     }
