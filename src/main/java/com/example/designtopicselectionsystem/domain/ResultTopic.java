@@ -8,6 +8,8 @@ public class ResultTopic {
     private String title_desc; // 课题描述
     private String teacher_name; // 教师姓名
     private String admission; // 是否通过审核
+    private String fileName; // 文件的名称
+    private File file; // 该课题任务书
 
     public Integer getTitle_no() {
         return title_no;
@@ -47,6 +49,22 @@ public class ResultTopic {
 
     public void setAdmission(String admission) {
         this.admission = admission;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 
     @Override

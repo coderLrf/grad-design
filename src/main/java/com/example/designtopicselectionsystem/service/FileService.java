@@ -3,8 +3,12 @@ package com.example.designtopicselectionsystem.service;
 import com.example.designtopicselectionsystem.mapper.FileMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
+import com.example.designtopicselectionsystem.utils.Commons;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,16 +29,20 @@ import java.util.UUID;
 import java.util.concurrent.Future;
 
 @Service
+@Transactional
 public class FileService {
 
     @Autowired
     private FileMapper fileMapper;
 
     public ResponseJson uploadFile(Integer topicId, MultipartFile fileUpload) {
+        // 上传之前先删除
+        fileMapper.deleteFile(topicId);
         // 获取文件名以及后缀名
         String fileName = fileUpload.getOriginalFilename();
         // 重新生成新的文件名（根据具体情况生成对应文件名）
         fileName = UUID.randomUUID() + "_" + fileName;
+        File file;
         try {
             // 指定上传文件本地存储目录（存储到静态资源目录下）
             String dirPath = ResourceUtils.getFile("classpath:").getPath() + "\\static\\upload\\file\\";
@@ -42,20 +51,22 @@ public class FileService {
             if(!dir.exists()) {
                 dir.mkdirs(); // 创建
             }
-            fileUpload.transferTo(new File(dirPath + fileName)); // 上传文件
+            // 创建一个需要上传的file
+            file = new File(dir.getAbsolutePath() + "\\" + fileName);
+            fileUpload.transferTo(file); // 上传文件
             fileMapper.uploadFile(topicId, fileName); // 保存到数据库
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseJsonUtil.error(-1, "文件上传失败.");
         }
-        return ResponseJsonUtil.success("文件上传成功.");
+        return ResponseJsonUtil.successData(file, "文件上传成功.");
     }
 
     // 文件的下载
     public ResponseEntity<byte[]> fileDownload(HttpServletRequest request, String fileId) {
         // 指定要下载的文件根路径
         try {
-            String dirPath = ResourceUtils.getFile("classpath:").getPath() + "\\static\\upload\\file";
+            String dirPath = ResourceUtils.getFile("classpath:").getPath() + "\\static\\upload\\file\\";
             // 创建该文件对象
             File file = new File(dirPath + File.separator + fileId);
             // 下载文件

@@ -6,6 +6,7 @@ public class File {
     private String file_id;
     private Integer topic_id;
     private String filename;
+    private String filePath; // 文件路径
 
     public String getFilename() {
         return filename;
@@ -37,5 +38,13 @@ public class File {
 
     public void setTopic_id(Integer topic_id) {
         this.topic_id = topic_id;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

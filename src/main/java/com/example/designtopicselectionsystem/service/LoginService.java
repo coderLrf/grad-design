@@ -55,9 +55,6 @@ public class LoginService {
                     o = teacherService.findById(Integer.parseInt(u.getUser_no()));
                     break;
             }
-            // 保存到session
-//            HttpSession session = request.getSession();
-//            session.setAttribute("user", o);
             // 登录成功
             return ResponseJsonUtil.successData(o, "登录成功.");
         }

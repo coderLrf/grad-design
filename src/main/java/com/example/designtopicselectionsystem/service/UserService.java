@@ -85,7 +85,9 @@ public class UserService {
 
     // 获取用户icon
     public String selectIconById(String userId) {
-        return userMapper.selectIconById(userId);
+        String userIcon = userMapper.selectIconById(userId);
+        userIcon = userIcon.substring(userIcon.lastIndexOf("\\static"));
+        return userIcon;
     }
 
     // 获取当前登录的用户对象
@@ -118,7 +120,7 @@ public class UserService {
             e.printStackTrace();
             return ResponseJsonUtil.error(-1, "icon上传失败.");
         }
-        return ResponseJsonUtil.success("icon上传成功.");
+        return ResponseJsonUtil.successData("\\static\\upload\\icon\\" + fileName ,"icon上传成功.");
     }
 
     // 用户保存个人信息

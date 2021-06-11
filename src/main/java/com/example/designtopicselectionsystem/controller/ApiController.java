@@ -9,12 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
  * 用户前端页面进行交互，API接口
  */
-@CrossOrigin(maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class ApiController {
@@ -85,7 +86,8 @@ public class ApiController {
      * @return Response
      */
     @PostMapping("/user/upload_icon/{id}")
-    public ResponseJson uploadIcon(MultipartFile iconUpload, @PathVariable("id") String userId) {
+    public ResponseJson uploadIcon(@RequestParam("iconUpload") MultipartFile iconUpload,
+                                   @PathVariable("id") String userId) {
         return userService.uploadIcon(iconUpload, userId);
     }
 
@@ -175,7 +177,8 @@ public class ApiController {
      * @return 状态
      */
     @PostMapping("/student/save")
-    public ResponseJson studentSaveMessage(MultipartFile iconUpload, @RequestBody Student student) {
+    public ResponseJson studentSaveMessage(MultipartFile iconUpload,
+                                           @RequestBody Student student) {
         if(!iconUpload.isEmpty()) {
             userService.uploadIcon(iconUpload, student.getStudent_no() + "");
         }
@@ -210,7 +213,7 @@ public class ApiController {
      */
     @GetMapping("/teacher/list")
     public ResponseJson selectTopicById(@RequestParam(value = "teacherId")Integer teacherId,
-                                        @RequestParam(value = "type", defaultValue = "all") String type) {
+                                        @RequestParam(value = "type", defaultValue = "all") String type) throws FileNotFoundException {
         List<ResultTopic> topicList = topicService.selectTopicByTeacherId(teacherId, type);
         return ResponseJsonUtil.successData(topicList);
     }
@@ -291,11 +294,11 @@ public class ApiController {
      * 用于教师上传任务书
      * @param topicId 课题id
      * @param fileUpload 上传的任务书
-     * @return 上传结果
+     * @return 上传的任务书
      */
     @PostMapping("/teacher/uploadFile/{id}")
     public ResponseJson teacherUploadFile(@PathVariable("id") Integer topicId,
-                                          MultipartFile fileUpload) {
+                                          @RequestParam("fileUpload") MultipartFile fileUpload) {
         if(fileUpload == null) {
             return ResponseJsonUtil.error(-1, "参数错误.");
         }
@@ -309,7 +312,8 @@ public class ApiController {
      * @return 状态
      */
     @PostMapping("/teacher/save")
-    public ResponseJson TeacherSaveMessage(MultipartFile iconUpload, @RequestBody Teacher teacher) {
+    public ResponseJson TeacherSaveMessage(MultipartFile iconUpload,
+                                           @RequestBody Teacher teacher) {
         if(!iconUpload.isEmpty()) {
             userService.uploadIcon(iconUpload, teacher.getTeacher_no() + "");
         }

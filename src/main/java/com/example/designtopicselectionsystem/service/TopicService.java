@@ -1,7 +1,9 @@
 package com.example.designtopicselectionsystem.service;
 
+import com.example.designtopicselectionsystem.domain.File;
 import com.example.designtopicselectionsystem.domain.ResultTopic;
 import com.example.designtopicselectionsystem.domain.Topic;
+import com.example.designtopicselectionsystem.mapper.FileMapper;
 import com.example.designtopicselectionsystem.mapper.SelectTopicMapper;
 import com.example.designtopicselectionsystem.mapper.TopicMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
@@ -9,7 +11,9 @@ import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @Service
@@ -24,6 +28,9 @@ public class TopicService {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private FileMapper fileMapper;
 
     // 查询所有通过审核的课题 tow
     public List<ResultTopic> findByAdmissionTrueTow(String type) {
@@ -44,14 +51,26 @@ public class TopicService {
     }
 
     // 通过教师id查询课题（所有）
-    public List<ResultTopic> selectTopicByTeacherId(Integer teacherId, String type) {
+    public List<ResultTopic> selectTopicByTeacherId(Integer teacherId, String type) throws FileNotFoundException {
+        List<ResultTopic> resultTopicList;
         if(type.equals("ok")) {
-            return topicMapper.selectTopicByTeacherIdAndType(teacherId, "是");
+            resultTopicList = topicMapper.selectTopicByTeacherIdAndType(teacherId, "是");
         } else if(type.equals("pass")) {
-            return topicMapper.selectTopicByTeacherIdAndType(teacherId, "否");
+            resultTopicList = topicMapper.selectTopicByTeacherIdAndType(teacherId, "否");
         } else {
-            return topicMapper.selectTopicByTeacherId(teacherId);
+            resultTopicList = topicMapper.selectTopicByTeacherId(teacherId);
         }
+        // 根据课题id查询文件
+        for (ResultTopic resultTopic : resultTopicList) {
+            File file = fileMapper.selectFilename(resultTopic.getTitle_no());
+            if(file == null) continue; // 如果文件为空，则跳过循环
+            String filename = file.getFile_id().substring(file.getFile_id().lastIndexOf("_") + 1); // 获取文件名
+            String dirPath = "\\static\\upload\\file\\";
+            file.setFilePath(dirPath + file.getFile_id());
+            resultTopic.setFileName(filename);
+            resultTopic.setFile(file);
+        }
+        return resultTopicList;
     }
 
     // 查询该课题定选的人数

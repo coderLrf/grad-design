@@ -1,7 +1,9 @@
 package com.example.designtopicselectionsystem.utils;
 
+import antlr.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,6 +41,12 @@ public class Commons {
                 degree = "高级教师";
         }
         return degree;
+    }
+
+    // 返回文件下载路径
+    public static String getDirPath() {
+        String dirPath = new File("src\\main\\resources\\static\\upload").getPath();
+        return dirPath;
     }
 
 }

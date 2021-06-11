@@ -1,10 +1,7 @@
 package com.example.designtopicselectionsystem.mapper;
 
 import com.example.designtopicselectionsystem.domain.File;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface FileMapper {
@@ -14,5 +11,11 @@ public interface FileMapper {
 
     @Select("select * from file where topic_id = #{topicId}")
     public File selectFilename(Integer topicId);
+
+    @Update("update file set file_id = #{fileName} where topic_id = #{topicId}")
+    public void updateFile(@Param("topicId") Integer topicId, @Param("fileName") String fileName);
+
+    @Delete("delete from file where topic_id = #{topicId}")
+    public void deleteFile(Integer topicId);
 
 }
