@@ -54,8 +54,12 @@ public class TeacherService {
         Teacher teacher = teacherMapper.selectById(id);
         // 根据教师的学院编号查询学院名称
         teacher.setInstitute_name(instituteMapper.findInstituteById(teacher.getInstitute_no()));
-        // 根据教师编号查询该教师icon
-        teacher.setUserIcon(userService.selectIconById(id + ""));
+        teacher.setIdentity("teacher");
+        String icon = userService.selectIconById(id + "");
+        if(icon != null) {
+            // 根据教师编号查询该教师icon如果不等于空的情况下
+            teacher.setUserIcon(icon);
+        }
         return teacher;
     }
 
@@ -106,5 +110,21 @@ public class TeacherService {
             return ResponseJsonUtil.success("信息保存成功.");
         }
         return ResponseJsonUtil.error(-1, "信息保存失败.");
+    }
+
+    public ResponseJson teacherUpdateDegree(String degree, Integer teacherId) {
+        degree += "教师";
+        teacherMapper.updateDegree(degree, teacherId);
+        return ResponseJsonUtil.success("修改成功.");
+    }
+
+    public ResponseJson updateInstitute(Integer instituteId, Integer teacherId) {
+        teacherMapper.updateInstitute(instituteId, teacherId);
+        return ResponseJsonUtil.success("修改成功.");
+    }
+
+    public ResponseJson getInstituteList() {
+        List<Institute> instituteList = instituteMapper.selectAll();
+        return ResponseJsonUtil.successData(instituteList);
     }
 }

@@ -90,9 +90,9 @@
                                     <div class="col-sm-6" style="display: flex">
                                         <select name="institute_no" id="classSelect">
                                             <option th:each="institute : ${instituteList}"
-                                                    th:text="${institute.getInstituteName()}"
-                                                    th:value="${institute.getInstituteId()}"
-                                                    th:selected="${institute.getInstituteId() == teacher.getInstitute_no()}">
+                                                    th:text="${institute.getInstitute_name()}"
+                                                    th:value="${institute.getInstitute_no()}"
+                                                    th:selected="${institute.getInstitute_no() == teacher.getInstitute_no()}">
                                             </option>
                                         </select>
                                     </div>

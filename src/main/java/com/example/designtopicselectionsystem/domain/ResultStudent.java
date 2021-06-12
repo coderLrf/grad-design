@@ -10,6 +10,7 @@ public class ResultStudent {
 
     private Date birthday; // 出生年月
     private String institute_name; // 系部
+    private Integer class_no;
     private String class_name; // 班级id
     private String major_name; // 专业名称
     private boolean isSelectTopic; // 是否已选有课题

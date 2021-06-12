@@ -16,6 +16,7 @@ public class Teacher {
     private String institute_no; // 学院编号
     private String institute_name; // 学院名称
     private String userIcon; // 用户的icon
+    private String identity; // 身份
 
     public Teacher() {
     }
@@ -79,5 +80,12 @@ public class Teacher {
     public void setUserIcon(String userIcon) {
         this.userIcon = userIcon;
     }
-    
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
 }

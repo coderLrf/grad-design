@@ -21,7 +21,6 @@ public class ResultStudentUser {
         this.identity = user.getIdentity();
         this.sex = stu.getSex();
         this.birthday = stu.getBirthday();
-        this.class_no = stu.getClass_no();
     }
 
     public String getUserNo() {

@@ -33,7 +33,7 @@ public interface SelectTopicMapper {
     // 查询该教师已经定选课题的所有学生
     @Select("select * from student stu, topic t " +
             "where t.teacher_no = #{teacherId} and t.title_no = stu.topic_no")
-    public List<Student> okSelectPrimary(Integer teacherId);
+    public List<ResultSelectTopic> okSelectPrimary(Integer teacherId);
 
     // 预选一个课题
     @Insert("insert into selectTopic(title_no, student_no) values(#{topic.topicId}, #{student.student_no})")

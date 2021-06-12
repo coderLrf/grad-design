@@ -10,9 +10,10 @@ public class Student {
     private String student_name; // 姓名
     private String sex; // 性别
     private Date birthday; // 出生年月
-    private String class_no; // 班级id
+    private Integer class_no; // 班级id
     private Integer topic_no; // 课题编号，定选后的课题
     private String userIcon; // 用户的icon
+    private String identity; // 身份
 
     public Student() {
     }
@@ -53,11 +54,11 @@ public class Student {
         this.birthday = birthday;
     }
 
-    public String getClass_no() {
+    public Integer getClass_no() {
         return class_no;
     }
 
-    public void setClass_no(String class_no) {
+    public void setClass_no(Integer class_no) {
         this.class_no = class_no;
     }
 
@@ -75,5 +76,13 @@ public class Student {
 
     public void setUserIcon(String userIcon) {
         this.userIcon = userIcon;
+    }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 }

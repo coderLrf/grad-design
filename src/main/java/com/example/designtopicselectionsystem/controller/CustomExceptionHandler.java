@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @ControllerAdvice // 全局异常捕捉
@@ -20,8 +21,21 @@ public class CustomExceptionHandler implements ErrorController {
     }
 
     @RequestMapping("/error")
-    public String handleError() {
-        return "error/error_404";
+    public String handleError(final HttpServletRequest request) {
+        // 获取错误状态码
+        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        // 判断类型
+        if(statusCode == 401) {
+            return "error/error_401";
+        } else if(statusCode == 404) {
+            return "error/error_404";
+        } else if(statusCode == 403) {
+            return "error/error_403";
+        } else if(statusCode == 400) {
+            return "error/error_400";
+        } else {
+            return "error/error_500";
+        }
     }
 
     @Override

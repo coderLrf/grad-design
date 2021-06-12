@@ -40,6 +40,12 @@ public interface TeacherMapper {
             "where teacher_no = #{teacher_no}")
     public int updateTeacher(Teacher teacher);
 
+    @Update("update teacher set degree = #{degree} where teacher_no = #{teacherId}")
+    public void updateDegree(@Param("degree") String degree, @Param("teacherId") Integer teacherId);
+
+    @Update("update teacher set institute_no = #{instituteId} where teacher_no = #{teacherId}")
+    public void updateInstitute(@Param("instituteId") Integer instituteId, @Param("teacherId") Integer teacherId);
+
     @Delete("delete from teacher where teacher_no = #{id}")
     public int deleteTeacher(Integer id);
 

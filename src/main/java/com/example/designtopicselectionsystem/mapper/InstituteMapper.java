@@ -12,7 +12,7 @@ public interface InstituteMapper {
     @Select("select institute_name from institute where institute_no = #{instituteId}")
     public String findInstituteById(String instituteId);
 
-    @Select("select institute_name from institute")
-    public List<Institute> findAll();
+    @Select("select * from institute")
+    public List<Institute> selectAll();
 
 }

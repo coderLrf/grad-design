@@ -91,8 +91,8 @@
                                     <div class="col-sm-6">
                                         <select name="institute_no">
                                             <option th:each="institute : ${instituteList}"
-                                                    th:text="${institute.getInstituteName()}"
-                                                    th:value="${institute.getInstituteId()}"></option>
+                                                    th:text="${institute.getInstitute_name()}"
+                                                    th:value="${institute.getInstitute_no()}"></option>
                                         </select>
                                     </div>
                                 </div>

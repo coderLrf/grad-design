@@ -2,10 +2,8 @@ package com.example.designtopicselectionsystem.controller;
 
 import com.example.designtopicselectionsystem.domain.*;
 import com.example.designtopicselectionsystem.domain.Class;
+import com.example.designtopicselectionsystem.mapper.InstituteMapper;
 import com.example.designtopicselectionsystem.repository.ClassRepository;
-import com.example.designtopicselectionsystem.repository.InstituteRepository;
-import com.example.designtopicselectionsystem.response.ResponseJson;
-import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
 import com.example.designtopicselectionsystem.service.StudentService;
 import com.example.designtopicselectionsystem.service.TeacherService;
 import com.example.designtopicselectionsystem.service.TopicService;
@@ -15,11 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -39,7 +33,7 @@ public class AdminController {
     private ClassRepository classRepository;
 
     @Autowired
-    private InstituteRepository instituteRepository;
+    private InstituteMapper instituteMapper;
 
     @Autowired
     private UserService userService;
@@ -202,7 +196,7 @@ public class AdminController {
         int lastId = teacherService.findLastId();
         model.addAttribute("lastId", lastId);
         // 请求所有学院数据
-        List<Institute> instituteList = instituteRepository.findAll();
+        List<Institute> instituteList = instituteMapper.selectAll();
         model.addAttribute("instituteList", instituteList);
 
         return "teacher/add";
@@ -230,7 +224,7 @@ public class AdminController {
         Teacher teacher = teacherService.findById(id);
         model.addAttribute("teacher", teacher);
         // 请求所有学院数据
-        List<Institute> instituteList = instituteRepository.findAll();
+        List<Institute> instituteList = instituteMapper.selectAll();
         model.addAttribute("instituteList", instituteList);
         return "teacher/update";
     }
@@ -357,7 +351,6 @@ public class AdminController {
                                Model model) {
         // 查询用户数据
         User user = userService.findById(userId);
-        // 由于密码使用了md5加密，需要解密后展示到界面
         model.addAttribute("user", user);
         return "user/update";
     }

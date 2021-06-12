@@ -200,6 +200,11 @@ public class ApiController {
         return selectTopicService.selectPrimaryTopic(teacherId);
     }
 
+    /**
+     * 返回该教师定选了该教师课题的所有学生
+     * @param teacherId 教师id
+     * @return 定选学生列表
+     */
     @GetMapping("/teacher/primary/ok")
     public ResponseJson okSelectPrimary(@RequestParam(value = "teacherId", required = false) Integer teacherId) {
         if(teacherId == null) return ResponseJsonUtil.error(-1, "参数不能为空.");
@@ -212,8 +217,9 @@ public class ApiController {
      * @return 返回课题列表
      */
     @GetMapping("/teacher/list")
-    public ResponseJson selectTopicById(@RequestParam(value = "teacherId")Integer teacherId,
+    public ResponseJson selectTopicById(@RequestParam(value = "teacherId", required = false)Integer teacherId,
                                         @RequestParam(value = "type", defaultValue = "all") String type) throws FileNotFoundException {
+        if(teacherId == null) return ResponseJsonUtil.error(-1, "参数不能为空.");
         List<ResultTopic> topicList = topicService.selectTopicByTeacherId(teacherId, type);
         return ResponseJsonUtil.successData(topicList);
     }
@@ -232,22 +238,25 @@ public class ApiController {
         }
         int row = studentService.selectPrimary(topicId, studentId);
         if(row != 0) {
-            // 在学生选择了该课题后，需要删除该学生预选的其他课题
-            selectTopicService.deleteSelectTopic(studentId); // 删除预选课题
+            // 在老师定选了该课题后，需要删除该学生预选的其他课题
+            selectTopicService.deleteSelectTopic(studentId); // 删除该学生的其他预选课题
             return ResponseJsonUtil.success("成功定选课题.");
         }
         return ResponseJsonUtil.error(-1, "选题失败.");
     }
 
     /**
-     * 教师可以不定选该学生的课题（不定选）
+     * 教师可以不定选该学生的课题（退选）
      * @param topicId 课题id
      * @param studentId 学生id
      * @return void
      */
     @PostMapping("/topic/no/passTopic")
-    public ResponseJson noPassPrimaryTopic(@RequestParam(value = "topicId")Integer topicId,
-                                           @RequestParam(value = "studentId")Integer studentId) {
+    public ResponseJson noPassPrimaryTopic(@RequestParam(value = "topicId", required = false)Integer topicId,
+                                           @RequestParam(value = "studentId", required = false)Integer studentId) {
+        if(topicId == null || studentId == null) {
+            return ResponseJsonUtil.error(-1, "参数不能为空.");
+        }
         return selectTopicService.deletePrimaryTopic(topicId, studentId);
     }
 
@@ -312,12 +321,51 @@ public class ApiController {
      * @return 状态
      */
     @PostMapping("/teacher/save")
-    public ResponseJson TeacherSaveMessage(MultipartFile iconUpload,
+    public ResponseJson teacherSaveMessage(MultipartFile iconUpload,
                                            @RequestBody Teacher teacher) {
         if(!iconUpload.isEmpty()) {
             userService.uploadIcon(iconUpload, teacher.getTeacher_no() + "");
         }
         return teacherService.teacherSaveMessage(teacher);
+    }
+
+    /**
+     * 修改职称
+     * @param degree 职称名称
+     * @param teacherId 教师id
+     * @return 修改结果
+     */
+    @GetMapping("/teacher/update/degree")
+    public ResponseJson teacherUpdateDegree(@RequestParam(value = "degree", required = false) String degree,
+                                            @RequestParam(value = "teacherId", required = false) Integer teacherId) {
+        if(degree == null || teacherId == null) {
+            return ResponseJsonUtil.error(-1, "参数错误.");
+        }
+        return teacherService.teacherUpdateDegree(degree, teacherId);
+    }
+
+    /**
+     * 修改学院名称
+     * @param instituteId 学院id
+     * @param teacherId 教师id
+     * @return 修改结果
+     */
+    @GetMapping("/teacher/update/institute")
+    public ResponseJson updateInstitute(@RequestParam(value = "instituteId", required = false) Integer instituteId,
+                                        @RequestParam(value = "teacherId", required = false) Integer teacherId) {
+        if(instituteId == null || teacherId == null) {
+            return ResponseJsonUtil.error(-1, "参数错误.");
+        }
+        return teacherService.updateInstitute(instituteId, teacherId);
+    }
+
+    /**
+     * 获取所有学院数据
+     * @return 学院列表
+     */
+    @GetMapping("/teacher/get/institute")
+    public ResponseJson updateInstitute() {
+        return teacherService.getInstituteList();
     }
 
     /*

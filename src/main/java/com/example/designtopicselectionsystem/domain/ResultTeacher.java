@@ -13,7 +13,6 @@ public class ResultTeacher {
     private String degree; // 学位
     private String institute_name; // 系部
 
-
     public ResultTeacher() {
     }
 

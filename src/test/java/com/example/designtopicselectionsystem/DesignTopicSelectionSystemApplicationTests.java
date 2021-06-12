@@ -2,8 +2,6 @@ package com.example.designtopicselectionsystem;
 
 import com.example.designtopicselectionsystem.domain.*;
 import com.example.designtopicselectionsystem.mapper.*;
-import com.example.designtopicselectionsystem.repository.InstituteRepository;
-import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +29,6 @@ class DesignTopicSelectionSystemApplicationTests {
 
     @Autowired
     private InstituteMapper instituteMapper;
-
-    @Autowired
-    private InstituteRepository instituteRepository;
 
     @Autowired
     private StudentMapper studentMapper;
@@ -68,7 +63,6 @@ class DesignTopicSelectionSystemApplicationTests {
         student.setStudent_name("钟馗");
         student.setSex("女");
         student.setBirthday(Date.valueOf("2019-05-29"));
-        student.setClass_no("5001");
         int save = studentMapper.saveStudent(student);
         System.out.println(save);
     }
@@ -110,18 +104,9 @@ class DesignTopicSelectionSystemApplicationTests {
     void saveStudent() {
         Student student = new Student();
         student.setStudent_name("张菲");
-        student.setClass_no("5000");
         student.setBirthday(Date.valueOf("2019-5-6"));
         student.setSex("男");
         studentService.save(student);
-    }
-
-    @Test
-    void findInstituteAll() {
-        List<Institute> all = instituteRepository.findAll();
-        for (Institute institute : all) {
-            System.out.println(institute);
-        }
     }
 
     @Autowired

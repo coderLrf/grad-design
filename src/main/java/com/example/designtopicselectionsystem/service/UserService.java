@@ -40,8 +40,8 @@ public class UserService {
     }
 
     // 根据学号查询用户
-    public User findById(String userNo) {
-        User user = userMapper.selectById(userNo);
+    public User findById(String userId) {
+        User user = userMapper.selectById(userId);
         return user;
     }
 
@@ -86,6 +86,8 @@ public class UserService {
     // 获取用户icon
     public String selectIconById(String userId) {
         String userIcon = userMapper.selectIconById(userId);
+        // 如果查询icon为空，直接返回
+        if(userIcon == null) return null;
         userIcon = userIcon.substring(userIcon.lastIndexOf("\\static"));
         return userIcon;
     }

@@ -19,9 +19,6 @@ public class SelectTopicService {
     private SelectTopicMapper selectTopicMapper;
 
     @Autowired
-    private StudentService studentService;
-
-    @Autowired
     private ClassService classService;
 
     // 预选一个课题
@@ -102,7 +99,12 @@ public class SelectTopicService {
 
     // 返回该教室已经定选了课题所有学生
     public ResponseJson okSelectPrimary(Integer teacherId) {
-        List<Student> studentList = selectTopicMapper.okSelectPrimary(teacherId);
+        List<ResultSelectTopic> studentList = selectTopicMapper.okSelectPrimary(teacherId);
+        // 循环遍历重新请求班级
+        for (ResultSelectTopic resultSelectTopic : studentList) {
+            String className = classService.getClassName(resultSelectTopic.getClass_no());
+            resultSelectTopic.setClass_name(className);
+        }
         return ResponseJsonUtil.successData(studentList);
     }
 }

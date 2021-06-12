@@ -2,6 +2,7 @@ package com.example.designtopicselectionsystem.config;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +20,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin")
                 .password(encoder.encode("123456"))
                 .roles("admin");
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        // 放行静态资源和api
+        web.ignoring().antMatchers("/static/**");
     }
 
     @Override

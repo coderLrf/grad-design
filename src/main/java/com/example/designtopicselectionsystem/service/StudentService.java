@@ -50,7 +50,9 @@ public class StudentService {
 
     public Student findById(Integer studentNo) {
         Student student = studentMapper.selectById(studentNo);
+        // 设置学生icon和身份
         student.setUserIcon(userService.selectIconById(studentNo + ""));
+        student.setIdentity("student");
         return student;
     }
 

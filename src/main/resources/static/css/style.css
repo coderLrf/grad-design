@@ -62,6 +62,7 @@ body {
   top: 90px;
   background: #fff;
   padding: 5px 0;
+  z-index: 1;
 }
 
 .ibox-content thead tr {

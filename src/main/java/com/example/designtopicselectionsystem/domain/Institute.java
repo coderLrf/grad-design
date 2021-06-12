@@ -1,40 +1,24 @@
 package com.example.designtopicselectionsystem.domain;
 
-import javax.persistence.*;
-
 // 学院类
-@Entity(name = "institute")
 public class Institute {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "institute_no")
-    private String instituteId; // 学院id
+    private String institute_no; // 学院id
+    private String institute_name; // 学院名称
 
-    @Column(name = "institute_name")
-    private String instituteName; // 学院名称
-
-    public String getInstituteId() {
-        return instituteId;
+    public String getInstitute_no() {
+        return institute_no;
     }
 
-    public void setInstituteId(String instituteId) {
-        this.instituteId = instituteId;
+    public void setInstitute_no(String institute_no) {
+        this.institute_no = institute_no;
     }
 
-    public String getInstituteName() {
-        return instituteName;
+    public String getInstitute_name() {
+        return institute_name;
     }
 
-    public void setInstituteName(String instituteName) {
-        this.instituteName = instituteName;
-    }
-
-    @Override
-    public String toString() {
-        return "Institute{" +
-                "instituteId='" + instituteId + '\'' +
-                ", instituteName='" + instituteName + '\'' +
-                '}';
+    public void setInstitute_name(String institute_name) {
+        this.institute_name = institute_name;
     }
 }
