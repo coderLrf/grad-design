@@ -6,6 +6,7 @@ import com.example.designtopicselectionsystem.domain.User;
 import com.example.designtopicselectionsystem.mapper.UserMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -87,7 +89,7 @@ public class UserService {
     public String selectIconById(String userId) {
         String userIcon = userMapper.selectIconById(userId);
         // 如果查询icon为空，直接返回
-        if(userIcon == null) return null;
+        if(StringUtils.isBlank(userIcon)) return null;
         userIcon = userIcon.substring(userIcon.lastIndexOf("\\static"));
         return userIcon;
     }
@@ -104,6 +106,7 @@ public class UserService {
 
     // 用户上传头像
     public ResponseJson uploadIcon(MultipartFile iconUpload, String userId) {
+
         // 获取文件名以及后缀名
         String fileName = iconUpload.getOriginalFilename();
         // 重新生成新的文件名（根据具体情况生成对应文件名）
@@ -116,6 +119,8 @@ public class UserService {
             if(!dir.exists()) {
                 dir.mkdirs(); // 创建
             }
+            // 上传之前先删除
+            deleteUserIcon(userId);
             iconUpload.transferTo(new File(dirPath + fileName)); // 上传头像
             updateIcon(userId, dirPath + fileName);
         } catch (IOException e) {
@@ -138,6 +143,21 @@ public class UserService {
             return ResponseJsonUtil.error(-1, "身份错误.");
         }
         return ResponseJsonUtil.success("信息保存成功.");
+    }
+
+    // 删除用户icon
+    public void deleteUserIcon(String userId) throws FileNotFoundException {
+        // 根据上传上来的userID从数据库中查询是否存在icon，如果存在，删除icon
+        String userIcon = selectIconById(userId);
+        if(userIcon == null) {
+            return;
+        }
+        String dirPath = ResourceUtils.getFile("classpath:")
+                .getPath() + "\\static\\upload\\icon\\" + userIcon.substring(userIcon.lastIndexOf("\\"));
+        File file = new File(dirPath);
+        if(file.exists()) {
+            file.delete();
+        }
     }
 
 }

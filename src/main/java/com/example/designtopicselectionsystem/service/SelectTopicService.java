@@ -59,6 +59,14 @@ public class SelectTopicService {
         return ResponseJsonUtil.successData(topicList);
     }
 
+    public ResponseJson okTopicByStudentId(Integer studentId) {
+        ResultTopic resultTopic = selectTopicMapper.okTopicByStudentId(studentId);
+        if(resultTopic == null) {
+            return ResponseJsonUtil.error(-1, "还未存在定选课题，还去预选吧~");
+        }
+        return ResponseJsonUtil.successData(resultTopic);
+    }
+
     public ResponseJson deleteSelectTopic(Integer studentId) {
         int row = selectTopicMapper.deleteSelectTopic(studentId);
         if(row != 0) {

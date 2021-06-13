@@ -131,6 +131,19 @@ public class ApiController {
     }
 
     /**
+     * 查询该学生已经定选了的课题
+     * @param studentId
+     * @return
+     */
+    @GetMapping("/student/topic/ok")
+    public ResponseJson okTopicByStudentId(@RequestParam(value = "studentId", required = false)Integer studentId) {
+        if(studentId == null) {
+            return ResponseJsonUtil.error(-1, "参数不能为空.");
+        }
+        return selectTopicService.okTopicByStudentId(studentId);
+    }
+
+    /**
      * 学生退选课题接口
      * @param studentId 学生id
      * @param topicId 课题id
@@ -151,7 +164,7 @@ public class ApiController {
      * @return 返回任务书
      */
     @GetMapping("/student/mission")
-    public ResponseJson studentMission(@RequestParam("topicId") Integer topicId) {
+    public ResponseJson studentMission(@RequestParam(value = "topicId", required = false) Integer topicId) {
         if(topicId == null) {
             return ResponseJsonUtil.error(-1, "参数错误.");
         }

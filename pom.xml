@@ -17,6 +17,13 @@
 
     <dependencies>
 
+        <!-- commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
+        </dependency>
+
         <!-- 文件下载的工具依赖 -->
         <dependency>
             <groupId>commons-io</groupId>

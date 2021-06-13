@@ -80,10 +80,16 @@ public class FileService {
     // 根据课题的id获取对应的任务书
     public ResponseJson selectFilename(Integer topicId) {
         com.example.designtopicselectionsystem.domain.File file = fileMapper.selectFilename(topicId);
+        if(file == null) {
+            return ResponseJsonUtil.error(-1, "任务书还未存在，快快通知指导老师上传吧~");
+        }
         // 根据filename继续拆分一个新的文件名（原文件名称去除uuid）
         String filename = file.getFile_id().substring(file.getFile_id().indexOf("_") + 1);
         // 重新设置filename
         file.setFilename(filename);
+        // 添加任务书路径
+        String path = "http://localhost:9527/static/upload/file/" + file.getFile_id();
+        file.setFilePath(path);
         return ResponseJsonUtil.successData(file, "文件获取成功.");
     }
 
