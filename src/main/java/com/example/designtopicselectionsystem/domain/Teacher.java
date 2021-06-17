@@ -5,7 +5,7 @@ import java.util.List;
 
 // 教师类
 // @Entity(name = "teacher")
-public class Teacher {
+public class Teacher extends User {
 
     //@Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY) // 自增策略
@@ -15,8 +15,6 @@ public class Teacher {
     private String degree; // 教师学位
     private String institute_no; // 学院编号
     private String institute_name; // 学院名称
-    private String userIcon; // 用户的icon
-    private String identity; // 身份
 
     public Teacher() {
     }
@@ -31,6 +29,7 @@ public class Teacher {
 
     public void setTeacher_no(Integer teacher_no) {
         this.teacher_no = teacher_no;
+        this.setUser_no(teacher_no + "");
     }
 
     public String getTeacher_name() {
@@ -39,6 +38,7 @@ public class Teacher {
 
     public void setTeacher_name(String teacher_name) {
         this.teacher_name = teacher_name;
+        this.setUser_name(teacher_name);
     }
 
     public String getSex() {
@@ -71,21 +71,5 @@ public class Teacher {
 
     public void setInstitute_name(String institute_name) {
         this.institute_name = institute_name;
-    }
-
-    public String getUserIcon() {
-        return userIcon;
-    }
-
-    public void setUserIcon(String userIcon) {
-        this.userIcon = userIcon;
-    }
-
-    public String getIdentity() {
-        return identity;
-    }
-
-    public void setIdentity(String identity) {
-        this.identity = identity;
     }
 }

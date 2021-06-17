@@ -7,6 +7,7 @@ public class User {
     private String password; // 密码
     private String user_name; // 用户名
     private String identity; // 身份：学生，教师，管理员
+    private String userIcon; // 用户的icon
 
     public String getUser_no() {
         return user_no;
@@ -38,6 +39,14 @@ public class User {
 
     public void setIdentity(String identity) {
         this.identity = identity;
+    }
+
+    public String getUserIcon() {
+        return userIcon;
+    }
+
+    public void setUserIcon(String userIcon) {
+        this.userIcon = userIcon;
     }
 
     @Override

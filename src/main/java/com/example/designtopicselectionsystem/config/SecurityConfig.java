@@ -38,13 +38,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/font-awesome/*").permitAll()
                 .antMatchers("/fonts/*").permitAll()
                 .antMatchers("/api/**").permitAll()
+                .antMatchers("/").permitAll()
                 .anyRequest().authenticated();
 
         // 自定义用户登陆控制
         http.formLogin()
                 .loginPage("/admin/login").permitAll()
                 .usernameParameter("username").passwordParameter("password")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/admin")
                 .failureUrl("/admin/login?error");
 
         // 自定义用户退出

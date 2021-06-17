@@ -4,7 +4,7 @@ package com.example.designtopicselectionsystem.domain;
 import java.sql.Date;
 
 // 学生表
-public class Student {
+public class Student extends User {
 
     private Integer student_no; // 学号
     private String student_name; // 姓名
@@ -12,8 +12,6 @@ public class Student {
     private Date birthday; // 出生年月
     private Integer class_no; // 班级id
     private Integer topic_no; // 课题编号，定选后的课题
-    private String userIcon; // 用户的icon
-    private String identity; // 身份
 
     public Student() {
     }
@@ -28,6 +26,7 @@ public class Student {
 
     public void setStudent_no(Integer student_no) {
         this.student_no = student_no;
+        this.setUser_no(student_no + "");
     }
 
     public String getStudent_name() {
@@ -36,6 +35,7 @@ public class Student {
 
     public void setStudent_name(String student_name) {
         this.student_name = student_name;
+        this.setUser_name(student_name);
     }
 
     public String getSex() {
@@ -70,19 +70,4 @@ public class Student {
         this.topic_no = topic_no;
     }
 
-    public String getUserIcon() {
-        return userIcon;
-    }
-
-    public void setUserIcon(String userIcon) {
-        this.userIcon = userIcon;
-    }
-
-    public String getIdentity() {
-        return identity;
-    }
-
-    public void setIdentity(String identity) {
-        this.identity = identity;
-    }
 }

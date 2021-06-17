@@ -57,11 +57,6 @@ public class AdminController {
         return "login/login";
     }
 
-    @GetMapping("/")
-    public String toIndex() {
-        return "redirect:index";
-    }
-
     // 重定向到首页
     @GetMapping("/index")
     public String index(Model model) {
