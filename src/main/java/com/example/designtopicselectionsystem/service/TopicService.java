@@ -8,10 +8,10 @@ import com.example.designtopicselectionsystem.mapper.SelectTopicMapper;
 import com.example.designtopicselectionsystem.mapper.TopicMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ResourceUtils;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -98,6 +98,21 @@ public class TopicService {
             return ResponseJsonUtil.success("课题添加成功.");
         }
         return ResponseJsonUtil.error(-1, "课题添加失败.");
+    }
+
+    // 根据课题名称和教师名称进行模糊查询课题
+    public List<ResultTopic> selectTopicFuzzy(String identity, String content) {
+        String con = StringUtils.isBlank(content) ? "" : "%" + content + "%";
+        content = "%" + content + "%";
+        String state;
+        if(identity.equals("review")) { // 审核中
+            return selectTopicMapper.selectTopicFuzzyNull(content, con);
+        } else if(identity.equals("checked")) { // 已通过审核
+            state = "是";
+        } else { // 未通过审核
+            state = "否";
+        }
+        return selectTopicMapper.selectTopicFuzzy(content, con, state);
     }
 
     // 教师修改一个课题

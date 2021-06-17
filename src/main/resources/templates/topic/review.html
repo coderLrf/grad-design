@@ -42,6 +42,13 @@
             <div class="wrapper wrapper-content animated fadeInRight" style="padding-top: 0; height: 100%;">
                 <div class="row row_one">
                     <div class="ibox float-e-margins">
+                        <div class="ibox" style="margin-bottom: 5px">
+                            <a href="" class="btn"></a>
+                            <form class="right" th:action="@{/admin/search/review}">
+                                <input type="text" th:value="${param.content}" name="content" class="form-control" placeholder="课题名称 / 指导老师">
+                                <button type="submit" class="btn btn-xs btn-primary" style="font-size: 14px">搜索课题</button>
+                            </form>
+                        </div>
                         <div class="ibox-title">
                             <h5>课题审核</h5>
                         </div>

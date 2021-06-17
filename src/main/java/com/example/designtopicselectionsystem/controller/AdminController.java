@@ -8,7 +8,6 @@ import com.example.designtopicselectionsystem.service.StudentService;
 import com.example.designtopicselectionsystem.service.TeacherService;
 import com.example.designtopicselectionsystem.service.TopicService;
 import com.example.designtopicselectionsystem.service.UserService;
-import com.example.designtopicselectionsystem.utils.Commons;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,9 +36,6 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private Commons commons;
 
     @GetMapping("/login")
     public String toLogin() {
@@ -98,8 +94,14 @@ public class AdminController {
             case "user":
                 list = userService.searchUserByKeyWord(content);
                 break;
+            case "review":
+            case "checked":
+            case "notCheck":
+                list = topicService.selectTopicFuzzy(identity, content);
+                model.addAttribute("topicList", list);
+                return "topic/" + identity;
             default:
-                return "/error";
+                return "error/error_404";
         }
         // 发送给前端
         model.addAttribute(identity + "List", list);
@@ -115,7 +117,6 @@ public class AdminController {
     public String stuList(Model model) {
         // 请求所有学生数据
         List<ResultStudent> studentList = studentService.selectAll();
-//        model.addAttribute("commons", commons);
         model.addAttribute("studentList", studentList);
         return "student/list";
     }
@@ -153,7 +154,6 @@ public class AdminController {
         // 获取所有班级数据
         List<Class> classList = classRepository.findAll();
         model.addAttribute("classList", classList);
-//        model.addAttribute("commons", commons);
         return "student/update";
     }
 
@@ -258,7 +258,7 @@ public class AdminController {
     public String toTopChecked(Model model) {
         // 查询所有已通过审核的课题
         List<ResultTopic> topicList = topicService.findByAdmissionTrueTow("是");
-        model.addAttribute("topicListed", topicList);
+        model.addAttribute("topicList", topicList);
         return "topic/checked";
     }
 
@@ -266,7 +266,7 @@ public class AdminController {
     public String toTopNotCheck(Model model) {
         // 查询所有未通过的课题
         List<ResultTopic> topicList = topicService.findByAdmissionFalse();
-        model.addAttribute("notTopicList", topicList);
+        model.addAttribute("topicList", topicList);
         return "topic/notCheck";
     }
 

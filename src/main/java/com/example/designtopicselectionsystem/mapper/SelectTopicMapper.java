@@ -35,6 +35,18 @@ public interface SelectTopicMapper {
             "where t.teacher_no = #{teacherId} and t.title_no = stu.topic_no")
     public List<ResultSelectTopic> okSelectPrimary(Integer teacherId);
 
+    // 根据课题名称模糊查询课题
+    @Select("select * from topic t, teacher tea " +
+            "where t.title_name like #{content} and t.teacher_no = tea.teacher_no and t.admission = #{state} or t.teacher_no = " +
+            "(select teacher_no from teacher where teacher_name like #{con}) and t.teacher_no = tea.teacher_no and t.admission = #{state} order by t.title_no")
+    public List<ResultTopic> selectTopicFuzzy(@Param("content") String content, @Param("con") String con, @Param("state") String state);
+
+    // 根据课题名称模糊查询课题
+    @Select("select * from topic t, teacher tea " +
+            "where t.title_name like #{content} and t.teacher_no = tea.teacher_no and t.admission is null or t.teacher_no = " +
+            "(select teacher_no from teacher where teacher_name like #{con}) and t.teacher_no = tea.teacher_no and t.admission is null order by t.title_no")
+    public List<ResultTopic> selectTopicFuzzyNull(@Param("content") String content, @Param("con")String con);
+
     // 预选一个课题
     @Insert("insert into selectTopic(title_no, student_no) values(#{topic.topicId}, #{student.student_no})")
     public int primaryTopic(SelectTopic selectTopic);

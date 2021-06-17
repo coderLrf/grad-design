@@ -42,6 +42,13 @@
             <div class="wrapper wrapper-content animated fadeInRight" style="padding-top: 0; height: 100%;">
                 <div class="row row_one">
                     <div class="ibox float-e-margins">
+                        <div class="ibox" style="margin-bottom: 5px">
+                            <a href="" class="btn"></a>
+                            <form class="right" th:action="@{/admin/search/checked}">
+                                <input type="text" th:value="${param.content}" name="content" class="form-control" placeholder="课题名称 / 指导老师">
+                                <button type="submit" class="btn btn-xs btn-primary" style="font-size: 14px">搜索课题</button>
+                            </form>
+                        </div>
                         <div class="ibox-title">
                             <h5>已通过审核</h5>
                         </div>
@@ -60,7 +67,7 @@
                                 </thead>
                                 <tbody>
                                     <!--/*@thymesVar id="topicListed" type="topicListed"*/-->
-                                    <tr th:each="topic, object : ${topicListed}">
+                                    <tr th:each="topic, object : ${topicList}">
                                         <td th:text="${object.index} + 1"></td>
                                         <td th:text="${topic.getTitle_name()}"></td>
                                         <td th:text="${topic.getTitle_no()}"></td>
