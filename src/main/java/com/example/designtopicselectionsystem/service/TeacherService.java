@@ -52,6 +52,7 @@ public class TeacherService {
 
     public Teacher findById(Integer id) {
         Teacher teacher = teacherMapper.selectById(id);
+        if(teacher == null) return null;
         // 根据教师的学院编号查询学院名称
         teacher.setInstitute_name(instituteMapper.findInstituteById(teacher.getInstitute_no()));
         teacher.setIdentity("teacher");

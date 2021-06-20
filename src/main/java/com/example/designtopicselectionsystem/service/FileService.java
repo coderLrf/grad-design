@@ -35,6 +35,7 @@ public class FileService {
     @Autowired
     private FileMapper fileMapper;
 
+    // 文件的上传
     public ResponseJson uploadFile(Integer topicId, MultipartFile fileUpload) {
         // 上传之前先删除
         fileMapper.deleteFile(topicId);

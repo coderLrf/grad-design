@@ -104,6 +104,15 @@ public class UserService {
         return ResponseJsonUtil.successData(user, "获取用户对象成功.");
     }
 
+    // 获取最新用户对象
+    public Object getNewUser(String userId) {
+        Object obj = studentService.findById(Integer.parseInt(userId));
+        if(obj == null) {
+            obj = teacherService.findById(Integer.parseInt(userId));
+        }
+        return obj;
+    }
+
     // 用户上传头像
     public ResponseJson uploadIcon(MultipartFile iconUpload, String userId) {
 

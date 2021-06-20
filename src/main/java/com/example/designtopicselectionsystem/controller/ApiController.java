@@ -41,6 +41,9 @@ public class ApiController {
     @Autowired
     private TeacherService teacherService;
 
+    @Autowired
+    private ChatRecordService chatRecordService;
+
     /*
      * 用户相关Api
      */
@@ -74,9 +77,16 @@ public class ApiController {
     }
 
     // 获取当前登录的用户对象
+//    @GetMapping("/user/get")
+//    public ResponseJson getUser(HttpServletRequest request) {
+//        return userService.getUser(request);
+//    }
+
+    // 获取最新用户对象
     @GetMapping("/user/get")
-    public ResponseJson getUser(HttpServletRequest request) {
-        return userService.getUser(request);
+    public ResponseJson getNewUser(@RequestParam("userId")String userId) {
+        Object user = userService.getNewUser(userId);
+        return ResponseJsonUtil.successData(user);
     }
 
     /**
@@ -89,6 +99,39 @@ public class ApiController {
     public ResponseJson uploadIcon(@RequestParam("iconUpload") MultipartFile iconUpload,
                                    @PathVariable("id") String userId) {
         return userService.uploadIcon(iconUpload, userId);
+    }
+
+    /**
+     * 用户可以进行留言功能
+     * @param chatRecord 留言实体
+     *   chatRecord包括字段：
+     *     private Integer teacher_id;
+     *     private Integer student_id;
+     *     private String content; // 留言内容
+     *     private Integer message_side; // 留言方id，相当于用户userId
+     * @return 留言结果
+     */
+    @PostMapping("/user/record/add")
+    public ResponseJson incrementRecord(@RequestBody ChatRecord chatRecord) {
+        if(chatRecord == null) {
+            return ResponseJsonUtil.error(-1, "参数错误.");
+        }
+        return chatRecordService.incrementRecord(chatRecord);
+    }
+
+    /**
+     * 查询留言记录
+     * @param teacherId 教师id
+     * @param studentId 学生id
+     * @return 留言记录
+     */
+    @GetMapping("/user/get/records")
+    public ResponseJson selectABRecord(Integer teacherId, Integer studentId) {
+        if(teacherId == null || studentId == null) {
+            return ResponseJsonUtil.error(-1, "参数错误.");
+        }
+        List<ChatRecord> chatRecords = chatRecordService.selectABRecord(teacherId, studentId);
+        return ResponseJsonUtil.successData(chatRecords);
     }
 
     /*
