@@ -6,6 +6,7 @@ public class ResultTopic {
     private Integer title_no; // 课题id
     private String title_name; // 课题名称
     private String title_desc; // 课题描述
+    private Integer teacher_no; // 教师的id
     private String teacher_name; // 教师姓名
     private String admission; // 是否通过审核
     private String fileName; // 文件的名称
@@ -33,6 +34,14 @@ public class ResultTopic {
 
     public void setTitle_desc(String title_desc) {
         this.title_desc = title_desc;
+    }
+
+    public Integer getTeacher_no() {
+        return teacher_no;
+    }
+
+    public void setTeacher_no(Integer teacher_id) {
+        this.teacher_no = teacher_id;
     }
 
     public String getTeacher_name() {
