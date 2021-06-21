@@ -156,9 +156,10 @@ body {
   background: #218c74;
 }
 
-/*.nav#side-menu > li.active > a span.img_box {*/
-/*  transform: translateY(-50%) rotateZ(90deg);*/
-/*}*/
+.nav#side-menu > li.active > a span.arrow {
+  transform: rotateZ(90deg);
+  transition: 0.15s cubic-bezier(0.28, 0.22, 0, 1.05);
+}
 
 /*.nav#side-menu > li > a span.img_box  {*/
 /*  width: 35px;*/

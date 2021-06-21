@@ -3,7 +3,7 @@
 
 <!-- 公共css文件 -->
 <div id="common_style">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.css}">
     <!-- Morris -->
     <link rel="stylesheet" th:href="@{/css/plugins/morris/morris-0.4.3.min.css}">
@@ -177,27 +177,33 @@
             </li>
             <li th:class="${active == 'home' ? 'active' : ''}">
                 <a th:href="@{/admin/index}">
-                    <span class="nav-label">首页</span></a>
+                    <i class="glyphicon glyphicon-home"></i>
+                    <span class="nav-label">首页</span>
+                </a>
             </li>
             <li th:class="${active == 'userList' ? 'active' : ''}">
                 <a th:href="@{/admin/user/list}">
+                    <i class="glyphicon glyphicon-user"></i>
                     <span class="nav-label">用户管理</span>
                 </a>
             </li>
             <li th:class="${active == 'stuList' ? 'active' : ''}">
                 <a th:href="@{/admin/stu/list}">
+                    <i class="glyphicon glyphicon-road"></i>
                     <span class="nav-label">学生管理</span><span
                         class=""></span></a>
             </li>
             <li th:class="${active == 'teaList' ? 'active' : ''}">
                 <a th:href="@{/admin/tea/list}">
+                    <i class="glyphicon glyphicon-inbox"></i>
                     <span class="nav-label">教师管理</span>
-                    <span class=""></span></a>
+                </a>
             </li>
             <li th:class="${active == 'topic' ? 'active' : ''}">
                 <a href="javascript:void(0)">
+                    <i class="glyphicon glyphicon-list-alt"></i>
                     <span class="nav-label">课题管理</span>
-                    <span class="img_box"></span>
+                    <span class="glyphicon glyphicon-chevron-right arrow"></span>
                 </a>
                 <ul class="nav nav-second-level">
                     <li th:class="${index == 1 && active == 'topic' ? 'active' : ''}">
@@ -213,11 +219,15 @@
             </li>
             <li th:class="${active == 'record' ? 'active' : ''}">
                 <a th:href="@{/admin/record/list}">
-                    <span class="nav-label">留言管理</span></a>
+                    <i class="glyphicon glyphicon-leaf"></i>
+                    <span class="nav-label">留言管理</span>
+                </a>
             </li>
             <li th:class="${active == 'setUp' ? 'active' : ''}">
                 <a th:href="@{/admin/setUp}">
-                    <span class="nav-label">系统设置</span></a>
+                    <i class="glyphicon glyphicon-cog"></i>
+                    <span class="nav-label">系统设置</span>
+                </a>
             </li>
         </ul>
 
