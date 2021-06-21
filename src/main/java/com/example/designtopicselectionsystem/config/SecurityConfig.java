@@ -32,11 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/css/*").permitAll()
-                .antMatchers("/js/*").permitAll()
-                .antMatchers("/icon/*").permitAll()
-                .antMatchers("/font-awesome/*").permitAll()
-                .antMatchers("/fonts/*").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/icon/**").permitAll()
+                .antMatchers("/font-awesome/**").permitAll()
+                .antMatchers("/fonts/**").permitAll()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated();

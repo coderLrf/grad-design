@@ -11,13 +11,6 @@
 
     <div th:replace="~{common/common::#common_style}"></div>
 
-    <style>
-        .ibox-content tbody tr td.content {
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -50,8 +43,8 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox" style="margin-bottom: 0">
                             <a href="" class="btn"></a>
-                            <form class="right" th:action="@{/admin/search/student}">
-                                <input type="text" th:value="${param.content}" name="content" class="form-control" placeholder="留言方 / 接收方">
+                            <form class="right" th:action="@{/admin/search/record}">
+                                <input title="这里不能进行模糊搜索哟~" type="text" th:value="${param.content}" name="content" class="form-control" placeholder="留言方 / 接收方">
                                 <button type="submit" class="btn btn-xs btn-primary" style="font-size: 14px">搜索留言</button>
                             </form>
                         </div>
@@ -72,7 +65,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="chatRecord, object : ${chatRecords}">
+                                    <tr th:each="chatRecord, object : ${recordList}">
                                         <td th:text="${object.index} + 1"></td>
                                         <td th:text="${chatRecord.getRecordName()}"></td>
                                         <td th:text="${chatRecord.getReceiverName()}"></td>
@@ -85,7 +78,7 @@
                                             <a class="btn btn-xs btn-danger" th:href="@{/admin/record/} + ${chatRecord.getId()}" th:if="${chatRecord.getFlag() == 0}">解屏</a>
                                         </td>
                                     </tr>
-                                    <h3 th:if="${#lists.isEmpty(chatRecords)}">数据为空</h3>
+                                    <h3 th:if="${#lists.isEmpty(recordList)}">数据为空</h3>
                                 </tbody>
                             </table>
 

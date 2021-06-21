@@ -38,6 +38,10 @@ public interface TopicMapper {
     public List<ResultTopic> selectTopicByTeacherIdAndType(@Param("teacherId") Integer teacherId,
                                                            @Param("type") String type);
 
+    // 根据教师id查询课题数量
+    @Select("select sum(1) from topic where teacher_no = #{teacherId}")
+    public Integer calcTopicCountByTeacherId(Integer teacherId);
+
     // 插入一条数据
     @Insert("insert into topic(title_name, title_desc, teacher_no) " +
             "values(#{topicName}, #{topicDesc}, #{teacherId})")
@@ -47,6 +51,10 @@ public interface TopicMapper {
     @Update("update topic set title_name = #{topicName}, title_desc = #{topicDesc}, teacher_no = #{teacherId} " +
             "where title_no = #{topicId}")
     public void updateTopic(Topic topic);
+
+    // 将一个课题设置不可预选状态
+    @Update("update topic set state = 0 where title_no = ${topicId}")
+    public void setTopicEnabled(Integer topicId);
 
     // 通过一个课题
     @Update("update topic set admission = '是' where title_no = ${id}")

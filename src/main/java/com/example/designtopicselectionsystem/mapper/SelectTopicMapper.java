@@ -17,7 +17,7 @@ public interface SelectTopicMapper {
 
     // 查询所有该学生可以预选的课题
     @Select("select t.*, tea.teacher_name from topic t, teacher tea " +
-            "where t.teacher_no = tea.teacher_no and admission = '是' and title_no not in(select title_no from selectTopic where student_no = #{studentId});")
+            "where t.teacher_no = tea.teacher_no and t.state = 1 and admission = '是' and title_no not in(select title_no from selectTopic where student_no = #{studentId})")
     public List<ResultTopic> selectAdmissionTopic(Integer studentId);
 
     // 查询所有该学生已经预选的课题
@@ -47,16 +47,21 @@ public interface SelectTopicMapper {
             "(select teacher_no from teacher where teacher_name like #{con}) and t.teacher_no = tea.teacher_no and t.admission is null order by t.title_no")
     public List<ResultTopic> selectTopicFuzzyNull(@Param("content") String content, @Param("con")String con);
 
+    // 根据学生id查询预选课题的次数
+    @Select("select sum(1) from selectTopic where student_no = #{studentId}")
+    public Integer calcTopicCount(Integer studentId);
+
     // 预选一个课题
     @Insert("insert into selectTopic(title_no, student_no) values(#{topic.topicId}, #{student.student_no})")
     public int primaryTopic(SelectTopic selectTopic);
 
-    // 删除一个预选课题根据学生
+    // 删除一个预选课题根据学生id
     @Delete("delete from selectTopic where student_no = #{studentId}")
-    public int deleteSelectTopic(Integer studentId);
+    public int deleteSelectTopicByStudentId(Integer studentId);
 
+    // 删除一个预选课题根据课题id
     @Delete("delete from selectTopic where title_no = #{topicId}")
-    public void deleteSelectTopicById(Integer topicId);
+    public int deleteSelectTopicByTopicId(Integer topicId);
 
     // 删除一个预选课题根据学生id和教师id
     @Delete("delete from selectTopic where student_no = #{studentId} and title_no = #{topicId}")

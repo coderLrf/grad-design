@@ -97,6 +97,12 @@ body {
   line-height: 50px;
 }
 
+.ibox-content tbody tr td.content {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .ibox-content tbody tr td:nth-last-child(1) > a {
   font-size: 12px;
   outline: none;
@@ -143,11 +149,31 @@ body {
 }
 .nav.navbar-right > li > a {
   color: #d1ccc0;
+  position: relative;
 }
 .nav#side-menu > li.active > a {
   color: whitesmoke;
   background: #218c74;
 }
+
+/*.nav#side-menu > li.active > a span.img_box {*/
+/*  transform: translateY(-50%) rotateZ(90deg);*/
+/*}*/
+
+/*.nav#side-menu > li > a span.img_box  {*/
+/*  width: 35px;*/
+/*  height: 35px;*/
+/*  display: block;*/
+/*  position: absolute;*/
+/*  right: 10px;*/
+/*  top: 50%;*/
+/*  transform: translateY(-50%);*/
+/*  background-image: url("../icon/right.png");*/
+/*  background-position: center center;*/
+/*  background-size: 45%;*/
+/*  background-repeat: no-repeat;*/
+/*  transition: 0.15s cubic-bezier(0.28, 0.22, 0, 1.05);*/
+/*}*/
 
 .navbar-default #side-menu > li > a:hover {
   background-color: #218c74;

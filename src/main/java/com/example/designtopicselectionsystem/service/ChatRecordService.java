@@ -7,10 +7,12 @@ import com.example.designtopicselectionsystem.domain.Teacher;
 import com.example.designtopicselectionsystem.mapper.ChatRecordMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,6 +62,24 @@ public class ChatRecordService {
             }
         }
         return chatRecords;
+    }
+
+    // 根据留言方或者接收方来进行精确搜索
+    public List<ChatRecordAdmin> searchRecordPrecise(String content) {
+        List<ChatRecordAdmin> chatRecordList = getChatRecordList();
+        // 如果关键字为空，返回所有
+        if(StringUtils.isBlank(content)) {
+            return chatRecordList;
+        }
+        // 定义一个空的集合用户返回
+        List<ChatRecordAdmin> chatRecordRes = new ArrayList<>();
+        for (ChatRecordAdmin recordAdmin : chatRecordList) {
+            // 如果等于留言方或者接受方相等，则添加chatRecordRes
+            if(recordAdmin.getRecordName().equals(content) || recordAdmin.getReceiverName().equals(content)) {
+                chatRecordRes.add(recordAdmin);
+            }
+        }
+        return chatRecordRes;
     }
 
     // 查询教师和学生的留言记录

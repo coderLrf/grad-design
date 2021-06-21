@@ -82,7 +82,7 @@ public class AdminController {
     public String search(@PathVariable("identity") String identity,
                          @RequestParam(value = "content", defaultValue = "") String content,
                          Model model) {
-        Object list;
+        Object list = null;
         // 根据身份类型判断
         switch(identity) {
             case "student":
@@ -94,14 +94,15 @@ public class AdminController {
             case "user":
                 list = userService.searchUserByKeyWord(content);
                 break;
+            case "record":
+                list = chatRecordService.searchRecordPrecise(content);
+                break;
             case "review":
             case "checked":
             case "notCheck":
                 list = topicService.selectTopicFuzzy(identity, content);
                 model.addAttribute("topicList", list);
                 return "topic/" + identity;
-            default:
-                return "error/error_404";
         }
         // 发送给前端
         model.addAttribute(identity + "List", list);
@@ -386,7 +387,7 @@ public class AdminController {
         // 查询所有留言列表
         List<ChatRecordAdmin> chatRecords = chatRecordService.getChatRecordList();
         // 返回给前端
-        model.addAttribute("chatRecords", chatRecords);
+        model.addAttribute("recordList", chatRecords);
         return "record/list";
     }
 

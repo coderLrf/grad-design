@@ -292,10 +292,19 @@ public class ApiController {
         if(topicId == null || studentId == null) {
             return ResponseJsonUtil.error(-1, "参数不能为空.");
         }
+        // 查询该课题的定选人数是否达到上限
         int row = studentService.selectPrimary(topicId, studentId);
         if(row != 0) {
             // 在老师定选了该课题后，需要删除该学生预选的其他课题
-            selectTopicService.deleteSelectTopic(studentId); // 删除该学生的其他预选课题
+            selectTopicService.deleteSelectTopicByStudentId(studentId); // 删除该学生的其他预选课题
+            // 获取该课题的总人数量
+            Integer count = studentService.calcTopicCountByTopicId(topicId);
+            if(count >= 5) {
+                // 如果人数已经达到了上限，则需要自动退选预选了该课题的其他学生
+                selectTopicService.deleteSelectTopicByTopicId(topicId);
+                // 将从预选列表中删除，将该课题设置不可预选状态state = 0
+                topicService.setTopicEnabled(topicId);
+            }
             return ResponseJsonUtil.success("成功定选课题.");
         }
         return ResponseJsonUtil.error(-1, "选题失败.");

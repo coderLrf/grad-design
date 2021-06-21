@@ -3,6 +3,7 @@ package com.example.designtopicselectionsystem.service;
 import com.example.designtopicselectionsystem.domain.*;
 import com.example.designtopicselectionsystem.mapper.ClassMapper;
 import com.example.designtopicselectionsystem.mapper.SelectTopicMapper;
+import com.example.designtopicselectionsystem.mapper.TopicMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class SelectTopicService {
         ResultTopic newTopic = selectTopicMapper.okTopicByStudentId(studentId);
         if(newTopic != null) { // 如果已经存在了定选课题
             return ResponseJsonUtil.successData(newTopic, "已经存在定选课题，不能进行预选课题.");
+        }
+        // 如果没有定选课题判断该学生是否还有课题可预选，预选的课题总数不能超过4
+        Integer count = calcTopicCount(studentId);
+        if(count >= 4) {
+            return ResponseJsonUtil.error(-1, "预选课题数量已经达到上限，不能进行预选课题.");
         }
         SelectTopic selectTopic = new SelectTopic();
         Student student = new Student();
@@ -59,6 +65,13 @@ public class SelectTopicService {
         return ResponseJsonUtil.successData(topicList);
     }
 
+    // 查询该学生的预选课题数量
+    public Integer calcTopicCount(Integer studentId) {
+        Integer count = selectTopicMapper.calcTopicCount(studentId);
+        if(count == null) return 0;
+        return count;
+    }
+
     public ResponseJson okTopicByStudentId(Integer studentId) {
         ResultTopic resultTopic = selectTopicMapper.okTopicByStudentId(studentId);
         if(resultTopic == null) {
@@ -67,8 +80,18 @@ public class SelectTopicService {
         return ResponseJsonUtil.successData(resultTopic);
     }
 
-    public ResponseJson deleteSelectTopic(Integer studentId) {
-        int row = selectTopicMapper.deleteSelectTopic(studentId);
+    // 删除一个预选课题根据学生id
+    public ResponseJson deleteSelectTopicByStudentId(Integer studentId) {
+        int row = selectTopicMapper.deleteSelectTopicByStudentId(studentId);
+        if(row != 0) {
+            return ResponseJsonUtil.success("删除成功.");
+        }
+        return ResponseJsonUtil.error("参数错误.", "删除失败.");
+    }
+
+    // 删除一个预选课题根据学生id
+    public ResponseJson deleteSelectTopicByTopicId(Integer topicId) {
+        int row = selectTopicMapper.deleteSelectTopicByTopicId(topicId);
         if(row != 0) {
             return ResponseJsonUtil.success("删除成功.");
         }

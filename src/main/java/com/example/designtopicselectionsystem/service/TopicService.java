@@ -93,11 +93,22 @@ public class TopicService {
         if(select != null) { // 存在该课题
             return ResponseJsonUtil.error(-1, "重复课题名称，添加失败.");
         }
+        // 查询该教师的课题总数，课题数量超过4个则不能添加
+        Integer count = calcTopicCountByTeacherId(topic.getTeacherId());
+        if(count >= 4) {
+            return ResponseJsonUtil.error(-1, "你的课题已经达到上限，不能添加了哟~");
+        }
         int row = topicMapper.saveTopic(topic);
         if(row != 0) {
             return ResponseJsonUtil.success("课题添加成功.");
         }
         return ResponseJsonUtil.error(-1, "课题添加失败.");
+    }
+
+    private Integer calcTopicCountByTeacherId(Integer teacherId) {
+        Integer count = topicMapper.calcTopicCountByTeacherId(teacherId);
+        if(count == null) return 0;
+        return count;
     }
 
     // 根据课题名称和教师名称进行模糊查询课题
@@ -121,11 +132,16 @@ public class TopicService {
         return ResponseJsonUtil.success("修改成功.");
     }
 
+    // 将一个课题设置不可预选状态
+    public void setTopicEnabled(Integer topicId) {
+        topicMapper.setTopicEnabled(topicId);
+    }
+
     // 教师删除一个课题
     public ResponseJson deleteTopic(Integer topicId) {
         // 删除课题之前，先将定选了该课题的学生清空和预选了该课题的学生进行删除
         studentService.deleteStudentTopic(topicId);
-        selectTopicMapper.deleteSelectTopicById(topicId);
+        selectTopicMapper.deleteSelectTopicByTopicId(topicId);
         topicMapper.deleteTopic(topicId);
         return ResponseJsonUtil.success("删除成功.");
     }

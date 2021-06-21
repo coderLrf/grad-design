@@ -82,7 +82,6 @@ public class StudentService {
 
     // 根据课题id清空学生课题
     public void deleteStudentTopic(Integer topicId) {
-        System.out.println(topicId);
         studentMapper.deleteStudentTopic(topicId);
     }
 
@@ -90,6 +89,13 @@ public class StudentService {
     public int selectPrimary(Integer topicId, Integer studentId) {
         int row = studentMapper.selectPrimary(topicId, studentId);
         return row;
+    }
+
+    // 查询课题人数总数量
+    public Integer calcTopicCountByTopicId(Integer topicId) {
+        Integer count = studentMapper.calcTopicCountByTopicId(topicId);
+        if(count == null) return 0;
+        return count;
     }
 
     // 查询该学生是否有定选的课题，如果有返回该课题

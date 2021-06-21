@@ -25,6 +25,10 @@ public interface StudentMapper {
     @Select("select max(student_no) from student")
     public Integer selectNextStudentId();
 
+    // 根据课题id查询该课题总数量
+    @Select("select sum(1) from student where topic_no = #{topicId}")
+    public Integer calcTopicCountByTopicId(Integer topicId);
+
     // 插入一条数据
     @Insert("insert into student(student_name, sex, birthday, class_no) " +
             "values(#{student_name}, #{sex}, #{birthday}, #{class_no})")

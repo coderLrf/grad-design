@@ -66,12 +66,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <!--/*@thymesVar id="topicList" type="topicList"*/-->
                                     <tr th:each="topic, object : ${topicList}">
                                         <td th:text="${object.index} + 1"></td>
                                         <td th:text="${topic.getTitle_name()}"></td>
                                         <td th:text="${topic.getTitle_no()}"></td>
-                                        <td th:text="${topic.getTitle_desc()}"></td>
+                                        <td class="content" th:text="${topic.getTitle_desc()}"></td>
                                         <td th:text="${topic.getTeacher_name()}"></td>
                                         <td>审核中</td>
                                         <td>
