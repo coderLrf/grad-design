@@ -11,9 +11,8 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 21/06/2021 14:36:46
+ Date: 22/06/2021 00:44:14
 */
-
 CREATE DATABASE IF NOT EXISTS choosing_toics;
 use choosing_toics;
 
@@ -33,7 +32,7 @@ CREATE TABLE `chat_record`  (
   `message_side` int NOT NULL COMMENT '留言方id',
   `flag` int NULL DEFAULT 1 COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of chat_record
@@ -142,7 +141,7 @@ CREATE TABLE `selecttopic`  (
   INDEX `title_no`(`title_no`) USING BTREE,
   CONSTRAINT `selecttopic_ibfk_1` FOREIGN KEY (`student_no`) REFERENCES `student` (`student_no`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `selecttopic_ibfk_2` FOREIGN KEY (`title_no`) REFERENCES `topic` (`title_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 74 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 90 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of selecttopic
@@ -170,11 +169,11 @@ CREATE TABLE `student`  (
 -- ----------------------------
 INSERT INTO `student` VALUES (2019101039, '李四', NULL, NULL, NULL, NULL);
 INSERT INTO `student` VALUES (2019101040, '张三', NULL, NULL, NULL, NULL);
-INSERT INTO `student` VALUES (2019101044, '张飞', '男', '2021-05-28', 5000, 21);
-INSERT INTO `student` VALUES (2019101045, '李白', NULL, NULL, NULL, 24);
-INSERT INTO `student` VALUES (2019101046, '阿珂', '男', '2021-05-14', 5001, 24);
-INSERT INTO `student` VALUES (2019101048, '大乔', NULL, NULL, NULL, 20);
-INSERT INTO `student` VALUES (2019101051, '瑶', '男', '2021-06-15', 5000, 28);
+INSERT INTO `student` VALUES (2019101044, '张飞', '男', '2021-05-28', 5000, NULL);
+INSERT INTO `student` VALUES (2019101045, '李白', NULL, NULL, NULL, NULL);
+INSERT INTO `student` VALUES (2019101046, '阿珂', '男', '2021-05-14', 5001, NULL);
+INSERT INTO `student` VALUES (2019101048, '大乔', NULL, NULL, NULL, NULL);
+INSERT INTO `student` VALUES (2019101051, '瑶', '男', '2021-06-15', 5000, NULL);
 
 -- ----------------------------
 -- Table structure for teacher
@@ -189,7 +188,7 @@ CREATE TABLE `teacher`  (
   PRIMARY KEY (`teacher_no`) USING BTREE,
   INDEX `institute_no`(`institute_no`) USING BTREE,
   CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`institute_no`) REFERENCES `institute` (`institute_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 20190127 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 20190128 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of teacher
@@ -210,6 +209,7 @@ CREATE TABLE `topic`  (
   `title_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '课题描述',
   `teacher_no` int NOT NULL COMMENT '教师编号',
   `admission` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '状态',
+  `state` int NULL DEFAULT 1,
   PRIMARY KEY (`title_no`) USING BTREE,
   INDEX `teacher_no`(`teacher_no`) USING BTREE,
   CONSTRAINT `topic_ibfk_1` FOREIGN KEY (`teacher_no`) REFERENCES `teacher` (`teacher_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -218,18 +218,22 @@ CREATE TABLE `topic`  (
 -- ----------------------------
 -- Records of topic
 -- ----------------------------
-INSERT INTO `topic` VALUES (20, '小程序开发', '1.良好的页面设计和交互，2.后台使用java或PHP语言', 20190122, '是');
-INSERT INTO `topic` VALUES (21, '个人网站制作', '1.良好的页面设计和交互，2.后台使用java或', 20190121, '是');
-INSERT INTO `topic` VALUES (24, '个人博客系统', '1.良好的页面设计和交互，2.后台使用java或PHP语言', 20190121, '是');
-INSERT INTO `topic` VALUES (25, '校园点餐系统', '1.良好的页面设计和交互，2.后台使用java或PHP语言', 20190121, '是');
-INSERT INTO `topic` VALUES (26, '微信小程序开发', '1.超级靓号的设计页面', 20190121, '是');
-INSERT INTO `topic` VALUES (28, '后端开发', '1.超级靓号的超级语言', 20190122, '是');
-INSERT INTO `topic` VALUES (29, '微信小程序开始教程', '开发开发开发', 20190122, '是');
-INSERT INTO `topic` VALUES (39, 'springboot', '开发开发开发', 20190122, NULL);
-INSERT INTO `topic` VALUES (40, '我是测试课题', '开发开发开发', 20190122, NULL);
-INSERT INTO `topic` VALUES (41, '我是测试课题2', '哈哈哈哈哈哈', 20190121, '是');
-INSERT INTO `topic` VALUES (42, '我是测试课题3', '哈哈哈哈哈', 20190121, '是');
-INSERT INTO `topic` VALUES (43, '我是测试课题4', '哈啊哈哈哈哈哈', 20190121, '否');
+INSERT INTO `topic` VALUES (20, '小程序开发', '1.良好的页面设计和交互，2.后台使用java或PHP语言', 20190122, '是', 1);
+INSERT INTO `topic` VALUES (21, '个人网站制作', '1.良好的页面设计和交互，2.后台使用java或', 20190121, '是', 1);
+INSERT INTO `topic` VALUES (24, '个人博客系统', '1.良好的页面设计和交互，2.后台使用java或PHP语言', 20190121, '是', 1);
+INSERT INTO `topic` VALUES (25, '校园点餐系统', '1.良好的页面设计和交互，2.后台使用java或PHP语言', 20190121, '是', 1);
+INSERT INTO `topic` VALUES (26, '微信小程序开发', '1.超级靓号的设计页面', 20190121, '是', 1);
+INSERT INTO `topic` VALUES (28, '后端开发', '1.超级靓号的超级语言', 20190122, '是', 1);
+INSERT INTO `topic` VALUES (29, '微信小程序开始教程', '开发开发开发', 20190122, '是', 1);
+INSERT INTO `topic` VALUES (39, 'springboot', '开发开发开发', 20190122, NULL, 1);
+INSERT INTO `topic` VALUES (40, '我是测试课题', '开发开发开发', 20190122, NULL, 1);
+INSERT INTO `topic` VALUES (41, '我是测试课题2', '哈哈哈哈哈哈', 20190121, '是', 1);
+INSERT INTO `topic` VALUES (42, '我是测试课题3', '哈哈哈哈哈', 20190121, '是', 1);
+INSERT INTO `topic` VALUES (43, '我是测试课题4', '哈啊哈哈哈哈哈', 20190121, '否', 1);
+INSERT INTO `topic` VALUES (44, '我是白白的新增课题1', '我是白白的新增课题1hahahhahah ', 20190125, '是', 1);
+INSERT INTO `topic` VALUES (45, '我是白白的新增课题2', '我是白白的新增课题2sdfsdfdsfdsf', 20190125, '是', 1);
+INSERT INTO `topic` VALUES (46, '我是白白的新增课题3', '我是白白的新增课题3hahhahahahh', 20190125, NULL, 1);
+INSERT INTO `topic` VALUES (47, '我是白白的新增课题4', '我是白白的新增课题4hhahahahahaha', 20190125, NULL, 1);
 
 -- ----------------------------
 -- Table structure for user
@@ -253,7 +257,7 @@ INSERT INTO `user` VALUES ('20190122', 'e10adc3949ba59abbe56e057f20f883e', '韩�
 INSERT INTO `user` VALUES ('20190125', 'e10adc3949ba59abbe56e057f20f883e', '白白', '教师', '');
 INSERT INTO `user` VALUES ('20190126', 'e10adc3949ba59abbe56e057f20f883e', '韩跳跳', '教师', '');
 INSERT INTO `user` VALUES ('20190127', 'e10adc3949ba59abbe56e057f20f883e', '拜拜老师', '教师', NULL);
-INSERT INTO `user` VALUES ('2019101039', 'd41d8cd98f00b204e9800998ecf8427e', '小李四', '学生', NULL);
+INSERT INTO `user` VALUES ('2019101039', 'e10adc3949ba59abbe56e057f20f883e', '小李四', '学生', NULL);
 INSERT INTO `user` VALUES ('2019101040', 'e10adc3949ba59abbe56e057f20f883e', '张三', '学生', NULL);
 INSERT INTO `user` VALUES ('2019101044', 'e10adc3949ba59abbe56e057f20f883e', '张飞', '学生', '');
 INSERT INTO `user` VALUES ('2019101045', 'e10adc3949ba59abbe56e057f20f883e', '李白', '学生', NULL);
