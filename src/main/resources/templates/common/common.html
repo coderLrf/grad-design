@@ -205,6 +205,9 @@
                     </li>
                 </ul>
             </li>
+            <li th:class="${active == 'record' ? 'active' : ''}">
+                <a th:href="@{/admin/record/list}"><span class="nav-label">留言管理</span></a>
+            </li>
             <li th:class="${active == 'setUp' ? 'active' : ''}">
                 <a th:href="@{/admin/setUp}"><span class="nav-label">系统设置</span></a>
             </li>

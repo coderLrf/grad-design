@@ -4,10 +4,7 @@ import com.example.designtopicselectionsystem.domain.*;
 import com.example.designtopicselectionsystem.domain.Class;
 import com.example.designtopicselectionsystem.mapper.InstituteMapper;
 import com.example.designtopicselectionsystem.repository.ClassRepository;
-import com.example.designtopicselectionsystem.service.StudentService;
-import com.example.designtopicselectionsystem.service.TeacherService;
-import com.example.designtopicselectionsystem.service.TopicService;
-import com.example.designtopicselectionsystem.service.UserService;
+import com.example.designtopicselectionsystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +33,9 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ChatRecordService chatRecordService;
 
     @GetMapping("/login")
     public String toLogin() {
@@ -375,6 +375,25 @@ public class AdminController {
             }
         }
         return "redirect:/admin/user/list";
+    }
+
+    /*
+     * 以下是留言管理页面
+     */
+
+    @GetMapping("/record/list")
+    public String toRecord(Model model) {
+        // 查询所有留言列表
+        List<ChatRecordAdmin> chatRecords = chatRecordService.getChatRecordList();
+        // 返回给前端
+        model.addAttribute("chatRecords", chatRecords);
+        return "record/list";
+    }
+
+    @GetMapping("/record/{id}")
+    public String toggleState(@PathVariable("id") Integer id) {
+        chatRecordService.toggleRecordState(id);
+        return "redirect:list";
     }
 
 }

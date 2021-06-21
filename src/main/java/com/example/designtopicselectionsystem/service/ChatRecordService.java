@@ -1,6 +1,7 @@
 package com.example.designtopicselectionsystem.service;
 
 import com.example.designtopicselectionsystem.domain.ChatRecord;
+import com.example.designtopicselectionsystem.domain.ChatRecordAdmin;
 import com.example.designtopicselectionsystem.domain.Student;
 import com.example.designtopicselectionsystem.domain.Teacher;
 import com.example.designtopicselectionsystem.mapper.ChatRecordMapper;
@@ -40,9 +41,36 @@ public class ChatRecordService {
         return ResponseJsonUtil.success("留言成功.");
     }
 
+    // 查询所有留言记录
+    public List<ChatRecordAdmin> getChatRecordList() {
+        List<ChatRecordAdmin> chatRecords = getChatRecordsAdmin(chatRecordMapper.selectAllRecord());
+        // 设置留言方姓名和接收方姓名
+        for (ChatRecordAdmin chatRecord : chatRecords) {
+            // 取出留言方id
+            Integer sideId = chatRecord.getMessage_side();
+            // 判断if如果留言方id与教师符合，则表示留言方是教师
+            if(sideId == chatRecord.getTeacher_id()) {
+                // 设置留言方姓名和接收方姓名
+                chatRecord.setRecordName(chatRecord.getTeacher().getTeacher_name());
+                chatRecord.setReceiverName(chatRecord.getStudent().getStudent_name());
+            } else {
+                // 否则留言方为学生，接收方为教师
+                chatRecord.setRecordName(chatRecord.getStudent().getStudent_name());
+                chatRecord.setReceiverName(chatRecord.getTeacher().getTeacher_name());
+            }
+        }
+        return chatRecords;
+    }
+
     // 查询教师和学生的留言记录
     public List<ChatRecord> selectABRecord(Integer teacherId, Integer studentId) {
-        List<ChatRecord> chatRecords = chatRecordMapper.selectABRecord(teacherId, studentId);
+        List<ChatRecord> chatRecords = getChatRecords(chatRecordMapper.selectABRecord(teacherId, studentId));
+        return chatRecords;
+    }
+
+    // 设置留言记录学生信息和教师信息
+    private List<ChatRecord> getChatRecords(List<ChatRecord> chatRecords) {
+        if(chatRecords == null) return null;
         for (ChatRecord chatRecord : chatRecords) {
             Teacher teacher = teacherService.findById(chatRecord.getTeacher_id());
             Student student = studentService.findById(chatRecord.getStudent_id());
@@ -50,6 +78,23 @@ public class ChatRecordService {
             chatRecord.setStudent(student);
         }
         return chatRecords;
+    }
+
+    // 设置留言记录学生信息和教师信息
+    private List<ChatRecordAdmin> getChatRecordsAdmin(List<ChatRecordAdmin> chatRecords) {
+        if(chatRecords == null) return null;
+        for (ChatRecordAdmin chatRecord : chatRecords) {
+            Teacher teacher = teacherService.findById(chatRecord.getTeacher_id());
+            Student student = studentService.findById(chatRecord.getStudent_id());
+            chatRecord.setTeacher(teacher);
+            chatRecord.setStudent(student);
+        }
+        return chatRecords;
+    }
+
+    // 切换留言状态（根据留言id）
+    public void toggleRecordState(Integer id) {
+        chatRecordMapper.toggleRecordState(id);
     }
 
 }

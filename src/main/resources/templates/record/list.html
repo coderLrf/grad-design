@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>留言管理</title>
+
+    <div th:replace="~{common/common::#common_style}"></div>
+
+    <style>
+        .ibox-content tbody tr td.content {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="wrapper" style="height: 100%;">
+
+        <!-- 侧边栏 -->
+        <div th:replace="~{common/common::sidebar(active = 'record')}"></div>
+
+        <div id="page-wrapper" style="min-height: 100%; background-color: #EDF1F9; overflow: hidden;"
+            class="gray-bg dashbard-1">
+
+            <!-- 顶部栏 -->
+            <div th:replace="~{common/common::topbar}"></div>
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-9" style="padding: 0;">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="javascript:void(0)">留言管理</a>
+                        </li>
+                        <li>
+                            <strong>留言列表</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="wrapper wrapper-content animated fadeInRight" style="padding-top: 0; height: 100%;">
+                <div class="row row_one">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox" style="margin-bottom: 0">
+                            <a href="" class="btn"></a>
+                            <form class="right" th:action="@{/admin/search/student}">
+                                <input type="text" th:value="${param.content}" name="content" class="form-control" placeholder="留言方 / 接收方">
+                                <button type="submit" class="btn btn-xs btn-primary" style="font-size: 14px">搜索留言</button>
+                            </form>
+                        </div>
+                        <div class="ibox-title">
+                            <h5>留言列表</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table">
+                                <thead style="top: 45px">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>留言方</th>
+                                        <th>接收方</th>
+                                        <th>留言内容</th>
+                                        <th>留言时间</th>
+                                        <th>屏蔽状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="chatRecord, object : ${chatRecords}">
+                                        <td th:text="${object.index} + 1"></td>
+                                        <td th:text="${chatRecord.getRecordName()}"></td>
+                                        <td th:text="${chatRecord.getReceiverName()}"></td>
+                                        <td class="content" th:text="${chatRecord.getContent()}"></td>
+                                        <!--/*@thymesVar id="commons" type="commons"*/-->
+                                        <td th:text="${commons.dateFormat(chatRecord.getCreate_time())}"></td>
+                                        <td th:text="${chatRecord.getFlag() == 0 ? '是' : '否'}"></td>
+                                        <td>
+                                            <a class="btn btn-xs btn-primary" th:href="@{/admin/record/} + ${chatRecord.getId()}" th:if="${chatRecord.getFlag() == 1}">屏蔽</a>
+                                            <a class="btn btn-xs btn-danger" th:href="@{/admin/record/} + ${chatRecord.getId()}" th:if="${chatRecord.getFlag() == 0}">解屏</a>
+                                        </td>
+                                    </tr>
+                                    <h3 th:if="${#lists.isEmpty(chatRecords)}">数据为空</h3>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<div th:replace="~{common/common::#common_js}"></div>
+
+</body>
+
+</html>

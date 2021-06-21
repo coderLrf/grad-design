@@ -72,4 +72,16 @@ public class Teacher extends User {
     public void setInstitute_name(String institute_name) {
         this.institute_name = institute_name;
     }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "teacher_no=" + teacher_no +
+                ", teacher_name='" + teacher_name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", degree='" + degree + '\'' +
+                ", institute_no='" + institute_no + '\'' +
+                ", institute_name='" + institute_name + '\'' +
+                '}';
+    }
 }

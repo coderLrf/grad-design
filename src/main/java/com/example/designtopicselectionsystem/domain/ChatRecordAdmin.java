@@ -3,7 +3,7 @@ package com.example.designtopicselectionsystem.domain;
 import java.util.Date;
 
 // 留言表
-public class ChatRecord {
+public class ChatRecordAdmin {
 
     private Integer id;
     private Integer teacher_id;
@@ -14,6 +14,8 @@ public class ChatRecord {
     private int flag; // 状态：0表示被屏蔽了
     private Teacher teacher; // 教师对象
     private Student student; // 学生对象
+    private String recordName; // 留言方姓名
+    private String receiverName; // 接收方姓名
 
     public Integer getId() {
         return id;
@@ -85,6 +87,22 @@ public class ChatRecord {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public String getRecordName() {
+        return recordName;
+    }
+
+    public void setRecordName(String recordName) {
+        this.recordName = recordName;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 
     @Override

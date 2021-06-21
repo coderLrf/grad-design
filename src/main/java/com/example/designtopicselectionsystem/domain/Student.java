@@ -70,4 +70,15 @@ public class Student extends User {
         this.topic_no = topic_no;
     }
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "student_no=" + student_no +
+                ", student_name='" + student_name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birthday=" + birthday +
+                ", class_no=" + class_no +
+                ", topic_no=" + topic_no +
+                '}';
+    }
 }
