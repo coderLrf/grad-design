@@ -36,9 +36,7 @@ public class FileService {
     private FileMapper fileMapper;
 
     // 文件的上传
-    public ResponseJson uploadFile(Integer topicId, MultipartFile fileUpload) {
-        // 上传之前先删除
-        fileMapper.deleteFile(topicId);
+    public String uploadFile(MultipartFile fileUpload) {
         // 获取文件名以及后缀名
         String fileName = fileUpload.getOriginalFilename();
         // 重新生成新的文件名（根据具体情况生成对应文件名）
@@ -55,12 +53,21 @@ public class FileService {
             // 创建一个需要上传的file
             file = new File(dir.getAbsolutePath() + "\\" + fileName);
             fileUpload.transferTo(file); // 上传文件
-            fileMapper.uploadFile(topicId, fileName); // 保存到数据库
         } catch (IOException e) {
             e.printStackTrace();
-            return ResponseJsonUtil.error(-1, "文件上传失败.");
+            return null;
         }
-        return ResponseJsonUtil.successData(file, "文件上传成功.");
+        return fileName;
+    }
+
+    // 根据课题id删除文件
+    public void deleteFileByTopicId(Integer topicId) {
+        fileMapper.deleteFile(topicId);
+    }
+
+    // 保存文件到数据库
+    public void uploadFile(Integer topicId, String fileName) {
+        fileMapper.uploadFile(topicId, fileName);
     }
 
     // 文件的下载

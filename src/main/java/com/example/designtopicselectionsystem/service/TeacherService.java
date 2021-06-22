@@ -3,12 +3,15 @@ package com.example.designtopicselectionsystem.service;
 import com.example.designtopicselectionsystem.domain.*;
 import com.example.designtopicselectionsystem.mapper.InstituteMapper;
 import com.example.designtopicselectionsystem.mapper.ResultTeacherMapper;
+import com.example.designtopicselectionsystem.mapper.StudentMapper;
 import com.example.designtopicselectionsystem.mapper.TeacherMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,6 +30,12 @@ public class TeacherService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FileService fileService;
+
+    @Autowired
+    private StudentMapper studentMapper;
 
     public List<Teacher> findAll() {
         List<Teacher> teacherList = teacherMapper.selectAll();
@@ -127,5 +136,34 @@ public class TeacherService {
     public ResponseJson getInstituteList() {
         List<Institute> instituteList = instituteMapper.selectAll();
         return ResponseJsonUtil.successData(instituteList);
+    }
+
+    // 用于教师上传任务书
+    public ResponseJson teacherUploadFile(Integer topicId, MultipartFile fileUpload) {
+        // 上传之前先删除
+        fileService.deleteFileByTopicId(topicId);
+        // 上传文件
+        String file = fileService.uploadFile(fileUpload);
+        if(file == null) {
+            return ResponseJsonUtil.error(-1, "文件上传失败.");
+        }
+        // 保存到数据库
+        fileService.uploadFile(topicId, file);
+        return ResponseJsonUtil.successData(file, "文件上传成功.");
+    }
+
+    // 用于教师获取该学生的毕业设计
+    public ResponseJson teacherGetFile(Integer studentId) {
+        String fileId = studentMapper.getFile(studentId);
+        if(StringUtils.isBlank(fileId)) {
+            return ResponseJsonUtil.error(-1, "该学生还未提交毕业设计,");
+        }
+        // 根据file文件生成一个file对象
+        String fileName = fileId.substring(fileId.lastIndexOf("_") + 1);
+        String path = "http://localhost:9527/static/upload/file/" + fileId; // 路径
+        Integer topicId = studentMapper.selectTopicId(studentId);  // 根据学生id返回课题id
+        // 封装为一个file对象
+        File file = new File(fileId, topicId,fileName, path);
+        return ResponseJsonUtil.successData(file, "文件获取成功.");
     }
 }

@@ -8,6 +8,17 @@ public class File {
     private String filename;
     private String filePath; // 文件路径
 
+    public File() {
+
+    }
+
+    public File(String file_id, Integer topic_id, String filename, String filePath) {
+        this.file_id = file_id;
+        this.topic_id = topic_id;
+        this.filename = filename;
+        this.filePath = filePath;
+    }
+
     public String getFilename() {
         return filename;
     }

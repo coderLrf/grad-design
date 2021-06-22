@@ -21,6 +21,10 @@ public interface StudentMapper {
             "where t.title_no = stu.topic_no and stu.student_no = #{id} and tea.teacher_no = t.teacher_no")
     public ResultTopic selectPrimaryTopic(Integer id);
 
+    // 查询课题id
+    @Select("select topic_no from student where student_no = #{studentId}")
+    public Integer selectTopicId(Integer studentId);
+
     // 获得下一个自增id的值
     @Select("select max(student_no) from student")
     public Integer selectNextStudentId();
@@ -44,11 +48,19 @@ public interface StudentMapper {
     @Update("update student set topic_no = #{topicId} where student_no = #{studentId}")
     public int selectPrimary(@Param("topicId")Integer topicId, @Param("studentId")Integer studentId);
 
-    @Delete("delete from student where student_no = #{id}")
-    public int deleteStudent(Integer id);
-
     // 删除课题对应学生清空
     @Update("update student set topic_no = null where topic_no = #{topicId}")
     public void deleteStudentTopic(Integer topicId);
 
+    // 用于学生上传毕业设计
+    @Update("update student set file = #{file} where student_no = #{studentId}")
+    public void uploadFile(@Param("studentId") Integer StudentId, @Param("file") String file);
+
+    // 根据id删除学生
+    @Delete("delete from student where student_no = #{id}")
+    public int deleteStudent(Integer id);
+
+    // 根据学生id获取毕业设计
+    @Select("select file from student where student_no = #{studentId}")
+    public String getFile(Integer studentId);
 }

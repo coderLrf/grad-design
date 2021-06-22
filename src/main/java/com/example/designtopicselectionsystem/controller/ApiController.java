@@ -227,6 +227,21 @@ public class ApiController {
     }
 
     /**
+     * 用于学生上传毕业设计
+     * @param studentId 学生id
+     * @param fileUpload 文件字段名为：fileUpload
+     * @return 结果
+     */
+    @PostMapping("/student/uploadFile/{id}")
+    public ResponseJson studentUploadFile(@PathVariable("id") Integer studentId,
+                                          @RequestParam("fileUpload") MultipartFile fileUpload) {
+        if(fileUpload == null) {
+            return ResponseJsonUtil.error(-1, "参数错误.");
+        }
+        return studentService.studentUploadFile(studentId, fileUpload);
+    }
+
+    /**
      * 学生信息保存接口
      * @param iconUpload 学生icon
      * @param student 学生对象
@@ -376,7 +391,7 @@ public class ApiController {
         if(fileUpload == null) {
             return ResponseJsonUtil.error(-1, "参数错误.");
         }
-        return fileService.uploadFile(topicId, fileUpload);
+        return teacherService.teacherUploadFile(topicId, fileUpload);
     }
 
     /**
@@ -392,6 +407,14 @@ public class ApiController {
             userService.uploadIcon(iconUpload, teacher.getTeacher_no() + "");
         }
         return teacherService.teacherSaveMessage(teacher);
+    }
+
+    @GetMapping("/teacher/get/file")
+    public ResponseJson teacherGetFile(@RequestParam("studentId") Integer studentId) {
+        if(studentId == null) {
+            return ResponseJsonUtil.error(-1, "参数错误.");
+        }
+        return teacherService.teacherGetFile(studentId);
     }
 
     /**

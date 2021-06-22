@@ -11,11 +11,16 @@ import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.transform.Result;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -29,6 +34,9 @@ public class StudentService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FileService fileService;
 
     public List<Student> findAll() {
         List<Student> studentList = studentMapper.selectAll();
@@ -111,6 +119,18 @@ public class StudentService {
             return ResponseJsonUtil.success("信息保存成功.");
         }
         return ResponseJsonUtil.error(-1, "信息保存失败.");
+    }
+
+    // 用于学生上传毕业设计
+    public ResponseJson studentUploadFile(Integer studentId, MultipartFile fileUpload) {
+        // 上传毕业设计
+        String file = fileService.uploadFile(fileUpload);
+        if(file == null) {
+            return ResponseJsonUtil.error(-1, "文件上传失败.");
+        }
+        // 保存到数据库
+        studentMapper.uploadFile(studentId, file);
+        return ResponseJsonUtil.successData(file, "文件上传成功.");
     }
 
 
