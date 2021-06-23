@@ -1,12 +1,11 @@
 package com.example.designtopicselectionsystem.service;
 
-import com.example.designtopicselectionsystem.domain.ChatRecord;
-import com.example.designtopicselectionsystem.domain.ChatRecordAdmin;
-import com.example.designtopicselectionsystem.domain.Student;
-import com.example.designtopicselectionsystem.domain.Teacher;
+import com.example.designtopicselectionsystem.domain.*;
 import com.example.designtopicselectionsystem.mapper.ChatRecordMapper;
+import com.example.designtopicselectionsystem.mapper.UserMapper;
 import com.example.designtopicselectionsystem.response.ResponseJson;
 import com.example.designtopicselectionsystem.response.ResponseJsonUtil;
+import com.example.designtopicselectionsystem.utils.Commons;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +28,9 @@ public class ChatRecordService {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private UserMapper userMapper;
+
     // 插入一条留言
     public ResponseJson incrementRecord(ChatRecord chatRecord) {
         // 查询教师id和学生id是否存在
@@ -38,7 +40,7 @@ public class ChatRecordService {
             return ResponseJsonUtil.error(-1, "留言失败，id不存在.");
         }
         // 设置创建时间
-        chatRecord.setCreate_time(new Date());
+        chatRecord.setCreate_time(new Date().getTime());
         chatRecordMapper.incrementRecord(chatRecord);
         return ResponseJsonUtil.success("留言成功.");
     }
@@ -92,10 +94,18 @@ public class ChatRecordService {
     private List<ChatRecord> getChatRecords(List<ChatRecord> chatRecords) {
         if(chatRecords == null) return null;
         for (ChatRecord chatRecord : chatRecords) {
-            Teacher teacher = teacherService.findById(chatRecord.getTeacher_id());
-            Student student = studentService.findById(chatRecord.getStudent_id());
-            chatRecord.setTeacher(teacher);
-            chatRecord.setStudent(student);
+            Integer myUserId;
+            // 判断身份
+            if(chatRecord.getTeacher_id().equals(chatRecord.getMessage_side())) {
+                myUserId = chatRecord.getStudent_id();
+            } else {
+                myUserId = chatRecord.getTeacher_id();
+            }
+            User myUser = userMapper.selectById(myUserId + "");
+            User messageUser = userMapper.selectById(chatRecord.getMessage_side() + "");
+
+            chatRecord.setMyUser(myUser); // 设置发送方对象
+            chatRecord.setMessageUser(messageUser); //设置接收方对象
         }
         return chatRecords;
     }

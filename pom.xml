@@ -6,7 +6,7 @@
     <artifactId>design-topic-selection-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <!-- 把打包方式换成war包 -->
-<!--    <packaging>war</packaging>-->
+    <packaging>war</packaging>
     <name>design-topic-selection-system</name>
     <description>Demo project for Spring Boot</description>
 
@@ -91,11 +91,11 @@
         </dependency>
 
         <!-- 使用外置Tomcat -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-tomcat</artifactId>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
 <!--        <dependency>-->
 <!--            <groupId>org.apache.tomcat</groupId>-->
@@ -147,14 +147,14 @@
                     </execution>
                 </executions>
             </plugin>
-<!--            <plugin>-->
-<!--                <artifactId>maven-war-plugin</artifactId>-->
-<!--                <version>3.0.0</version>-->
-<!--                <configuration>-->
-<!--                    &lt;!&ndash;如果想在没有web.xml文件的情况下构建WAR，请设置为false。&ndash;&gt;-->
-<!--                    <failOnMissingWebXml>false</failOnMissingWebXml>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <!--如果想在没有web.xml文件的情况下构建WAR，请设置为false。-->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

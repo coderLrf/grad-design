@@ -1,7 +1,5 @@
 package com.example.designtopicselectionsystem.domain;
 
-import java.util.Date;
-
 // 留言表
 public class ChatRecord {
 
@@ -9,11 +7,11 @@ public class ChatRecord {
     private Integer teacher_id;
     private Integer student_id;
     private String content; // 留言内容
-    private Date create_time; // 创建时间
+    private Long create_time; // 创建时间
     private Integer message_side; // 留言方id
     private int flag; // 状态：0表示被屏蔽了
-    private Teacher teacher; // 教师对象
-    private Student student; // 学生对象
+    private User myUser; // 我的对象
+    private User messageUser; // 接收方对象
 
     public Integer getId() {
         return id;
@@ -47,11 +45,11 @@ public class ChatRecord {
         this.content = content;
     }
 
-    public Date getCreate_time() {
+    public Long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(Long create_time) {
         this.create_time = create_time;
     }
 
@@ -71,20 +69,20 @@ public class ChatRecord {
         this.flag = flag;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public User getMyUser() {
+        return myUser;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setMyUser(User myUser) {
+        this.myUser = myUser;
     }
 
-    public Student getStudent() {
-        return student;
+    public User getMessageUser() {
+        return messageUser;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setMessageUser(User messageUser) {
+        this.messageUser = messageUser;
     }
 
     @Override
@@ -97,8 +95,6 @@ public class ChatRecord {
                 ", create_time=" + create_time +
                 ", message_side=" + message_side +
                 ", flag=" + flag +
-                ", teacher=" + teacher +
-                ", student=" + student +
                 '}';
     }
 }

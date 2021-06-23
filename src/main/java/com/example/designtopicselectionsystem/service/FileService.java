@@ -61,12 +61,12 @@ public class FileService {
     }
 
     // 根据课题id删除文件
-    public void deleteFileByTopicId(Integer topicId) {
+    void deleteFileByTopicId(Integer topicId) {
         fileMapper.deleteFile(topicId);
     }
 
     // 保存文件到数据库
-    public void uploadFile(Integer topicId, String fileName) {
+    void uploadFile(Integer topicId, String fileName) {
         fileMapper.uploadFile(topicId, fileName);
     }
 
