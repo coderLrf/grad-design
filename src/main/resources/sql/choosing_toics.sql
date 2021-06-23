@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 22/06/2021 00:44:14
+ Date: 23/06/2021 12:22:13
 */
 CREATE DATABASE IF NOT EXISTS choosing_toics;
 use choosing_toics;
@@ -32,12 +32,14 @@ CREATE TABLE `chat_record`  (
   `message_side` int NOT NULL COMMENT '留言方id',
   `flag` int NULL DEFAULT 1 COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of chat_record
 -- ----------------------------
 INSERT INTO `chat_record` VALUES (1, 20190121, 2019101040, '12321312123213121232131212321312123213121232131212321312123213121232131212321312123213121232131212321312', '2021-06-16', 20190121, 1);
+INSERT INTO `chat_record` VALUES (5, 20190121, 2019101044, '哈哈哈哈哈', '2021-06-22', 2019101044, 1);
+INSERT INTO `chat_record` VALUES (6, 20190121, 2019101044, '你是个傻逼', '2021-06-22', 2019101044, 1);
 
 -- ----------------------------
 -- Table structure for class
@@ -141,7 +143,7 @@ CREATE TABLE `selecttopic`  (
   INDEX `title_no`(`title_no`) USING BTREE,
   CONSTRAINT `selecttopic_ibfk_1` FOREIGN KEY (`student_no`) REFERENCES `student` (`student_no`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `selecttopic_ibfk_2` FOREIGN KEY (`title_no`) REFERENCES `topic` (`title_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 90 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 103 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of selecttopic
@@ -158,6 +160,7 @@ CREATE TABLE `student`  (
   `birthday` date NULL DEFAULT NULL COMMENT '出生年月',
   `class_no` int NULL DEFAULT NULL COMMENT '班级编号',
   `topic_no` int NULL DEFAULT NULL COMMENT '课题编号',
+  `file` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '学生毕设',
   PRIMARY KEY (`student_no`) USING BTREE,
   UNIQUE INDEX `student_name`(`student_name`) USING BTREE,
   INDEX `class_no`(`class_no`) USING BTREE,
@@ -167,13 +170,13 @@ CREATE TABLE `student`  (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES (2019101039, '李四', NULL, NULL, NULL, NULL);
-INSERT INTO `student` VALUES (2019101040, '张三', NULL, NULL, NULL, NULL);
-INSERT INTO `student` VALUES (2019101044, '张飞', '男', '2021-05-28', 5000, NULL);
-INSERT INTO `student` VALUES (2019101045, '李白', NULL, NULL, NULL, NULL);
-INSERT INTO `student` VALUES (2019101046, '阿珂', '男', '2021-05-14', 5001, NULL);
-INSERT INTO `student` VALUES (2019101048, '大乔', NULL, NULL, NULL, NULL);
-INSERT INTO `student` VALUES (2019101051, '瑶', '男', '2021-06-15', 5000, NULL);
+INSERT INTO `student` VALUES (2019101039, '李四', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `student` VALUES (2019101040, '张三', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `student` VALUES (2019101044, '张飞', '男', '2021-05-28', 5000, 24, '84915efb-433d-4b13-8d20-c3c09baafd5b_Diagram%201.jpg');
+INSERT INTO `student` VALUES (2019101045, '李白', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `student` VALUES (2019101046, '阿珂', '男', '2021-05-14', 5001, NULL, NULL);
+INSERT INTO `student` VALUES (2019101048, '大乔', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `student` VALUES (2019101051, '瑶', '男', '2021-06-15', 5000, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for teacher
@@ -213,7 +216,7 @@ CREATE TABLE `topic`  (
   PRIMARY KEY (`title_no`) USING BTREE,
   INDEX `teacher_no`(`teacher_no`) USING BTREE,
   CONSTRAINT `topic_ibfk_1` FOREIGN KEY (`teacher_no`) REFERENCES `teacher` (`teacher_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of topic
