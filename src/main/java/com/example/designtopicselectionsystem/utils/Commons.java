@@ -24,6 +24,17 @@ public class Commons {
     }
 
     /**
+     * 时间戳转换为时间对象
+     * @param date 时间戳
+     * @return 时间格式 yyyy-MM-dd
+     */
+    public static String dateFormatLong(Long date) {
+        System.out.println(date);
+        Date now = new Date(date);
+        return dateFormat(now);
+    }
+
+    /**
      * 返回教师等级
      * @param degree 1 | 2 | 3
      * @return 等级

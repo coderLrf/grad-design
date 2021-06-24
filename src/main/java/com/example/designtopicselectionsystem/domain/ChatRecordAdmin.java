@@ -1,7 +1,5 @@
 package com.example.designtopicselectionsystem.domain;
 
-import java.util.Date;
-
 // 留言表
 public class ChatRecordAdmin {
 
@@ -9,7 +7,7 @@ public class ChatRecordAdmin {
     private Integer teacher_id;
     private Integer student_id;
     private String content; // 留言内容
-    private Date create_time; // 创建时间
+    private Long create_time; // 创建时间
     private Integer message_side; // 留言方id
     private int flag; // 状态：0表示被屏蔽了
     private Teacher teacher; // 教师对象
@@ -49,11 +47,11 @@ public class ChatRecordAdmin {
         this.content = content;
     }
 
-    public Date getCreate_time() {
+    public Long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(Date create_time) {
+    public void setCreate_time(Long create_time) {
         this.create_time = create_time;
     }
 

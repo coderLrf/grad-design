@@ -71,7 +71,7 @@
                                         <td th:text="${chatRecord.getReceiverName()}"></td>
                                         <td class="content" th:text="${chatRecord.getContent()}"></td>
                                         <!--/*@thymesVar id="commons" type="commons"*/-->
-                                        <td th:text="${commons.dateFormat(chatRecord.getCreate_time())}"></td>
+                                        <td th:text="${commons.dateFormatLong(chatRecord.getCreate_time())}"></td>
                                         <td th:text="${chatRecord.getFlag() == 0 ? '是' : '否'}"></td>
                                         <td>
                                             <a class="btn btn-xs btn-primary" th:href="@{/admin/record/} + ${chatRecord.getId()}" th:if="${chatRecord.getFlag() == 1}">屏蔽</a>
