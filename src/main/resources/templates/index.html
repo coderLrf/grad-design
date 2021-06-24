@@ -55,18 +55,19 @@
         // 按照选题的人数来进行排序
         for(let i = 0; i < teacherCountList.length; i++) {
             for(let j = 0; j < teacherCountList.length - 1 - i; j++) {
+                if(teacherCountList[j] === 0) continue
                 if(teacherCountList[j] > teacherCountList[j + 1]) {
-                    let temp = teacherCountList[j];
-                    let tempName = teacherList[j];
+                    let temp = teacherCountList[j]
+                    let tempName = teacherList[j]
                     teacherCountList[j] = teacherCountList[j + 1];
-                    teacherList[j] = teacherList[j + 1];
-                    teacherCountList[j + 1] = temp;
-                    teacherList[j + 1] = tempName;
+                    teacherList[j] = teacherList[j + 1]
+                    teacherCountList[j + 1] = temp
+                    teacherList[j + 1] = tempName
                 }
             }
         }
         // 按照每一个百分之三十七来计算
-        const height = teacherList.length * 37;
+        const height = teacherList.length * 37
     </script>
 
     <script>

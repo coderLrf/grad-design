@@ -97,14 +97,6 @@
             <scope>provided</scope>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.apache.tomcat</groupId>-->
-<!--            <artifactId>tomcat-servlet-api</artifactId>-->
-<!--            <version>8.0.36</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
-
-
     </dependencies>
 
     <dependencyManagement>
