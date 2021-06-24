@@ -29,7 +29,6 @@ public class Commons {
      * @return 时间格式 yyyy-MM-dd
      */
     public static String dateFormatLong(Long date) {
-        System.out.println(date);
         Date now = new Date(date);
         return dateFormat(now);
     }
