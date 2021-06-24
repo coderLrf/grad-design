@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 23/06/2021 12:22:13
+ Date: 24/06/2021 09:58:32
 */
 CREATE DATABASE IF NOT EXISTS choosing_toics;
 use choosing_toics;
@@ -28,18 +28,22 @@ CREATE TABLE `chat_record`  (
   `teacher_id` int NOT NULL COMMENT '教师id',
   `student_id` int NOT NULL COMMENT '学生id',
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '内容',
-  `create_time` date NOT NULL COMMENT '创建时间',
+  `create_time` bigint NOT NULL COMMENT '创建时间',
   `message_side` int NOT NULL COMMENT '留言方id',
   `flag` int NULL DEFAULT 1 COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of chat_record
 -- ----------------------------
-INSERT INTO `chat_record` VALUES (1, 20190121, 2019101040, '12321312123213121232131212321312123213121232131212321312123213121232131212321312123213121232131212321312', '2021-06-16', 20190121, 1);
-INSERT INTO `chat_record` VALUES (5, 20190121, 2019101044, '哈哈哈哈哈', '2021-06-22', 2019101044, 1);
-INSERT INTO `chat_record` VALUES (6, 20190121, 2019101044, '你是个傻逼', '2021-06-22', 2019101044, 1);
+INSERT INTO `chat_record` VALUES (69, 20190121, 2019101044, '是打法是否', 1624474046012, 20190121, 1);
+INSERT INTO `chat_record` VALUES (70, 20190121, 2019101044, '是对方付', 1624474939637, 20190121, 1);
+INSERT INTO `chat_record` VALUES (71, 20190121, 2019101044, 'dafa', 1624474945659, 2019101044, 1);
+INSERT INTO `chat_record` VALUES (72, 20190121, 2019101044, '你好呀\n', 1624475328802, 20190121, 1);
+INSERT INTO `chat_record` VALUES (73, 20190121, 2019101044, '我叫a是\n', 1624499651983, 2019101044, 1);
+INSERT INTO `chat_record` VALUES (74, 20190121, 2019101044, '自带声音\n', 1624499668989, 2019101044, 1);
+INSERT INTO `chat_record` VALUES (75, 20190121, 2019101044, '您觉得呢\n', 1624499853636, 20190121, 1);
 
 -- ----------------------------
 -- Table structure for class
@@ -255,7 +259,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('20190121', 'e10adc3949ba59abbe56e057f20f883e', '阿肆', '教师', 'D:\\CodeMonkey\\projects\\design-topic-selection-system\\target\\classes\\static\\upload\\icon\\0ad6d073-6ed2-4ab0-b681-f9fac22190a8_QQ截图20191007220812.png');
+INSERT INTO `user` VALUES ('20190121', 'e10adc3949ba59abbe56e057f20f883e', '阿肆', '教师', '');
 INSERT INTO `user` VALUES ('20190122', 'e10adc3949ba59abbe56e057f20f883e', '韩信', '教师', NULL);
 INSERT INTO `user` VALUES ('20190125', 'e10adc3949ba59abbe56e057f20f883e', '白白', '教师', '');
 INSERT INTO `user` VALUES ('20190126', 'e10adc3949ba59abbe56e057f20f883e', '韩跳跳', '教师', '');
