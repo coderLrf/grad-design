@@ -156,7 +156,7 @@ public class TeacherService {
     public ResponseJson teacherGetFile(Integer studentId) {
         String fileId = studentMapper.getFile(studentId);
         if(StringUtils.isBlank(fileId)) {
-            return ResponseJsonUtil.error(-1, "该学生还未提交毕业设计,");
+            return ResponseJsonUtil.error(-1, "该学生还未提交毕业作品,");
         }
         // 根据file文件生成一个file对象
         String fileName = fileId.substring(fileId.lastIndexOf("_") + 1);

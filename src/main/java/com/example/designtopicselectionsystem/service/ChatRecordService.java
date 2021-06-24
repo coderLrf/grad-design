@@ -29,7 +29,7 @@ public class ChatRecordService {
     private StudentService studentService;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     // 插入一条留言
     public ResponseJson incrementRecord(ChatRecord chatRecord) {
@@ -101,11 +101,12 @@ public class ChatRecordService {
             } else {
                 myUserId = chatRecord.getTeacher_id();
             }
-            User myUser = userMapper.selectById(myUserId + "");
-            User messageUser = userMapper.selectById(chatRecord.getMessage_side() + "");
-
+            User myUser = userService.findById(myUserId + "");
+            User messageUser = userService.findById(chatRecord.getMessage_side() + "");
+            String path = userService.selectIconById(chatRecord.getMessage_side() + "");
             chatRecord.setMyUser(myUser); // 设置发送方对象
             chatRecord.setMessageUser(messageUser); //设置接收方对象
+            chatRecord.setUserPath(path); // 设置用户icon
         }
         return chatRecords;
     }

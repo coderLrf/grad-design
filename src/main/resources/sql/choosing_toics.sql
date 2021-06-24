@@ -11,8 +11,9 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 24/06/2021 09:58:32
+ Date: 24/06/2021 11:23:30
 */
+
 CREATE DATABASE IF NOT EXISTS choosing_toics;
 use choosing_toics;
 
@@ -44,6 +45,9 @@ INSERT INTO `chat_record` VALUES (72, 20190121, 2019101044, '你好呀\n', 16244
 INSERT INTO `chat_record` VALUES (73, 20190121, 2019101044, '我叫a是\n', 1624499651983, 2019101044, 1);
 INSERT INTO `chat_record` VALUES (74, 20190121, 2019101044, '自带声音\n', 1624499668989, 2019101044, 1);
 INSERT INTO `chat_record` VALUES (75, 20190121, 2019101044, '您觉得呢\n', 1624499853636, 20190121, 1);
+INSERT INTO `chat_record` VALUES (76, 20190121, 2019101044, 'hello\n', 1624503200385, 20190121, 1);
+INSERT INTO `chat_record` VALUES (77, 20190121, 2019101046, '你好，小朋友\n', 1624504309007, 20190121, 1);
+INSERT INTO `chat_record` VALUES (78, 20190121, 2019101046, '老师，你好啊\n', 1624504322336, 2019101046, 1);
 
 -- ----------------------------
 -- Table structure for class
@@ -176,7 +180,7 @@ CREATE TABLE `student`  (
 -- ----------------------------
 INSERT INTO `student` VALUES (2019101039, '李四', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `student` VALUES (2019101040, '张三', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `student` VALUES (2019101044, '张飞', '男', '2021-05-28', 5000, 24, '84915efb-433d-4b13-8d20-c3c09baafd5b_Diagram%201.jpg');
+INSERT INTO `student` VALUES (2019101044, '张飞', '男', '2021-05-28', 5000, NULL, '');
 INSERT INTO `student` VALUES (2019101045, '李白', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `student` VALUES (2019101046, '阿珂', '男', '2021-05-14', 5001, NULL, NULL);
 INSERT INTO `student` VALUES (2019101048, '大乔', NULL, NULL, NULL, NULL, NULL);
@@ -201,7 +205,7 @@ CREATE TABLE `teacher`  (
 -- Records of teacher
 -- ----------------------------
 INSERT INTO `teacher` VALUES (20190121, '阿肆', '男', '高级教师', '103');
-INSERT INTO `teacher` VALUES (20190122, '韩信', NULL, '中级教师', '101');
+INSERT INTO `teacher` VALUES (20190122, '韩信', '女', '中级教师', '101');
 INSERT INTO `teacher` VALUES (20190125, '白白', '男', '初级教师', '100');
 INSERT INTO `teacher` VALUES (20190126, '韩跳跳', '男', '中级教师', '100');
 INSERT INTO `teacher` VALUES (20190127, '拜拜老师', '男', '初级教师', '100');
@@ -260,16 +264,16 @@ CREATE TABLE `user`  (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('20190121', 'e10adc3949ba59abbe56e057f20f883e', '阿肆', '教师', '');
-INSERT INTO `user` VALUES ('20190122', 'e10adc3949ba59abbe56e057f20f883e', '韩信', '教师', NULL);
+INSERT INTO `user` VALUES ('20190122', 'e10adc3949ba59abbe56e057f20f883e', '韩信', '教师', '');
 INSERT INTO `user` VALUES ('20190125', 'e10adc3949ba59abbe56e057f20f883e', '白白', '教师', '');
-INSERT INTO `user` VALUES ('20190126', 'e10adc3949ba59abbe56e057f20f883e', '韩跳跳', '教师', '');
+INSERT INTO `user` VALUES ('20190126', 'e10adc3949ba59abbe56e057f20f883e', '韩跳跳', '教师', 'D:\\CodeMonkey\\projects\\design-topic-selection-system\\target\\classes\\static\\upload\\icon\\57914fca-86b7-41bc-96b5-5f71d8e7caf0_map.png');
 INSERT INTO `user` VALUES ('20190127', 'e10adc3949ba59abbe56e057f20f883e', '拜拜老师', '教师', NULL);
 INSERT INTO `user` VALUES ('2019101039', 'e10adc3949ba59abbe56e057f20f883e', '小李四', '学生', NULL);
 INSERT INTO `user` VALUES ('2019101040', 'e10adc3949ba59abbe56e057f20f883e', '张三', '学生', NULL);
 INSERT INTO `user` VALUES ('2019101044', 'e10adc3949ba59abbe56e057f20f883e', '张飞', '学生', '');
 INSERT INTO `user` VALUES ('2019101045', 'e10adc3949ba59abbe56e057f20f883e', '李白', '学生', NULL);
-INSERT INTO `user` VALUES ('2019101046', 'e10adc3949ba59abbe56e057f20f883e', '阿珂', '学生', NULL);
+INSERT INTO `user` VALUES ('2019101046', 'e10adc3949ba59abbe56e057f20f883e', '阿珂', '学生', '');
 INSERT INTO `user` VALUES ('2019101048', 'e10adc3949ba59abbe56e057f20f883e', '大乔', '学生', NULL);
-INSERT INTO `user` VALUES ('2019101051', 'e10adc3949ba59abbe56e057f20f883e', '瑶', '学生', NULL);
+INSERT INTO `user` VALUES ('2019101051', 'e10adc3949ba59abbe56e057f20f883e', '瑶', '学生', '');
 
 SET FOREIGN_KEY_CHECKS = 1;

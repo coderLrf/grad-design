@@ -409,6 +409,11 @@ public class ApiController {
         return teacherService.teacherSaveMessage(teacher);
     }
 
+    /**
+     * 可以获取学生上传的作品
+     * @param studentId 学生id
+     * @return 作品
+     */
     @GetMapping("/teacher/get/file")
     public ResponseJson teacherGetFile(@RequestParam("studentId") Integer studentId) {
         if(studentId == null) {

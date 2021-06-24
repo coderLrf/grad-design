@@ -12,6 +12,7 @@ public class ChatRecord {
     private int flag; // 状态：0表示被屏蔽了
     private User myUser; // 我的对象
     private User messageUser; // 接收方对象
+    private String userPath; // 用户的icon
 
     public Integer getId() {
         return id;
@@ -85,16 +86,11 @@ public class ChatRecord {
         this.messageUser = messageUser;
     }
 
-    @Override
-    public String toString() {
-        return "ChatRecord{" +
-                "id=" + id +
-                ", teacher_id=" + teacher_id +
-                ", student_id=" + student_id +
-                ", content='" + content + '\'' +
-                ", create_time=" + create_time +
-                ", message_side=" + message_side +
-                ", flag=" + flag +
-                '}';
+    public String getUserPath() {
+        return userPath;
+    }
+
+    public void setUserPath(String userPath) {
+        this.userPath = userPath;
     }
 }
