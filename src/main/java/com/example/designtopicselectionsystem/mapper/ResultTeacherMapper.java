@@ -15,11 +15,11 @@ public interface ResultTeacherMapper {
     // 查询institute_no不为空的数据
     @Select("select * " +
             "from teacher t, institute i " +
-            "where t.institute_no = i.institute_no")
+            "where t.institute_no = i.institute_no order by t.teacher_no desc")
     public List<ResultTeacher> findAll();
 
     // 查询institute_no为空的数据
-    @Select("select * from teacher where institute_no is null")
+    @Select("select * from teacher where institute_no is null order by teacher_no desc")
     public List<ResultTeacher> selectAll();
 
     @Select("select * from topic t, teacher tea where t.teacher_no = tea.teacher_no")

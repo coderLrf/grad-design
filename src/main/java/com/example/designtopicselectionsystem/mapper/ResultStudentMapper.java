@@ -11,10 +11,10 @@ public interface ResultStudentMapper {
 
     @Select("select * " +
             "from student stu, class c, institute i, major m " +
-            "where stu.class_no = c.class_no and c.major_no = m.major_no and m.institute_no = i.institute_no")
+            "where stu.class_no = c.class_no and c.major_no = m.major_no and m.institute_no = i.institute_no order by stu.student_no desc")
     public List<ResultStudent> findAll();
 
-    @Select("select * from student where sex is null")
+    @Select("select * from student where sex is null order by student_no desc")
     public List<ResultStudent> selectAll();
 
     // 模糊查询

@@ -18,11 +18,11 @@ public interface TopicMapper {
     @Select("select * from topic t, teacher tea where t.teacher_no = tea.teacher_no and t.admission = #{type}")
     public List<ResultTopic> selectByAdmission(String type);
 
-    @Select("select * from topic t, teacher tea where t.teacher_no = tea.teacher_no and admission is null")
+    @Select("select * from topic t, teacher tea where t.teacher_no = tea.teacher_no and admission is null order by t.title_no desc")
     public List<ResultTopic> wantExamineTopic();
 
     // 查询所有不通过审核的课题
-    @Select("select * from topic t, teacher tea where t.teacher_no = tea.teacher_no and admission = '否'")
+    @Select("select * from topic t, teacher tea where t.teacher_no = tea.teacher_no and admission = '否' order by t.title_no desc")
     public List<ResultTopic> selectByAdmissionFalse();
 
     // 根据课题id返回该课题的定选人数
@@ -30,7 +30,7 @@ public interface TopicMapper {
     public int selectCountByTopicId(Integer id);
 
     // 查询教师的课题
-    @Select("select * from topic t, teacher tea where t.teacher_no = #{teacherId} and t.teacher_no = tea.teacher_no")
+    @Select("select * from topic t, teacher tea where t.teacher_no = #{teacherId} and t.teacher_no = tea.teacher_no order by t.title_no desc")
     public List<ResultTopic> selectTopicByTeacherId(Integer teacherId);
 
     // 根据状态查询该教师的课题

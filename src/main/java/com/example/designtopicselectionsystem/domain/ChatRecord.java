@@ -9,7 +9,7 @@ public class ChatRecord {
     private String content; // 留言内容
     private Long create_time; // 创建时间
     private Integer message_side; // 留言方id
-    private int flag; // 状态：0表示被屏蔽了
+    private int flag; // 状态： 0表示被屏蔽了
     private User myUser; // 我的对象
     private User messageUser; // 接收方对象
     private String userPath; // 用户的icon

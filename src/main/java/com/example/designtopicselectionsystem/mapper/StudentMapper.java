@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface StudentMapper {
 
-    @Select("select * from student")
+    @Select("select * from student order by student_no desc")
     public List<Student> selectAll();
 
     @Select("select * from student where student_no = #{id}")

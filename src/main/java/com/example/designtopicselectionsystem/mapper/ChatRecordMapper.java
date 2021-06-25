@@ -10,7 +10,7 @@ import java.util.List;
 public interface ChatRecordMapper {
 
     // 查询聊天记录
-    @Select("select * from chat_record")
+    @Select("select * from chat_record order by id desc")
     public List<ChatRecordAdmin> selectAllRecord();
 
     // 根据教师id和学生id查询相关留言
