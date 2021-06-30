@@ -12,12 +12,14 @@
  File Encoding         : 65001
 
  Date: 24/06/2021 11:23:30
+ 把文件中的所有的utf8_0900_ai_ci替换为utf8_general_ci以及utf8替换为utf8
 */
+
 
 CREATE DATABASE IF NOT EXISTS choosing_toics;
 use choosing_toics;
 
-SET NAMES utf8mb4;
+SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
@@ -28,12 +30,12 @@ CREATE TABLE `chat_record`  (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
   `teacher_id` int NOT NULL COMMENT '教师id',
   `student_id` int NOT NULL COMMENT '学生id',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '内容',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '内容',
   `create_time` bigint NOT NULL COMMENT '创建时间',
   `message_side` int NOT NULL COMMENT '留言方id',
   `flag` int NULL DEFAULT 1 COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of chat_record
@@ -55,12 +57,12 @@ INSERT INTO `chat_record` VALUES (78, 20190121, 2019101046, '老师，你好啊\
 DROP TABLE IF EXISTS `class`;
 CREATE TABLE `class`  (
   `class_no` int NOT NULL AUTO_INCREMENT COMMENT '班级编号',
-  `class_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '班级名称',
+  `class_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级名称',
   `major_no` int NULL DEFAULT NULL COMMENT '专业编号',
   PRIMARY KEY (`class_no`) USING BTREE,
   INDEX `major_no`(`major_no`) USING BTREE,
   CONSTRAINT `class_ibfk_1` FOREIGN KEY (`major_no`) REFERENCES `major` (`major_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5005 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5005 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of class
@@ -77,10 +79,10 @@ INSERT INTO `class` VALUES (5004, '19学前3班', 1004);
 DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file`  (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `file_id` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文件id',
+  `file_id` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '文件id',
   `topic_id` int NOT NULL COMMENT '课题id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of file
@@ -96,10 +98,10 @@ INSERT INTO `file` VALUES (48, '2335fe9b-f69d-4212-b9a5-a45966fc46aa_毕业论�
 -- ----------------------------
 DROP TABLE IF EXISTS `institute`;
 CREATE TABLE `institute`  (
-  `institute_no` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '学院编号',
-  `institute_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '学院名称',
+  `institute_no` varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学院编号',
+  `institute_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学院名称',
   PRIMARY KEY (`institute_no`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of institute
@@ -117,12 +119,12 @@ INSERT INTO `institute` VALUES ('105', '机电工程系');
 DROP TABLE IF EXISTS `major`;
 CREATE TABLE `major`  (
   `major_no` int NOT NULL AUTO_INCREMENT COMMENT '专业编号',
-  `major_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '专业名称',
-  `institute_no` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '学院编号',
+  `major_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '专业名称',
+  `institute_no` varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学院编号',
   PRIMARY KEY (`major_no`) USING BTREE,
   INDEX `institute_no`(`institute_no`) USING BTREE,
   CONSTRAINT `major_ibfk_1` FOREIGN KEY (`institute_no`) REFERENCES `institute` (`institute_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1011 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1011 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of major
@@ -151,7 +153,7 @@ CREATE TABLE `selecttopic`  (
   INDEX `title_no`(`title_no`) USING BTREE,
   CONSTRAINT `selecttopic_ibfk_1` FOREIGN KEY (`student_no`) REFERENCES `student` (`student_no`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `selecttopic_ibfk_2` FOREIGN KEY (`title_no`) REFERENCES `topic` (`title_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 103 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 103 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of selecttopic
@@ -163,17 +165,17 @@ CREATE TABLE `selecttopic`  (
 DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student`  (
   `student_no` int NOT NULL AUTO_INCREMENT COMMENT '学号',
-  `student_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '姓名',
-  `sex` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '性别',
+  `student_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '姓名',
+  `sex` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别',
   `birthday` date NULL DEFAULT NULL COMMENT '出生年月',
   `class_no` int NULL DEFAULT NULL COMMENT '班级编号',
   `topic_no` int NULL DEFAULT NULL COMMENT '课题编号',
-  `file` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '学生毕设',
+  `file` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学生毕设',
   PRIMARY KEY (`student_no`) USING BTREE,
   UNIQUE INDEX `student_name`(`student_name`) USING BTREE,
   INDEX `class_no`(`class_no`) USING BTREE,
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`class_no`) REFERENCES `class` (`class_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2019101052 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2019101052 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of student
@@ -192,14 +194,14 @@ INSERT INTO `student` VALUES (2019101051, '瑶', '男', '2021-06-15', 5000, NULL
 DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher`  (
   `teacher_no` int NOT NULL AUTO_INCREMENT COMMENT '教师编号',
-  `teacher_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '教师姓名',
-  `sex` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '性别',
-  `degree` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '学位',
-  `institute_no` char(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '学院编号',
+  `teacher_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师姓名',
+  `sex` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `degree` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学位',
+  `institute_no` char(3) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学院编号',
   PRIMARY KEY (`teacher_no`) USING BTREE,
   INDEX `institute_no`(`institute_no`) USING BTREE,
   CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`institute_no`) REFERENCES `institute` (`institute_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 20190128 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 20190128 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of teacher
@@ -216,15 +218,15 @@ INSERT INTO `teacher` VALUES (20190127, '拜拜老师', '男', '初级教师', '
 DROP TABLE IF EXISTS `topic`;
 CREATE TABLE `topic`  (
   `title_no` int NOT NULL AUTO_INCREMENT COMMENT '课题编号',
-  `title_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '课题名称',
-  `title_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '课题描述',
+  `title_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课题名称',
+  `title_desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课题描述',
   `teacher_no` int NOT NULL COMMENT '教师编号',
-  `admission` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '状态',
+  `admission` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '状态',
   `state` int NULL DEFAULT 1,
   PRIMARY KEY (`title_no`) USING BTREE,
   INDEX `teacher_no`(`teacher_no`) USING BTREE,
   CONSTRAINT `topic_ibfk_1` FOREIGN KEY (`teacher_no`) REFERENCES `teacher` (`teacher_no`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of topic
