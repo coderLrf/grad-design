@@ -19,6 +19,12 @@
 
     <dependencies>
 
+        <!-- webSocket依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
         <!-- commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
